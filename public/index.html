@@ -3,22 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Espacio Seed | Agendamiento de Turnos y Citas</title>
-  <meta name="description" content="Plataforma de turnos y agenda online para Espacio Seed con sincronización directa con Google Calendar.">
+  <title>Espacio Seed | Bienestar & Salud</title>
+  <meta name="description" content="Espacio Seed — Un santuario de bienestar integral: Armonía, Yoga, Salud y Belleza consciente en un ambiente diseñado para tu equilibrio.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
-      --primary: #6366f1;
-      --primary-hover: #4f46e5;
-      --accent: #10b981;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --glass-bg: rgba(30, 41, 59, 0.7);
-      --glass-border: rgba(255, 255, 255, 0.1);
-      --card-radius: 16px;
+      --color-sage: #5b6c5c;
+      --color-sage-light: #839584;
+      --color-beige: #cbbba0;
+      --color-beige-light: #e8ded0;
+      --color-blush: #dbb4b0;
+      --color-blush-soft: #f4e8e6;
+      --color-dark: #121614;
+      --color-dark-muted: #1c221f;
+      --color-cream: #f7f6f2;
+      --color-white: #ffffff;
+      --color-petrol: #0a353d;
+
+      --font-heading: 'Cormorant Garamond', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
     }
 
     * {
@@ -28,405 +33,632 @@
     }
 
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background: var(--bg-gradient);
-      color: var(--text-main);
-      min-height: 100vh;
-      line-height: 1.6;
-      display: flex;
-      flex-direction: column;
+      font-family: var(--font-body);
+      background-color: var(--color-cream);
+      color: var(--color-dark);
+      line-height: 1.7;
+      overflow-x: hidden;
     }
 
-    header {
-      padding: 2rem 1.5rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      width: 100%;
+    /* Typography Utilities */
+    h1, h2, h3, .font-serif {
+      font-family: var(--font-heading);
+      font-weight: 500;
+    }
+
+    /* Top Bar Announcement */
+    .top-announcement {
+      background-color: var(--color-dark);
+      color: var(--color-beige);
+      text-align: center;
+      padding: 0.5rem 1rem;
+      font-size: 0.825rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* Navbar */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(247, 246, 242, 0.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(91, 108, 92, 0.12);
+      padding: 1.25rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .logo {
+    .brand-logo {
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--text-main);
       text-decoration: none;
+      color: var(--color-dark);
     }
 
-    .logo-badge {
-      background: linear-gradient(135deg, #6366f1, #10b981);
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
+    .logo-isotype {
+      width: 36px;
+      height: 36px;
+    }
+
+    .brand-text {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--color-dark);
+      line-height: 1.1;
+    }
+
+    .brand-tagline {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: var(--color-sage);
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--color-dark-muted);
+      font-size: 0.9rem;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--color-sage);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: var(--color-sage);
+      color: var(--color-white);
+      padding: 0.75rem 1.6rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      transition: all 0.3s ease;
+      border: 1px solid var(--color-sage);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--color-dark);
+      border-color: var(--color-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(18, 22, 20, 0.15);
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: transparent;
+      color: var(--color-dark);
+      padding: 0.75rem 1.6rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      border: 1px solid var(--color-sage);
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline:hover {
+      background-color: var(--color-sage);
+      color: var(--color-white);
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      min-height: 82vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
-      color: #fff;
-    }
-
-    .badge-edge {
-      background: rgba(99, 102, 241, 0.2);
-      border: 1px solid rgba(99, 102, 241, 0.4);
-      color: #a5b4fc;
-      padding: 0.25rem 0.75rem;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
-
-    main {
-      flex: 1;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem;
-      width: 100%;
-    }
-
-    .hero {
+      background: linear-gradient(to bottom, rgba(18, 22, 20, 0.45), rgba(18, 22, 20, 0.65)), url('/images/hero.jpg') center/cover no-repeat;
+      color: var(--color-white);
       text-align: center;
-      margin-bottom: 3.5rem;
+      padding: 4rem 1.5rem;
+    }
+
+    .hero-content {
+      max-width: 850px;
+    }
+
+    .hero-subtitle {
+      font-size: 0.9rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-beige);
+      margin-bottom: 1rem;
+      font-weight: 500;
     }
 
     .hero h1 {
-      font-size: clamp(2.2rem, 5vw, 3.5rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin-bottom: 1rem;
-      background: linear-gradient(to right, #ffffff, #cbd5e1);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-size: clamp(2.8rem, 6vw, 4.8rem);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
     }
 
     .hero p {
       font-size: 1.15rem;
-      color: var(--text-muted);
-      max-width: 650px;
+      max-width: 620px;
+      margin: 0 auto 2.5rem;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 300;
+    }
+
+    /* Section Component */
+    section {
+      padding: 6rem 2rem;
+    }
+
+    .section-title {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 4rem;
+    }
+
+    .section-title span {
+      font-size: 0.85rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--color-sage);
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .section-title h2 {
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      color: var(--color-dark);
+      line-height: 1.2;
+    }
+
+    /* Pilares Brand Grid */
+    .pilares-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
       margin: 0 auto;
     }
 
-    .booking-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
+    .pilar-card {
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
     }
 
-    @media (max-width: 850px) {
-      .booking-grid {
+    .pilar-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    }
+
+    .pilar-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+    }
+
+    .pilar-armonia {
+      background-color: var(--color-dark);
+      color: var(--color-cream);
+    }
+    .pilar-armonia .pilar-icon { background-color: rgba(255,255,255,0.1); color: var(--color-beige); }
+
+    .pilar-yoga {
+      background-color: var(--color-sage);
+      color: var(--color-white);
+    }
+    .pilar-yoga .pilar-icon { background-color: rgba(255,255,255,0.2); color: var(--color-white); }
+
+    .pilar-salud {
+      background-color: var(--color-beige);
+      color: var(--color-dark);
+    }
+    .pilar-salud .pilar-icon { background-color: rgba(18,22,20,0.08); color: var(--color-dark); }
+
+    .pilar-belleza {
+      background-color: var(--color-blush);
+      color: var(--color-dark);
+    }
+    .pilar-belleza .pilar-icon { background-color: rgba(18,22,20,0.08); color: var(--color-dark); }
+
+    .pilar-card h3 {
+      font-size: 1.8rem;
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+
+    .pilar-card p {
+      font-size: 0.925rem;
+      opacity: 0.9;
+    }
+
+    /* Experiences Section */
+    .experiences-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .experiences-wrapper {
         grid-template-columns: 1fr;
+        gap: 2.5rem;
       }
     }
 
-    .card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--card-radius);
-      padding: 2rem;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    .exp-img-container {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
     }
 
-    .card h2 {
-      font-size: 1.4rem;
+    .exp-img-container img {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .exp-content h3 {
+      font-size: 2.5rem;
+      color: var(--color-dark);
       margin-bottom: 1.25rem;
+    }
+
+    .exp-content p {
+      color: var(--color-dark-muted);
+      margin-bottom: 1.5rem;
+      font-size: 1.05rem;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .feature-list li {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.975rem;
+      color: var(--color-dark);
     }
 
-    .service-option {
-      border: 1px solid var(--glass-border);
-      background: rgba(15, 23, 42, 0.4);
-      border-radius: 12px;
-      padding: 1.25rem;
-      margin-bottom: 1rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .service-option:hover, .service-option.selected {
-      border-color: var(--primary);
-      background: rgba(99, 102, 241, 0.15);
-      transform: translateY(-2px);
-    }
-
-    .service-option.selected {
-      box-shadow: 0 0 0 2px var(--primary);
-    }
-
-    .service-title {
-      font-weight: 600;
-      font-size: 1.05rem;
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 0.35rem;
-    }
-
-    .service-desc {
+    .feature-list li::before {
+      content: '✦';
+      color: var(--color-sage);
       font-size: 0.9rem;
-      color: var(--text-muted);
     }
 
-    .service-meta {
-      margin-top: 0.75rem;
-      display: flex;
-      gap: 1rem;
-      font-size: 0.85rem;
-      color: #a5b4fc;
+    /* CTA Section Banner */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--color-sage) 0%, var(--color-petrol) 100%);
+      color: var(--color-white);
+      border-radius: 30px;
+      padding: 5rem 3rem;
+      text-align: center;
+      max-width: 1200px;
+      margin: 4rem auto;
+      position: relative;
+      overflow: hidden;
     }
 
-    .form-group {
+    .cta-banner h2 {
+      font-size: clamp(2.4rem, 4vw, 3.5rem);
       margin-bottom: 1.25rem;
     }
 
-    .form-group label {
-      display: block;
-      font-size: 0.9rem;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-      color: #cbd5e1;
+    .cta-banner p {
+      font-size: 1.15rem;
+      max-width: 650px;
+      margin: 0 auto 2.5rem;
+      color: rgba(255,255,255,0.85);
     }
 
-    .form-control {
-      width: 100%;
-      padding: 0.85rem 1rem;
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid var(--glass-border);
-      border-radius: 10px;
-      color: #fff;
-      font-family: inherit;
-      font-size: 0.95rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .form-control:focus {
-      border-color: var(--primary);
-    }
-
-    .btn-submit {
-      width: 100%;
-      padding: 1rem;
-      background: linear-gradient(135deg, var(--primary), var(--primary-hover));
-      color: #fff;
-      border: none;
-      border-radius: 10px;
+    .btn-gold {
+      background-color: var(--color-beige);
+      color: var(--color-dark);
+      padding: 1rem 2.2rem;
+      border-radius: 50px;
+      text-decoration: none;
       font-weight: 600;
       font-size: 1rem;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      margin-top: 0.5rem;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
     }
 
-    .btn-submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+    .btn-gold:hover {
+      background-color: var(--color-cream);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
 
-    .alert {
-      padding: 1rem;
-      border-radius: 10px;
-      margin-top: 1rem;
-      font-size: 0.9rem;
-      display: none;
-    }
-
-    .alert-success {
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid rgba(16, 185, 129, 0.4);
-      color: #34d399;
-    }
-
-    .alert-error {
-      background: rgba(239, 68, 68, 0.15);
-      border: 1px solid rgba(239, 68, 68, 0.4);
-      color: #f87171;
-    }
-
+    /* Footer */
     footer {
-      text-align: center;
-      padding: 2rem;
-      color: var(--text-muted);
+      background-color: var(--color-dark);
+      color: var(--color-cream);
+      padding: 5rem 2rem 2rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 4rem;
+    }
+
+    @media (max-width: 800px) {
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+    }
+
+    .footer-brand h4 {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+
+    .footer-brand p {
+      color: var(--color-beige);
+      font-size: 0.95rem;
+      max-width: 350px;
+    }
+
+    .footer-col h5 {
+      font-size: 1.1rem;
+      margin-bottom: 1.25rem;
+      color: var(--color-beige);
+      font-family: var(--font-heading);
+      letter-spacing: 0.05em;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-col ul li a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover {
+      color: var(--color-blush);
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       font-size: 0.85rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      margin-top: 4rem;
+      color: rgba(255,255,255,0.5);
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <a href="#" class="logo">
-      <div class="logo-badge">S</div>
-      <span>Espacio Seed</span>
-    </a>
-    <span class="badge-edge">Cloudflare Workers + D1</span>
-  </header>
+  <div class="top-announcement">
+    Espacio Seed — Salud, Bienestar & Equilibrio Integral
+  </div>
 
-  <main>
-    <section class="hero">
-      <h1>Reserva tu turno de manera simple</h1>
-      <p>Selecciona el servicio y horario que mejor se adapte a ti. Sincronización automática de agenda.</p>
-    </section>
-
-    <div class="booking-grid">
-      <!-- Paso 1: Selección de Servicio -->
-      <div class="card">
-        <h2>1. Selecciona un Servicio</h2>
-        <div id="services-container">
-          <p style="color: var(--text-muted);">Cargando servicios disponibles...</p>
-        </div>
+  <nav>
+    <a href="/" class="brand-logo">
+      <svg class="logo-isotype" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 5 C25 25 15 50 50 95 C85 50 75 25 50 5 Z" stroke="#5b6c5c" stroke-width="4" fill="none"/>
+        <path d="M50 25 C38 40 42 60 50 75 C58 60 62 40 50 25 Z" fill="#5b6c5c" opacity="0.85"/>
+      </svg>
+      <div>
+        <div class="brand-text">Espacio Seed</div>
+        <div class="brand-tagline">Bienestar & Salud</div>
       </div>
+    </a>
 
-      <!-- Paso 2: Datos y Confirmación -->
-      <div class="card">
-        <h2>2. Completa tus datos</h2>
-        <form id="booking-form">
-          <div class="form-group">
-            <label for="clientName">Nombre Completo *</label>
-            <input type="text" id="clientName" class="form-control" placeholder="Ej. María García" required>
-          </div>
+    <ul class="nav-links">
+      <li><a href="#pilares">Pilares</a></li>
+      <li><a href="#experiencias">Experiencias</a></li>
+      <li><a href="#filosofia">Filosofía</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+      <li><a href="/turnos" class="btn-primary">Reservar Turno ➔</a></li>
+    </ul>
+  </nav>
 
-          <div class="form-group">
-            <label for="clientEmail">Correo Electrónico *</label>
-            <input type="email" id="clientEmail" class="form-control" placeholder="maria@ejemplo.com" required>
-          </div>
-
-          <div class="form-group">
-            <label for="clientPhone">Teléfono / WhatsApp</label>
-            <input type="tel" id="clientPhone" class="form-control" placeholder="+54 9 11 ...">
-          </div>
-
-          <div class="form-group">
-            <label for="startTime">Fecha y Hora deseada *</label>
-            <input type="datetime-local" id="startTime" class="form-control" required>
-          </div>
-
-          <div class="form-group">
-            <label for="notes">Notas adicionales</label>
-            <textarea id="notes" class="form-control" rows="2" placeholder="Cualquier detalle relevante..."></textarea>
-          </div>
-
-          <button type="submit" class="btn-submit" id="submit-btn">Confirmar Reserva</button>
-        </form>
-
-        <div id="alert-box" class="alert"></div>
+  <!-- Hero Principal Informativo -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-subtitle">Santuario de Bienestar Integral</div>
+      <h1>Tu espacio de paz, salud y reconexión profunda</h1>
+      <p>Un ambiente diseñado minuciosamente para cuidar tu cuerpo, calmar tu mente y revitalizar tu espíritu mediante prácticas conscientes.</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="/turnos" class="btn-gold">Agenda tu Cita ➔</a>
+        <a href="#pilares" class="btn-outline" style="color: #fff; border-color: rgba(255,255,255,0.4);">Conoce nuestros Pilares</a>
       </div>
     </div>
-  </main>
+  </section>
 
-  <footer>
-    <p>Espacio Seed &copy; 2026 — Desplegado en Cloudflare Edge Infrastructure</p>
+  <!-- Pilares de Marca -->
+  <section id="pilares">
+    <div class="section-title">
+      <span>Nuestra Identidad</span>
+      <h2>Los Cuatro Pilares de Espacio Seed</h2>
+    </div>
+
+    <div class="pilares-grid">
+      <div class="pilar-card pilar-armonia">
+        <div class="pilar-icon">☯</div>
+        <h3>Armonía</h3>
+        <p>Meditación, silencio y calma mental. Espacios para liberar el estrés y reconectar con el centro interior.</p>
+      </div>
+
+      <div class="pilar-card pilar-yoga">
+        <div class="pilar-icon">🧘‍♀️</div>
+        <h3>Yoga</h3>
+        <p>Movimiento consciente, fluidez corporal y respiración para potenciar la vitalidad física y espiritual.</p>
+      </div>
+
+      <div class="pilar-card pilar-salud">
+        <div class="pilar-icon">🌿</div>
+        <h3>Salud</h3>
+        <p>Acompañamiento holístico, osteopatía y nutrición diseñados para cuidar de ti en cada etapa.</p>
+      </div>
+
+      <div class="pilar-card pilar-belleza">
+        <div class="pilar-icon">✨</div>
+        <h3>Belleza</h3>
+        <p>Cosmiatría natural, masajes faciales Gua Sha y tratamientos regenerativos para hacer brillar tu piel.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experiencias y Clases -->
+  <section id="experiencias" style="background-color: var(--color-white);">
+    <div class="section-title">
+      <span>Vivenciar Espacio Seed</span>
+      <h2>Prácticas diseñadas para tu bienestar</h2>
+    </div>
+
+    <div class="experiences-wrapper">
+      <div class="exp-img-container">
+        <img src="/images/yoga.jpg" fill alt="Clase de Yoga en Espacio Seed">
+      </div>
+
+      <div class="exp-content">
+        <h3>Yoga & Movimiento Consciente</h3>
+        <p>Impartimos clases reducidas orientadas a todos los niveles. Nuestro enfoque combina la respiración consiente (Pranayama) con alineación anatómica cuidada.</p>
+        <ul class="feature-list">
+          <li>Hatha Yoga tradicional & Vinyasa Flow</li>
+          <li>Prácticas de Yoga Restaurativo</li>
+          <li>Grupos reducidos y atención personalizada</li>
+          <li>Mat e implementos incluidos</li>
+        </ul>
+        <a href="/turnos" class="btn-primary">Ver Horarios de Clases ➔</a>
+      </div>
+    </div>
+
+    <div class="experiences-wrapper" style="margin-top: 6rem;">
+      <div class="exp-content">
+        <h3>Estética Holística & Gua Sha</h3>
+        <p>Rituales de spa facial y corporal que nutren profundamente la piel utilizando botánica pura, aceites esenciales de grado terapéutico y técnicas de drenaje facial.</p>
+        <ul class="feature-list">
+          <li>Masaje facial escultórico con piedras Gua Sha</li>
+          <li>Cosmiatría botánica y orgánica</li>
+          <li>Sesiones de relajación neuromuscular</li>
+        </ul>
+        <a href="/turnos" class="btn-primary">Reservar Tratamiento ➔</a>
+      </div>
+
+      <div class="exp-img-container">
+        <img src="/images/spa.jpg" alt="Tratamiento Facial Holístico">
+      </div>
+    </div>
+  </section>
+
+  <!-- Filosofía del Espacio -->
+  <section id="filosofia">
+    <div class="section-title">
+      <span>El Concepto</span>
+      <h2>¿Por qué Espacio Seed?</h2>
+    </div>
+    <div style="max-width: 800px; margin: 0 auto; text-align: center; font-size: 1.15rem; color: var(--color-dark-muted);">
+      <p style="margin-bottom: 1.5rem;">Una <strong>semilla (Seed)</strong> guarda en su interior todo el potencial de vida, fuerza y belleza para florecer. En Espacio Seed creamos el ambiente propicio —luz, tranquilidad y cuidado amoroso— para que cada persona despliegue su mejor versión.</p>
+      <p>Creemos en la salud integral donde el cuerpo, la mente y las emociones coexisten en perfecta armonía.</p>
+    </div>
+  </section>
+
+  <!-- Banner Destacado a Turnos -->
+  <div class="cta-banner">
+    <h2>Reserva tu espacio de desconexión</h2>
+    <p>Accede a nuestro portal exclusivo de agendamiento online para elegir día y horario para tus clases o tratamientos.</p>
+    <a href="/turnos" class="btn-gold">Ir al Portal de Turnos 📅</a>
+  </div>
+
+  <!-- Footer -->
+  <footer id="contacto">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h4>ESPACIO SEED</h4>
+        <p>Bienestar & Salud — Armonía · Yoga · Salud · Belleza</p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Navegación</h5>
+        <ul>
+          <li><a href="#pilares">Pilares de Marca</a></li>
+          <li><a href="#experiencias">Experiencias</a></li>
+          <li><a href="#filosofia">Nuestra Filosofía</a></li>
+          <li><a href="/turnos">Agendar Turno Online</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Contacto</h5>
+        <ul>
+          <li>📱 WhatsApp: <a href="https://wa.me/5493416652517" target="_blank">+54 9 341 6652517</a></li>
+          <li>📷 Instagram: <a href="https://instagram.com/espacio.seed" target="_blank">@espacio.seed</a></li>
+          <li>📍 Rosario, Santa Fe, Argentina</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 Espacio Seed. Todos los derechos reservados.</div>
+      <div>Desarrollado en Cloudflare Workers & D1</div>
+    </div>
   </footer>
 
-  <script>
-    let selectedServiceId = null;
-
-    // Cargar servicios desde la API Hono/D1
-    async function loadServices() {
-      const container = document.getElementById('services-container');
-      try {
-        const res = await fetch('/api/services');
-        const data = await res.json();
-
-        if (!data.services || data.services.length === 0) {
-          container.innerHTML = '<p style="color: var(--text-muted);">No hay servicios activos disponibles.</p>';
-          return;
-        }
-
-        container.innerHTML = data.services.map((svc, index) => `
-          <div class="service-option ${index === 0 ? 'selected' : ''}" onclick="selectService('${svc.id}', this)">
-            <div class="service-title">
-              <span>${svc.name}</span>
-              <span style="color: var(--accent);">$${svc.price.toLocaleString()}</span>
-            </div>
-            <div class="service-desc">${svc.description || ''}</div>
-            <div class="service-meta">
-              <span>⏱ ${svc.durationMinutes} min</span>
-              <span>📅 Confirmación inmediata</span>
-            </div>
-          </div>
-        `).join('');
-
-        // Seleccionar por defecto el primero
-        selectedServiceId = data.services[0].id;
-      } catch (err) {
-        container.innerHTML = '<p style="color: #f87171;">Error al conectar con la API de Cloudflare Workers.</p>';
-      }
-    }
-
-    function selectService(id, element) {
-      document.querySelectorAll('.service-option').forEach(el => el.classList.remove('selected'));
-      element.classList.add('selected');
-      selectedServiceId = id;
-    }
-
-    // Configurar fecha mínima en el selector
-    const now = new Date();
-    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-    document.getElementById('startTime').min = now.toISOString().slice(0, 16);
-
-    // Manejar envío del formulario
-    document.getElementById('booking-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const alertBox = document.getElementById('alert-box');
-      const submitBtn = document.getElementById('submit-btn');
-
-      if (!selectedServiceId) {
-        alertBox.className = 'alert alert-error';
-        alertBox.innerText = 'Por favor selecciona un servicio de la lista.';
-        alertBox.style.display = 'block';
-        return;
-      }
-
-      submitBtn.disabled = true;
-      submitBtn.innerText = 'Procesando reserva...';
-      alertBox.style.display = 'none';
-
-      const payload = {
-        serviceId: selectedServiceId,
-        clientName: document.getElementById('clientName').value,
-        clientEmail: document.getElementById('clientEmail').value,
-        clientPhone: document.getElementById('clientPhone').value,
-        startTime: new Date(document.getElementById('startTime').value).toISOString(),
-        notes: document.getElementById('notes').value
-      };
-
-      try {
-        const response = await fetch('/api/appointments', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-
-        const result = await response.json();
-
-        if (response.ok) {
-          alertBox.className = 'alert alert-success';
-          alertBox.innerHTML = `<strong>¡Reserva Confirmada!</strong><br>Gracias ${result.client.name}, tu turno ha quedado agendado para ${new Date(result.appointment.startTime).toLocaleString()}.`;
-          alertBox.style.display = 'block';
-          document.getElementById('booking-form').reset();
-        } else {
-          alertBox.className = 'alert alert-error';
-          alertBox.innerText = result.error || 'Ocurrió un error al procesar la reserva.';
-          alertBox.style.display = 'block';
-        }
-      } catch (err) {
-        alertBox.className = 'alert alert-error';
-        alertBox.innerText = 'Error de conexión con el servidor.';
-        alertBox.style.display = 'block';
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerText = 'Confirmar Reserva';
-      }
-    });
-
-    loadServices();
-  </script>
 </body>
 </html>

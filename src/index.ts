@@ -6,6 +6,7 @@ import { eq, gte, lte, and } from 'drizzle-orm';
 export type Env = {
   Bindings: {
     DB: D1Database;
+    ASSETS: Fetcher;
     GOOGLE_CLIENT_ID?: string;
     GOOGLE_CLIENT_SECRET?: string;
     GOOGLE_REDIRECT_URI?: string;
@@ -13,6 +14,13 @@ export type Env = {
 };
 
 const app = new Hono<Env>();
+
+// Serve turnos page explicitly
+app.get('/turnos', async (c) => {
+  const url = new URL(c.req.url);
+  url.pathname = '/turnos.html';
+  return c.env.ASSETS.fetch(new Request(url));
+});
 
 // Enable CORS for frontend requests
 app.use('/api/*', cors());
@@ -43,20 +51,34 @@ app.get('/api/services', async (c) => {
   const db = getDb(c.env.DB);
   let list = await db.select().from(schema.services).where(eq(schema.services.active, true));
 
-  // Si no hay servicios, sembramos uno por defecto para facilitar pruebas
+  // Si no hay servicios, sembramos los servicios oficiales de Espacio Seed
   if (list.length === 0) {
     await db.insert(schema.services).values([
       {
-        name: 'Consulta Inicial / Diagnóstico',
-        description: 'Sesión individual de valoración inicial y planificación.',
-        durationMinutes: 45,
-        price: 5000,
+        name: 'Yoga & Movimiento Consciente',
+        description: 'Práctica de Hatha/Vinyasa Yoga, alineación anatómica y pranayama.',
+        durationMinutes: 60,
+        price: 6000,
         active: true,
       },
       {
-        name: 'Sesión de Seguimiento',
-        description: 'Sesión periódica de trabajo y acompañamiento.',
+        name: 'Cosmiatría Holística & Gua Sha',
+        description: 'Tratamiento facial restaurador con piedras de cuarzo/jade y cosmética botánica.',
         durationMinutes: 60,
+        price: 8500,
+        active: true,
+      },
+      {
+        name: 'Osteopatía & Salud Integral',
+        description: 'Evaluación y tratamiento manual neuromuscular para el dolor y postura.',
+        durationMinutes: 45,
+        price: 10000,
+        active: true,
+      },
+      {
+        name: 'Ritual Armonización & Meditación',
+        description: 'Sesión guiada de respiración consciente, relajación profunda y sonido.',
+        durationMinutes: 50,
         price: 7000,
         active: true,
       },

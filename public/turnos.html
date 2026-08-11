@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal de Turnos & Citas | Espacio Seed</title>
+  <meta name="description" content="Reserva tu turno de forma rápida y sencilla para clases de Yoga, masajes Gua Sha y tratamientos de bienestar en Espacio Seed.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-sage: #5b6c5c;
+      --color-sage-dark: #435244;
+      --color-beige: #cbbba0;
+      --color-beige-light: #f3ece2;
+      --color-blush: #dbb4b0;
+      --color-dark: #121614;
+      --color-cream: #faf9f6;
+      --color-white: #ffffff;
+
+      --font-heading: 'Cormorant Garamond', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-cream);
+      color: var(--color-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header Navegación */
+    header {
+      background-color: var(--color-white);
+      border-bottom: 1px solid rgba(91, 108, 92, 0.15);
+      padding: 1.25rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--color-dark);
+    }
+
+    .logo-isotype {
+      width: 34px;
+      height: 34px;
+    }
+
+    .brand-title {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .btn-back {
+      color: var(--color-sage);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: opacity 0.2s;
+    }
+
+    .btn-back:hover {
+      opacity: 0.75;
+    }
+
+    /* Layout Principal de Agendamiento */
+    main {
+      flex: 1;
+      max-width: 1100px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+      width: 100%;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .page-header span {
+      font-size: 0.85rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--color-sage);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .page-header h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      color: var(--color-dark);
+      line-height: 1.15;
+    }
+
+    /* Grid de Pasos */
+    .booking-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 2.5rem;
+    }
+
+    @media (max-width: 850px) {
+      .booking-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background-color: var(--color-white);
+      border-radius: 24px;
+      padding: 2.25rem;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(91, 108, 92, 0.1);
+    }
+
+    .card h2 {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      margin-bottom: 1.5rem;
+      color: var(--color-dark);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card h2 span {
+      background-color: var(--color-beige);
+      color: var(--color-dark);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-family: var(--font-body);
+      font-weight: 600;
+    }
+
+    /* Opciones de Servicio */
+    .service-card {
+      border: 1.5px solid rgba(91, 108, 92, 0.15);
+      border-radius: 16px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      position: relative;
+      background-color: var(--color-cream);
+    }
+
+    .service-card:hover {
+      border-color: var(--color-sage);
+      transform: translateY(-2px);
+    }
+
+    .service-card.selected {
+      border-color: var(--color-sage);
+      background-color: rgba(91, 108, 92, 0.06);
+      box-shadow: 0 0 0 2px var(--color-sage);
+    }
+
+    .service-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.4rem;
+    }
+
+    .service-title {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--color-dark);
+    }
+
+    .service-price {
+      font-weight: 700;
+      color: var(--color-sage);
+      font-size: 1.1rem;
+    }
+
+    .service-desc {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 0.75rem;
+    }
+
+    .service-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.8rem;
+      color: var(--color-sage-dark);
+      background-color: rgba(91, 108, 92, 0.1);
+      padding: 0.25rem 0.6rem;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    /* Formulario */
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--color-dark);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1px solid rgba(91, 108, 92, 0.25);
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      background-color: var(--color-cream);
+      color: var(--color-dark);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-control:focus {
+      border-color: var(--color-sage);
+      box-shadow: 0 0 0 3px rgba(91, 108, 92, 0.15);
+      background-color: var(--color-white);
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 1.1rem;
+      background-color: var(--color-sage);
+      color: var(--color-white);
+      border: none;
+      border-radius: 12px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 0.75rem;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--color-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(18, 22, 20, 0.15);
+    }
+
+    .alert {
+      padding: 1rem 1.25rem;
+      border-radius: 12px;
+      margin-top: 1.25rem;
+      font-size: 0.9rem;
+      display: none;
+      line-height: 1.5;
+    }
+
+    .alert-success {
+      background-color: rgba(91, 108, 92, 0.12);
+      border: 1px solid var(--color-sage);
+      color: var(--color-sage-dark);
+    }
+
+    .alert-error {
+      background-color: rgba(220, 38, 38, 0.08);
+      border: 1px solid rgba(220, 38, 38, 0.3);
+      color: #991b1b;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2.5rem;
+      color: #777;
+      font-size: 0.85rem;
+      margin-top: 4rem;
+      border-top: 1px solid rgba(91, 108, 92, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="/" class="brand-logo">
+      <svg class="logo-isotype" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 5 C25 25 15 50 50 95 C85 50 75 25 50 5 Z" stroke="#5b6c5c" stroke-width="4" fill="none"/>
+        <path d="M50 25 C38 40 42 60 50 75 C58 60 62 40 50 25 Z" fill="#5b6c5c" opacity="0.85"/>
+      </svg>
+      <span class="brand-title">Espacio Seed</span>
+    </a>
+
+    <a href="/" class="btn-back">← Volver al Sitio Informativo</a>
+  </header>
+
+  <main>
+    <div class="page-header">
+      <span>Agendamiento Online</span>
+      <h1>Reserva tu Experiencia de Bienestar</h1>
+    </div>
+
+    <div class="booking-grid">
+      <!-- Paso 1: Selección de Servicio -->
+      <div class="card">
+        <h2><span>1</span> Selecciona la Sesión o Clase</h2>
+        <div id="services-container">
+          <p style="color: #666;">Cargando servicios disponibles de Espacio Seed...</p>
+        </div>
+      </div>
+
+      <!-- Paso 2: Formulario -->
+      <div class="card">
+        <h2><span>2</span> Tus Datos y Confirmación</h2>
+        <form id="booking-form">
+          <div class="form-group">
+            <label for="clientName">Nombre y Apellido *</label>
+            <input type="text" id="clientName" class="form-control" placeholder="Ej. Camila Silva" required>
+          </div>
+
+          <div class="form-group">
+            <label for="clientEmail">Correo Electrónico *</label>
+            <input type="email" id="clientEmail" class="form-control" placeholder="camila@ejemplo.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="clientPhone">Teléfono / WhatsApp *</label>
+            <input type="tel" id="clientPhone" class="form-control" placeholder="+54 9 341 ..." required>
+          </div>
+
+          <div class="form-group">
+            <label for="startTime">Fecha y Hora deseada *</label>
+            <input type="datetime-local" id="startTime" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label for="notes">Observaciones o consultas</label>
+            <textarea id="notes" class="form-control" rows="2" placeholder="Cualquier información adicional..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submit-btn">Agendar Turno 📅</button>
+        </form>
+
+        <div id="alert-box" class="alert"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Espacio Seed &copy; 2026 — Sincronizado con Google Calendar & Cloudflare D1</p>
+  </footer>
+
+  <script>
+    let selectedServiceId = null;
+
+    // Cargar servicios desde la API
+    async function loadServices() {
+      const container = document.getElementById('services-container');
+      try {
+        const res = await fetch('/api/services');
+        const data = await res.json();
+
+        if (!data.services || data.services.length === 0) {
+          container.innerHTML = '<p style="color: #666;">No hay servicios configurados en este momento.</p>';
+          return;
+        }
+
+        container.innerHTML = data.services.map((svc, index) => `
+          <div class="service-card ${index === 0 ? 'selected' : ''}" onclick="selectService('${svc.id}', this)">
+            <div class="service-header">
+              <div class="service-title">${svc.name}</div>
+              <div class="service-price">$${svc.price.toLocaleString()}</div>
+            </div>
+            <div class="service-desc">${svc.description || ''}</div>
+            <div class="service-badge">⏱ ${svc.durationMinutes} min de sesión</div>
+          </div>
+        `).join('');
+
+        selectedServiceId = data.services[0].id;
+      } catch (err) {
+        container.innerHTML = '<p style="color: #991b1b;">Error de comunicación con la base de datos.</p>';
+      }
+    }
+
+    function selectService(id, element) {
+      document.querySelectorAll('.service-card').forEach(el => el.classList.remove('selected'));
+      element.classList.add('selected');
+      selectedServiceId = id;
+    }
+
+    // Configurar tiempo mínimo
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    document.getElementById('startTime').min = now.toISOString().slice(0, 16);
+
+    // Form submission
+    document.getElementById('booking-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const alertBox = document.getElementById('alert-box');
+      const submitBtn = document.getElementById('submit-btn');
+
+      if (!selectedServiceId) {
+        alertBox.className = 'alert alert-error';
+        alertBox.innerText = 'Por favor selecciona un servicio.';
+        alertBox.style.display = 'block';
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'Registrando turno...';
+      alertBox.style.display = 'none';
+
+      const payload = {
+        serviceId: selectedServiceId,
+        clientName: document.getElementById('clientName').value,
+        clientEmail: document.getElementById('clientEmail').value,
+        clientPhone: document.getElementById('clientPhone').value,
+        startTime: new Date(document.getElementById('startTime').value).toISOString(),
+        notes: document.getElementById('notes').value
+      };
+
+      try {
+        const response = await fetch('/api/appointments', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          alertBox.className = 'alert alert-success';
+          alertBox.innerHTML = `<strong>¡Turno Confirmado con Éxito!</strong><br>Muchas gracias <strong>${result.client.name}</strong>.<br>Hemos registrado tu reserva para el <strong>${new Date(result.appointment.startTime).toLocaleString()}</strong>. Te enviaremos un correo de recordatorio.`;
+          alertBox.style.display = 'block';
+          document.getElementById('booking-form').reset();
+        } else {
+          alertBox.className = 'alert alert-error';
+          alertBox.innerText = result.error || 'No se pudo agendar el turno.';
+          alertBox.style.display = 'block';
+        }
+      } catch (err) {
+        alertBox.className = 'alert alert-error';
+        alertBox.innerText = 'Error al enviar la solicitud.';
+        alertBox.style.display = 'block';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Agendar Turno 📅';
+      }
+    });
+
+    loadServices();
+  </script>
+</body>
+</html>
