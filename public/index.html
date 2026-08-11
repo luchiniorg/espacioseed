@@ -1,729 +1,1815 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Espacio Seed | Bienestar & Salud</title>
-  <meta name="description" content="Espacio Seed — Un santuario de bienestar integral: Armonía, Yoga, Salud y Belleza consciente en un ambiente diseñado para tu equilibrio.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <style>
-    :root {
-      --color-sage: #5b6c5c;
-      --color-sage-light: #839584;
-      --color-beige: #cbbba0;
-      --color-beige-light: #e8ded0;
-      --color-blush: #dbb4b0;
-      --color-blush-soft: #f4e8e6;
-      --color-dark: #121614;
-      --color-dark-muted: #1c221f;
-      --color-cream: #f7f6f2;
-      --color-white: #ffffff;
-      --color-petrol: #0a353d;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Espacio Seed | Medicina integrativa en Rosario</title>
+<meta name="description" content="Espacio Seed · Medicina integrativa en Rosario. Buscamos el origen de tus síntomas para construir un bienestar real y duradero. Callao 1281 PB. Consultas presenciales y online.">
+<meta name="theme-color" content="#FAF6F1">
+<meta property="og:title" content="Espacio Seed — Tu transformación empieza en la raíz">
+<meta property="og:description" content="Medicina integrativa en Rosario. Dermatología, nutrición y bienestar, con encuentros de una hora.">
+<meta property="og:type" content="website">
 
-      --font-heading: 'Cormorant Garamond', serif;
-      --font-body: 'Plus Jakarta Sans', sans-serif;
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/images/hero.jpg" fetchpriority="high">
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+/* ============================================================
+   ESPACIO SEED · Sistema de diseño
+   Paleta 70% lino/arena · 20% verde · 10% terracota
+   El terracota nunca decora: si algo es terracota, se toca.
+   ============================================================ */
+:root{
+  --verde:#2E3B33;        /* primario */
+  --verde-2:#3B4A41;
+  --arena:#C98A6B;        /* acento — solo interactivo */
+  --terracota:#8C5A3C;    /* links, hover */
+  --salvia:#9AAE9F;       /* secundario */
+  --lino:#FAF6F1;         /* fondo base */
+  --arena-clara:#EFE5DA;  /* fondo alterno */
+  --tinta:#232925;        /* texto */
+  --tinta-media:#4A5049;
+  --tinta-suave:#6B7169;  /* texto secundario */
+  --wa:#25D366;
+  --disponible:#7FB069;
 
-    body {
-      font-family: var(--font-body);
-      background-color: var(--color-cream);
-      color: var(--color-dark);
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
+  --serif:'Marcellus',Georgia,serif;
+  --sans:'Manrope',system-ui,-apple-system,sans-serif;
 
-    h1, h2, h3, .font-serif {
-      font-family: var(--font-heading);
-      font-weight: 500;
-    }
+  --r-card:20px;
+  --r-media:20px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+  --header-h:58px;
+  --safe-b:env(safe-area-inset-bottom,0px);
+}
 
-    .top-announcement {
-      background-color: var(--color-dark);
-      color: var(--color-beige);
-      text-align: center;
-      padding: 0.5rem 1rem;
-      font-size: 0.825rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-    }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);font-weight:300;font-size:16px;line-height:1.6;
+  background:var(--lino);color:var(--tinta);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{display:block;max-width:100%}
+a{color:var(--terracota);text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+::selection{background:rgba(201,138,107,.28)}
 
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(247, 246, 242, 0.92);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(91, 108, 92, 0.12);
-      padding: 1.25rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+/* --- Tipografía --------------------------------------------------------- */
+h1,h2,h3,.serif{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;line-height:1.14}
+h1{font-size:clamp(31px,8.6vw,34px)}
+h2{font-size:26px}
+.kicker{
+  font-weight:600;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--terracota);
+}
+.micro{font-size:13px;line-height:1.6;color:var(--tinta-suave)}
+strong{font-weight:600}
 
-    .brand-logo {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      text-decoration: none;
-      color: var(--color-dark);
-    }
+/* --- Layout ------------------------------------------------------------- */
+.wrap{width:100%;max-width:560px;margin:0 auto;padding:0 20px}
+section{padding:44px 0}
+.sec-lino{background:var(--lino)}
+.sec-arena{background:var(--arena-clara)}
 
-    .logo-isotype {
-      width: 36px;
-      height: 36px;
-    }
+/* --- Reveal al scroll (sólo si JS + animaciones activas) ---------------- */
+.anim-ready [data-reveal]{opacity:0;transform:translateY(14px)}
+.anim-ready [data-reveal].in{
+  opacity:1;transform:none;
+  transition:opacity .7s var(--ease),transform .7s var(--ease);
+}
 
-    .brand-text {
-      font-family: var(--font-heading);
-      font-size: 1.4rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      font-weight: 600;
-      color: var(--color-dark);
-      line-height: 1.1;
-    }
+/* --- Botones ------------------------------------------------------------ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  min-height:52px;padding:16px 26px;border-radius:999px;
+  font-family:var(--sans);font-weight:600;font-size:15.5px;line-height:1;
+  transition:transform .18s var(--ease),box-shadow .18s var(--ease),background .2s,border-color .2s,color .2s;
+  will-change:transform;
+}
+.btn:active{transform:scale(.97)}
+.btn-primario{background:var(--verde);color:var(--lino);box-shadow:0 6px 18px rgba(46,59,51,.22)}
+.btn-primario:active{box-shadow:0 2px 8px rgba(46,59,51,.2)}
+.btn-primario:hover{box-shadow:0 10px 26px rgba(46,59,51,.3)}
+.btn-claro{background:#FDFBF8;color:var(--verde)}
+.btn-secundario{
+  background:transparent;color:var(--terracota);
+  border:1.5px solid rgba(140,90,60,.45);min-height:50px;padding:14px 24px;
+}
+.btn-secundario:hover{background:rgba(201,138,107,.12);border-color:var(--arena)}
+.btn-full{width:100%}
+.btn .ic{width:18px;height:18px}
 
-    .brand-tagline {
-      font-family: var(--font-body);
-      font-size: 0.65rem;
-      letter-spacing: 0.25em;
-      color: var(--color-sage);
-      text-transform: uppercase;
-    }
+/* Iconos: línea 1,5 px, un solo color, nunca decorativos */
+svg.ic{
+  flex:none;fill:none;stroke:currentColor;stroke-width:1.5;
+  stroke-linecap:round;stroke-linejoin:round;
+  width:20px;height:20px;
+}
 
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-      align-items: center;
-    }
+.chip{
+  display:inline-flex;align-items:center;gap:6px;
+  font-weight:500;font-size:12.5px;line-height:1;
+  color:var(--verde);background:var(--arena-clara);
+  border:1px solid transparent;border-radius:999px;padding:10px 13px;
+}
+.chip-accion{
+  color:var(--terracota);background:transparent;
+  border-color:rgba(140,90,60,.35);
+  transition:background .2s,border-color .2s,transform .18s var(--ease);
+}
+.chip-accion:active{transform:scale(.96)}
+.chip-accion:hover{background:rgba(201,138,107,.1);border-color:var(--arena)}
 
-    .nav-links a {
-      text-decoration: none;
-      color: var(--color-dark-muted);
-      font-size: 0.9rem;
-      font-weight: 400;
-      transition: color 0.2s;
-    }
+/* --- Tarjetas ----------------------------------------------------------- */
+.card{
+  background:var(--lino);border:1px solid rgba(46,59,51,.08);
+  border-radius:var(--r-card);
+}
 
-    .nav-links a:hover {
-      color: var(--color-sage);
-    }
+/* ============================================================
+   HEADER
+   ============================================================ */
+.header{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  height:var(--header-h);
+  display:flex;align-items:center;
+  background:rgba(250,246,241,.82);
+  -webkit-backdrop-filter:saturate(160%) blur(14px);
+  backdrop-filter:saturate(160%) blur(14px);
+  border-bottom:1px solid rgba(46,59,51,0);
+  transition:height .3s var(--ease),background .3s,border-color .3s;
+}
+.header.compacto{height:48px;border-bottom-color:rgba(46,59,51,.09)}
+.header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.marca{display:flex;align-items:center;gap:9px;color:var(--tinta)}
+.marca .semilla{width:22px;height:22px;flex:none}
+.wordmark{
+  font-family:var(--serif);font-size:19px;line-height:1;letter-spacing:.02em;
+  transition:font-size .3s var(--ease);white-space:nowrap;
+}
+.header.compacto .wordmark{font-size:16px}
+.header-acciones{display:flex;align-items:center;gap:10px}
+.link-turnos{font-family:var(--sans);font-weight:600;font-size:12.5px;color:var(--terracota)}
+#cta-header{display:none}
+.btn-menu{
+  width:34px;height:34px;border-radius:999px;background:var(--arena-clara);
+  display:flex;align-items:center;justify-content:center;color:var(--verde);
+  transition:transform .18s var(--ease),background .2s;
+}
+.btn-menu:active{transform:scale(.93)}
+.btn-menu .ic{width:17px;height:17px;stroke-width:1.5}
 
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background-color: var(--color-sage);
-      color: var(--color-white);
-      padding: 0.75rem 1.6rem;
-      border-radius: 50px;
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      transition: all 0.3s ease;
-      border: 1px solid var(--color-sage);
-    }
+/* ============================================================
+   HERO — 80% del viewport: se ve el borde del CTA
+   ============================================================ */
+.hero{padding:0;margin-top:var(--header-h)}
+.hero-media{
+  position:relative;height:calc(74vh - var(--header-h));min-height:400px;max-height:560px;
+  overflow:hidden;background:linear-gradient(165deg,#E9DED2,#CDB8A6);
+}
+.hero-media img{
+  width:100%;height:100%;object-fit:cover;
+  transform:scale(1.08);transform-origin:52% 45%;
+}
+.hero-velo{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(35,41,37,.86) 0%,rgba(35,41,37,.66) 26%,rgba(35,41,37,.34) 48%,rgba(35,41,37,.08) 70%,transparent 100%);
+}
+.hero-texto{position:absolute;left:22px;right:22px;bottom:24px}
+.hero-texto .kicker{color:#E6D3C3;display:block;margin-bottom:10px}
+.hero-texto h1{color:#FDFBF8;margin-bottom:10px;text-wrap:balance}
+.hero-texto h1 .w{display:inline-block}
+.hero-texto p{font-size:14.5px;line-height:1.55;color:rgba(253,251,248,.88);max-width:34ch}
+.hero-accion{padding:18px 20px 6px;background:var(--lino);max-width:560px;margin:0 auto}
+.disponibilidad{
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  margin-top:12px;font-weight:500;font-size:12.5px;color:var(--tinta-suave);
+}
+.punto{
+  width:7px;height:7px;border-radius:999px;background:var(--disponible);flex:none;
+  box-shadow:0 0 0 0 rgba(127,176,105,.5);animation:latir 2.8s var(--ease) infinite;
+}
+@keyframes latir{0%,100%{box-shadow:0 0 0 0 rgba(127,176,105,.45)}50%{box-shadow:0 0 0 6px rgba(127,176,105,0)}}
 
-    .btn-primary:hover {
-      background-color: var(--color-dark);
-      border-color: var(--color-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(18, 22, 20, 0.15);
-    }
 
-    .btn-outline {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background-color: transparent;
-      color: var(--color-dark);
-      padding: 0.75rem 1.6rem;
-      border-radius: 50px;
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 500;
-      border: 1px solid var(--color-sage);
-      transition: all 0.3s ease;
-    }
+/* ============================================================
+   SERVICIOS — acordeón, uno abierto por vez
+   ============================================================ */
+.sec-head{margin-bottom:20px}
+.sec-head .kicker{display:block;margin-bottom:10px}
+.sec-head h2{margin-bottom:6px;text-wrap:balance}
+.sec-head p{font-size:14px;color:var(--tinta-suave)}
 
-    .btn-outline:hover {
-      background-color: var(--color-sage);
-      color: var(--color-white);
-    }
+.servicios{display:flex;flex-direction:column;gap:12px}
+.servicio{
+  background:var(--lino);border:1px solid rgba(46,59,51,.08);
+  border-radius:var(--r-card);overflow:hidden;
+  transition:border-color .25s var(--ease),box-shadow .25s var(--ease);
+}
+.servicio.abierto{border-color:rgba(201,138,107,.45);box-shadow:0 10px 26px rgba(46,59,51,.07)}
+.servicio-cab{
+  width:100%;display:flex;gap:13px;align-items:center;
+  padding:18px;text-align:left;
+}
+.servicio-ic{
+  width:40px;height:40px;flex:none;border-radius:12px;background:var(--arena-clara);
+  display:flex;align-items:center;justify-content:center;color:var(--terracota);
+  transition:background .25s,color .25s;
+}
+.servicio.abierto .servicio-ic{background:var(--arena);color:#FDFBF8}
+.servicio-ic .ic{width:20px;height:20px;stroke-width:1.5}
+.servicio-txt{min-width:0}
+.servicio-tit{display:block;font-weight:600;font-size:16px;line-height:1.3;margin-bottom:3px;color:var(--tinta)}
+.servicio-sub{display:block;font-size:13px;line-height:1.5;color:var(--tinta-suave)}
+.servicio-mas{
+  margin-left:auto;flex:none;width:26px;height:26px;
+  display:flex;align-items:center;justify-content:center;color:var(--arena);
+  transition:transform .3s var(--spring);
+}
+.servicio.abierto .servicio-mas{transform:rotate(45deg)}
+.servicio-mas .ic{width:19px;height:19px;stroke-width:1.5}
+.servicio-cuerpo{height:0;overflow:hidden}
+.servicio-cuerpo-in{
+  padding:14px 18px 18px;margin-top:2px;
+  border-top:1px solid rgba(46,59,51,.08);
+}
+.anim-ready .servicio-cuerpo-in .prestaciones li,
+.anim-ready .servicio-cuerpo-in .chip{
+  opacity:0;transform:translateY(10px);
+  transition:opacity .3s var(--ease),transform .3s var(--ease);
+}
+.anim-ready .servicio.abierto .servicio-cuerpo-in .prestaciones li,
+.anim-ready .servicio.abierto .servicio-cuerpo-in .chip{
+  opacity:1;transform:none;
+  transition:opacity .42s var(--ease),transform .42s var(--ease);
+}
+.anim-ready .servicio.abierto .prestaciones li:nth-child(1){transition-delay:.09s}
+.anim-ready .servicio.abierto .prestaciones li:nth-child(2){transition-delay:.135s}
+.anim-ready .servicio.abierto .prestaciones li:nth-child(3){transition-delay:.18s}
+.anim-ready .servicio.abierto .prestaciones li:nth-child(4){transition-delay:.225s}
+.anim-ready .servicio.abierto .prestaciones li:nth-child(5){transition-delay:.27s}
+.anim-ready .servicio.abierto .prestaciones li:nth-child(6){transition-delay:.315s}
+.anim-ready .servicio.abierto .servicio-cuerpo-in .chip{transition-delay:.36s}
 
-    .hero {
-      position: relative;
-      min-height: 82vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(to bottom, rgba(18, 22, 20, 0.45), rgba(18, 22, 20, 0.65)), url('/images/hero.jpg') center/cover no-repeat;
-      color: var(--color-white);
-      text-align: center;
-      padding: 4rem 1.5rem;
-    }
+/* Prestaciones: nombre, qué es, cuánto dura y cuánto sale */
+.prestaciones{list-style:none;display:flex;flex-direction:column}
+.prestaciones li{
+  display:flex;gap:14px;align-items:flex-start;justify-content:space-between;
+  padding:14px 0;border-bottom:1px solid rgba(46,59,51,.07);
+}
+.prestaciones li:first-child{padding-top:0}
+.prest-txt{min-width:0}
+.prest-txt b{display:block;font-weight:600;font-size:14.5px;line-height:1.35;color:var(--tinta);margin-bottom:4px}
+.prest-txt span{display:block;font-size:12.5px;line-height:1.5;color:var(--tinta-suave)}
+.prest-meta{flex:none;text-align:right}
+.prest-precio{display:block;font-weight:600;font-size:14.5px;line-height:1.2;color:var(--terracota);white-space:nowrap}
+.prest-dur{display:block;font-size:11.5px;color:var(--tinta-suave);margin-top:3px;white-space:nowrap}
+.prest-nota{
+  font-size:12px;line-height:1.55;color:var(--tinta-suave);
+  margin:14px 0 16px;padding-left:12px;border-left:2px solid rgba(201,138,107,.4);
+}
+.prestaciones + .chip-accion{margin-top:16px}
+.aviso-precios{
+  margin-top:18px;font-size:12.5px;line-height:1.6;
+  color:var(--tinta-suave);text-align:center;
+}
+.dato-txt{font-size:19px!important}
 
-    .hero-content {
-      max-width: 850px;
-    }
+/* ============================================================
+   EQUIPO
+   ============================================================ */
+.equipo{display:flex;flex-direction:column;gap:14px}
+.persona{
+  background:var(--arena-clara);border-radius:22px;overflow:hidden;
+  display:flex;gap:14px;padding:14px;
+}
+.retrato{
+  width:96px;height:124px;flex:none;
+  border-radius:16px;border-top-right-radius:36px;overflow:hidden;
+  display:flex;align-items:flex-end;padding:9px;
+  font-weight:500;font-size:9.5px;line-height:1.3;color:rgba(46,59,51,.5);
+}
+.retrato-eliana{background:linear-gradient(160deg,#DDCDBE,#C4AE9C)}
+.retrato-delfina-p{background:linear-gradient(160deg,#E4D8CB,#CFC0AE)}
+.retrato-delfina-pr{background:linear-gradient(160deg,#D3DCD4,#B4C2B6)}
+.retrato img{width:100%;height:100%;object-fit:cover}
+.persona-info{padding-top:4px;min-width:0}
+.persona-info .nombre{font-family:var(--serif);font-size:21px;line-height:1.1;margin-bottom:3px}
+.persona-info .rol{
+  font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--terracota);margin-bottom:9px;
+}
+.persona-info .voz{font-size:13px;line-height:1.5;color:var(--tinta-media)}
+.atajo{
+  display:inline-flex;align-items:center;gap:6px;margin-top:10px;
+  font-weight:600;font-size:12px;color:var(--terracota);
+  border-bottom:1px solid rgba(140,90,60,.35);padding-bottom:3px;
+  transition:border-color .2s,gap .2s var(--ease);
+}
+.atajo:hover{border-color:var(--arena);gap:9px}
+.atajo .ic{width:14px;height:14px;stroke-width:1.5}
 
-    .hero-subtitle {
-      font-size: 0.9rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--color-beige);
-      margin-bottom: 1rem;
-      font-weight: 500;
-    }
+.duena{
+  margin-top:18px;background:var(--verde);color:#FDFBF8;
+  border-radius:24px;padding:26px 22px;position:relative;overflow:hidden;
+}
+.duena .kicker{color:var(--salvia)}
+.duena h3{font-size:24px;color:#FDFBF8;margin:10px 0 12px}
+.duena p{font-size:14px;line-height:1.65;color:rgba(253,251,248,.8)}
+.duena p + p{margin-top:10px}
+.firma{margin-top:18px;display:flex;align-items:center;gap:12px}
+.firma svg{width:118px;height:42px;overflow:visible}
+.firma span{font-weight:500;font-size:12px;color:var(--salvia)}
 
-    .hero h1 {
-      font-size: clamp(2.8rem, 6vw, 4.8rem);
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
-      font-weight: 400;
-      letter-spacing: 0.05em;
-    }
+/* ============================================================
+   RESERVA — próximamente: la agenda propia todavía no existe
+   ============================================================ */
+.reserva{background:var(--verde);color:#FDFBF8;padding:48px 0 52px;position:relative;overflow:hidden}
+.reserva::before{
+  content:"";position:absolute;top:-160px;right:-140px;width:420px;height:420px;border-radius:999px;
+  background:radial-gradient(circle,rgba(201,138,107,.26) 0%,rgba(201,138,107,.08) 46%,transparent 72%);
+  pointer-events:none;animation:flotar 9s ease-in-out infinite;
+}
+@keyframes flotar{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-18px,14px) scale(1.07)}}
+.reserva .wrap{position:relative}
+.reserva h2{color:#FDFBF8;margin-bottom:14px;text-wrap:balance}
+.reserva-copy{font-size:15px;line-height:1.7;color:rgba(253,251,248,.78)}
+.reserva-copy + .reserva-copy{margin-top:12px}
 
-    .hero p {
-      font-size: 1.15rem;
-      max-width: 620px;
-      margin: 0 auto 2.5rem;
-      color: rgba(255, 255, 255, 0.9);
-      font-weight: 300;
-    }
+.badge-pronto{
+  display:inline-flex;align-items:center;gap:7px;
+  font-weight:600;font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--verde);background:var(--arena);
+  border-radius:999px;padding:9px 15px;margin-bottom:18px;
+  position:relative;overflow:hidden;
+}
+.badge-pronto::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(100deg,transparent 20%,rgba(255,255,255,.5) 50%,transparent 80%);
+  background-size:200% 100%;animation:shimmer 4s ease-in-out infinite;
+}
+@keyframes shimmer{0%{background-position:200% 0}60%,100%{background-position:-200% 0}}
+.badge-pronto .ic{width:14px;height:14px}
 
-    section {
-      padding: 6rem 2rem;
-    }
+.reserva-panel{
+  margin-top:28px;padding:24px 20px;border-radius:24px;
+  background:rgba(253,251,248,.05);border:1px solid rgba(253,251,248,.14);
+}
+.panel-rotulo{
+  display:block;font-weight:600;font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--salvia);margin-bottom:18px;
+}
+.pronto-lista{list-style:none;display:flex;flex-direction:column;gap:18px}
+.pronto-lista li{display:flex;gap:14px;align-items:flex-start}
+.pronto-ic{
+  width:38px;height:38px;flex:none;border-radius:12px;
+  background:rgba(201,138,107,.16);color:var(--arena);
+  display:flex;align-items:center;justify-content:center;
+}
+.pronto-ic .ic{width:19px;height:19px}
+.pronto-lista div{font-size:13.5px;line-height:1.5;color:rgba(253,251,248,.7)}
+.pronto-lista b{
+  display:block;font-weight:600;font-size:15px;line-height:1.3;
+  color:#FDFBF8;margin-bottom:3px;
+}
 
-    .section-title {
-      text-align: center;
-      max-width: 700px;
-      margin: 0 auto 4rem;
-    }
+.progreso-obra{display:flex;align-items:center;gap:12px;margin-top:24px}
+.progreso-barra{
+  flex:1;height:4px;border-radius:99px;background:rgba(253,251,248,.14);overflow:hidden;
+}
+.progreso-barra i{
+  display:block;height:100%;width:38%;border-radius:99px;background:var(--arena);
+  animation:avanzar 3.6s var(--ease) infinite;
+}
+@keyframes avanzar{
+  0%{transform:translateX(-100%);width:38%}
+  55%{transform:translateX(80%);width:52%}
+  100%{transform:translateX(260%);width:38%}
+}
+.progreso-obra span{
+  font-weight:600;font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--salvia);flex:none;
+}
 
-    .section-title span {
-      font-size: 0.85rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--color-sage);
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-    }
+.reserva-acciones{display:flex;flex-direction:column;gap:11px;margin-top:26px}
+.btn-borde{
+  background:transparent;color:#FDFBF8;
+  border:1.5px solid rgba(253,251,248,.32);
+}
+.btn-borde:hover{background:rgba(253,251,248,.08);border-color:rgba(253,251,248,.5)}
+.btn-borde .ic{width:20px;height:20px}
 
-    .section-title h2 {
-      font-size: clamp(2.2rem, 4vw, 3.2rem);
-      color: var(--color-dark);
-      line-height: 1.2;
-    }
 
-    .pilares-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+/* ============================================================
+   CONFIANZA / UBICACIÓN
+   ============================================================ */
+.datos{display:flex;gap:9px;margin-bottom:24px}
+.dato{flex:1;background:var(--arena-clara);border-radius:16px;padding:14px 10px;text-align:center}
+.dato b{display:block;font-family:var(--serif);font-weight:400;font-size:20px;line-height:1;margin-bottom:5px}
+.dato span{font-weight:500;font-size:11px;line-height:1.3;color:var(--tinta-suave)}
 
-    .pilar-card {
-      border-radius: 20px;
-      padding: 3rem 2rem;
-      text-align: center;
-      transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-    }
+.mapa{
+  position:relative;height:170px;border-radius:var(--r-media);overflow:hidden;
+  background:linear-gradient(150deg,#DCE3DC,#C3D0C5);margin-bottom:14px;
+}
+.mapa-fondo{position:absolute;inset:0;width:100%;height:100%}
+.mapa-pin{
+  position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);
+  width:34px;height:34px;border-radius:999px;background:var(--terracota);
+  display:flex;align-items:center;justify-content:center;color:#FDFBF8;
+  box-shadow:0 6px 16px rgba(46,59,51,.28);
+}
+.mapa-pin .ic{width:17px;height:17px;stroke-width:1.75}
+.mapa-btn{
+  position:absolute;left:12px;bottom:12px;
+  background:var(--lino);border-radius:999px;padding:10px 14px;
+  font-weight:600;font-size:12px;color:var(--terracota);
+  display:inline-flex;align-items:center;gap:6px;
+  box-shadow:0 4px 14px rgba(46,59,51,.14);
+}
+.mapa-btn .ic{width:14px;height:14px;stroke-width:1.75}
 
-    .pilar-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-    }
+.contacto{display:flex;flex-direction:column;gap:12px;font-size:14px;line-height:1.5;color:var(--tinta-media)}
+.contacto li{display:flex;gap:11px;list-style:none}
+.contacto .ic{width:19px;height:19px;flex:none;stroke-width:1.5;color:var(--arena);margin-top:1px}
+.contacto small{display:block;font-size:13px;color:var(--tinta-suave)}
 
-    .pilar-icon {
-      width: 58px;
-      height: 58px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.5rem;
-    }
+.sub-tit{font-family:var(--serif);font-weight:400;font-size:26px;line-height:1.14;letter-spacing:-.01em;margin-bottom:20px}
 
-    .pilar-armonia {
-      background-color: var(--color-dark);
-      color: var(--color-cream);
-    }
-    .pilar-armonia .pilar-icon { background-color: rgba(255,255,255,0.12); color: var(--color-beige); }
+/* Tarjeta de contacto directo */
+.tarjeta-contacto{
+  background:var(--arena-clara);border-radius:22px;padding:22px 20px;margin-top:26px;
+}
+.contacto-copy{font-size:14.5px;line-height:1.6;color:var(--tinta-media);margin-bottom:18px}
+.btn-wa{background:var(--wa);color:#fff;box-shadow:0 6px 18px rgba(37,211,102,.3)}
+.btn-wa:hover{box-shadow:0 10px 26px rgba(37,211,102,.38)}
+.btn-wa .ic{width:20px;height:20px}
+.contacto-mini{list-style:none;margin-top:18px;display:flex;flex-direction:column;gap:12px}
+.contacto-mini li{display:flex;gap:11px;align-items:center;font-size:13.5px;color:var(--tinta-suave)}
+.contacto-mini .ic{width:17px;height:17px;color:var(--arena)}
 
-    .pilar-yoga {
-      background-color: var(--color-sage);
-      color: var(--color-white);
-    }
-    .pilar-yoga .pilar-icon { background-color: rgba(255,255,255,0.2); color: var(--color-white); }
+/* ============================================================
+   RESEÑAS — carrusel continuo, todas las tarjetas del mismo tamaño
+   ============================================================ */
+.carrusel{
+  position:relative;overflow:hidden;padding:4px 0 6px;
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent);
+  mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent);
+}
+.carrusel-pista{display:flex;width:max-content;will-change:transform}
+.carrusel-set{display:flex;gap:14px;padding-right:14px}
+.carrusel:hover .carrusel-pista,.carrusel:focus-within .carrusel-pista{animation-play-state:paused}
+@keyframes desfilar{from{transform:translate3d(0,0,0)}to{transform:translate3d(var(--desplazamiento),0,0)}}
 
-    .pilar-salud {
-      background-color: var(--color-beige);
-      color: var(--color-dark);
-    }
-    .pilar-salud .pilar-icon { background-color: rgba(18,22,20,0.08); color: var(--color-dark); }
+.resena{
+  width:300px;flex:none;display:flex;flex-direction:column;
+  background:var(--lino);border:1px solid rgba(46,59,51,.08);
+  border-radius:22px;padding:24px 22px;
+  transition:border-color .25s var(--ease),transform .25s var(--ease);
+}
+.resena:hover{border-color:rgba(201,138,107,.45);transform:translateY(-3px)}
+.estrellas{display:inline-flex;gap:3px;color:var(--arena);margin-bottom:14px}
+.estrellas .ic{width:15px;height:15px}
+.resena-texto{
+  font-size:14.5px;line-height:1.62;color:var(--tinta-media);
+  margin:0 0 20px;text-wrap:pretty;
+  display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden;
+}
+.resena-pie{
+  display:flex;align-items:center;gap:12px;margin-top:auto;
+  padding-top:16px;border-top:1px solid rgba(46,59,51,.08);
+}
+.avatar{
+  width:38px;height:38px;flex:none;border-radius:999px;
+  background:var(--arena-clara);color:var(--terracota);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:16px;line-height:1;
+}
+.resena-quien{display:flex;flex-direction:column;min-width:0;line-height:1.35}
+.resena-quien b{font-weight:600;font-size:14px;color:var(--tinta)}
+.resena-quien span{font-size:12px;color:var(--tinta-suave)}
+.carrusel-nota{
+  margin-top:20px;text-align:center;
+  font-size:12.5px;color:var(--tinta-suave);
+}
 
-    .pilar-belleza {
-      background-color: var(--color-blush);
-      color: var(--color-dark);
-    }
-    .pilar-belleza .pilar-icon { background-color: rgba(18,22,20,0.08); color: var(--color-dark); }
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.pie{
+  background:var(--lino);border-top:1px solid rgba(46,59,51,.08);
+  padding:26px 0 calc(52px + var(--safe-b));
+}
+.pie .marca-pie{
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--serif);font-size:22px;line-height:1;margin-bottom:12px;
+}
+.semilla-pie{width:24px;height:24px;flex:none}
+.pie-tagline{font-size:14px;line-height:1.6;color:var(--tinta-suave);max-width:36ch}
+.pie-redes{display:flex;gap:10px;margin-top:20px}
+.red{
+  width:46px;height:46px;border-radius:999px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--arena-clara);color:var(--verde);
+  transition:transform .2s var(--ease),background .22s,color .22s;
+}
+.red .ic{width:21px;height:21px}
+.red:active{transform:scale(.94)}
+.red:hover{transform:translateY(-2px)}
+.red-wa:hover{background:var(--wa);color:#fff}
+.red-ig:hover{background:var(--terracota);color:#FDFBF8}
+.red:not(.red-wa):not(.red-ig):hover{background:var(--verde);color:var(--lino)}
+.pie-legal{
+  margin-top:28px;padding-top:20px;border-top:1px solid rgba(46,59,51,.09);
+  font-size:11.5px;line-height:1.5;color:var(--tinta-suave);opacity:.85;
+}
 
-    .pilar-card h3 {
-      font-size: 1.8rem;
-      margin-bottom: 0.75rem;
-      letter-spacing: 0.05em;
-    }
+/* ============================================================
+   BARRA FIJA + WHATSAPP
+   ============================================================ */
+.barra{
+  position:fixed;left:0;right:0;bottom:0;z-index:55;
+  padding:14px 16px calc(14px + var(--safe-b));
+  display:flex;align-items:center;gap:11px;
+  opacity:0;transform:translateY(18px) scale(.98);
+  transition:opacity .34s var(--ease),transform .34s var(--ease);
+  pointer-events:none;
+}
+.barra.visible{opacity:1;transform:none;pointer-events:auto}
+.barra .btn{
+  flex:1;min-height:56px;
+  box-shadow:0 10px 30px rgba(35,41,37,.3),0 2px 8px rgba(35,41,37,.16);
+}
+.wa{
+  width:56px;height:56px;flex:none;border-radius:999px;background:var(--wa);
+  display:flex;align-items:center;justify-content:center;color:#fff;
+  animation:respirar 3.4s ease-in-out infinite;
+  transition:transform .2s var(--ease);
+}
+.wa:active{transform:scale(.94)}
+.wa svg{width:27px;height:27px}
+@keyframes respirar{
+  0%,100%{box-shadow:0 8px 22px rgba(37,211,102,.38),0 0 0 0 rgba(37,211,102,.35)}
+  50%{box-shadow:0 8px 22px rgba(37,211,102,.38),0 0 0 14px rgba(37,211,102,0)}
+}
 
-    .pilar-card p {
-      font-size: 0.925rem;
-      opacity: 0.9;
-    }
+/* ============================================================
+   BOTTOM SHEET (menú)
+   ============================================================ */
+.velo{
+  position:fixed;inset:0;z-index:80;background:rgba(35,41,37,.42);
+  opacity:0;pointer-events:none;transition:opacity .28s var(--ease);
+  -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);
+}
+.velo.on{opacity:1;pointer-events:auto}
+.hoja{
+  position:fixed;left:0;right:0;bottom:0;z-index:90;
+  background:var(--lino);border-radius:26px 26px 0 0;
+  padding:12px 20px calc(24px + var(--safe-b));
+  transform:translateY(101%);transition:transform .34s var(--ease);
+  box-shadow:0 -14px 40px rgba(35,41,37,.16);
+}
+.hoja.on{transform:none}
+.hoja-agarre{width:38px;height:4px;border-radius:99px;background:rgba(46,59,51,.18);margin:0 auto 16px}
+.hoja a{
+  display:flex;align-items:center;gap:13px;padding:15px 4px;
+  font-weight:500;font-size:16px;color:var(--tinta);
+  border-bottom:1px solid rgba(46,59,51,.07);
+}
+.hoja a:last-of-type{border-bottom:0}
+.hoja a .ic{width:20px;height:20px;stroke-width:1.5;color:var(--arena)}
+.hoja a .flecha{margin-left:auto;color:var(--tinta-suave);width:16px;height:16px}
 
-    .experiences-wrapper {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-    }
+/* ============================================================
+   DESKTOP — el consultorio es mobile-first, esto es cortesía
+   ============================================================ */
+/* Elementos que sólo existen en la versión de escritorio */
+.solo-desktop{display:none}
 
-    @media (max-width: 900px) {
-      .experiences-wrapper {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-      }
-    }
+/* ============================================================
+   TABLET — 2 columnas, sin cambiar la lógica mobile
+   ============================================================ */
+@media (min-width:680px) and (max-width:1023px){
+  .wrap{max-width:720px}
+  .servicios{display:grid;grid-template-columns:1fr 1fr;align-items:start}
+  .servicios .servicio:first-child{grid-column:1 / -1}
+  .equipo{flex-direction:row}
+  .persona{flex:1}
+  .datos{gap:14px}
+}
 
-    .exp-img-container {
-      position: relative;
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-    }
+/* ============================================================
+   DESKTOP — composición propia, no mobile estirado
+   ============================================================ */
+@media (min-width:1024px){
+  :root{--header-h:76px}
+  .wrap{max-width:1200px;padding:0 48px}
+  section{padding:104px 0}
+  h1{font-size:clamp(46px,3.8vw,62px)}
+  h2{font-size:clamp(34px,2.9vw,44px)}
+  body{font-size:17px}
+  .solo-desktop{display:block}
+  .barra{display:none}
 
-    .exp-img-container img {
-      width: 100%;
-      height: 480px;
-      object-fit: cover;
-      display: block;
-    }
+  /* --- Header con navegación real --- */
+  .header{height:var(--header-h)}
+  .header.compacto{height:62px;background:rgba(250,246,241,.94)}
+  .wordmark{font-size:24px}
+  .header.compacto .wordmark{font-size:21px}
+  .marca .semilla{width:26px;height:26px}
+  .btn-menu,.link-turnos{display:none}
+  #cta-header{display:inline-flex}
+  .header-acciones{gap:26px}
+  .header-acciones .btn{min-height:46px;padding:13px 24px;font-size:14.5px}
+  .nav-desktop{display:flex;align-items:center;gap:30px;margin-left:auto;margin-right:8px}
+  .nav-desktop a{
+    position:relative;font-weight:500;font-size:14.5px;color:var(--tinta-media);
+    padding:6px 0;transition:color .2s;
+  }
+  .nav-desktop a::after{
+    content:"";position:absolute;left:0;right:100%;bottom:0;height:1.5px;
+    background:var(--arena);transition:right .28s var(--ease);
+  }
+  .nav-desktop a:hover{color:var(--tinta)}
+  .nav-desktop a:hover::after{right:0}
 
-    .exp-content h3 {
-      font-size: 2.5rem;
-      color: var(--color-dark);
-      margin-bottom: 1.25rem;
-    }
+  /* --- Hero: todo dentro de la imagen, alineado a una sola columna --- */
+  .hero{position:relative;margin-top:0}
+  .hero-media{height:100vh;max-height:none;min-height:640px}
+  .hero-media img{transform-origin:60% 50%}
+  .hero-velo{
+    background:
+      linear-gradient(to top,rgba(35,41,37,.84) 0%,rgba(35,41,37,.58) 34%,rgba(35,41,37,.2) 62%,rgba(35,41,37,.3) 100%),
+      linear-gradient(to right,rgba(35,41,37,.7) 0%,rgba(35,41,37,.38) 38%,rgba(35,41,37,.06) 66%,transparent 80%);
+  }
+  .hero-texto{
+    left:50%;right:auto;top:auto;bottom:188px;
+    transform:translateX(-50%);
+    width:100%;max-width:1200px;padding:0 48px;
+  }
+  .hero-texto .kicker{font-size:12px;letter-spacing:.2em;margin-bottom:18px}
+  .hero-texto h1{max-width:15ch;margin-bottom:18px}
+  .hero-texto p{font-size:18px;line-height:1.6;max-width:44ch;text-shadow:0 1px 14px rgba(35,41,37,.45)}
+  .hero-accion{
+    position:absolute;left:50%;transform:translateX(-50%);bottom:88px;
+    width:100%;max-width:1200px;padding:0 48px;background:none;margin:0;
+    display:flex;flex-direction:row;align-items:center;flex-wrap:wrap;gap:14px 26px;
+  }
+  .hero-accion .btn-full{width:auto;min-width:262px}
+  .disponibilidad{margin:0;padding:0}
+  .disponibilidad{color:rgba(253,251,248,.86)}
 
-    .exp-content p {
-      color: var(--color-dark-muted);
-      margin-bottom: 1.5rem;
-      font-size: 1.05rem;
-    }
+  /* --- Encabezados de sección: título a la izquierda, apoyo a la derecha --- */
+  .sec-head{
+    display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:end;
+    max-width:none;margin-bottom:44px;
+    padding-bottom:26px;border-bottom:1px solid rgba(46,59,51,.1);
+  }
+  .sec-head .kicker{grid-column:1;margin-bottom:14px}
+  .sec-head h2{grid-column:1;margin:0}
+  .sec-head p{grid-column:2;grid-row:2;font-size:16px;max-width:44ch;padding-bottom:6px}
 
-    .feature-list {
-      list-style: none;
-      margin-bottom: 2rem;
-    }
+  /* --- Servicios: sin acordeón, todo a la vista, tarjetas parejas --- */
+  .servicios{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
+  .servicio{display:flex;flex-direction:column;transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .25s}
+  .servicio:hover{transform:translateY(-4px);box-shadow:0 16px 38px rgba(46,59,51,.09);border-color:rgba(201,138,107,.4)}
+  .servicio-cab{flex-direction:column;align-items:flex-start;gap:0;padding:32px 30px 0;cursor:default}
+  .servicio-ic{width:50px;height:50px;border-radius:15px;margin-bottom:20px}
+  .servicio-ic .ic{width:24px;height:24px}
+  .servicio-tit{font-size:20px;margin-bottom:8px}
+  .servicio-sub{font-size:15px}
+  .servicio-mas{display:none}
+  .servicio-cuerpo{height:auto!important;overflow:visible;flex:1;display:flex}
+  .servicio-cuerpo-in{
+    padding:20px 30px 30px;margin-top:20px;
+    flex:1;display:flex;flex-direction:column;
+  }
+  .prestaciones + .chip-accion,
+  .prest-nota + .chip-accion{margin-top:auto;padding-top:20px}
+  .anim-ready .servicio-cuerpo-in .prestaciones li,
+  .anim-ready .servicio-cuerpo-in .chip{opacity:1}
+  .prest-txt b{font-size:15px}
+  .prest-txt span{font-size:13px}
+  .prest-precio{font-size:15px}
+  .aviso-precios{margin-top:28px;font-size:13.5px}
+  .servicio-cuerpo-in .chip-accion{margin-top:6px;flex-basis:100%;justify-content:center;min-height:46px}
 
-    .feature-list li {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 0.75rem;
-      font-size: 0.975rem;
-      color: var(--color-dark);
-    }
+  /* --- Equipo: retratos grandes --- */
+  .equipo{flex-direction:row;gap:24px}
+  .persona{flex:1;padding:20px;border-radius:26px;gap:20px}
+  .retrato{width:170px;height:224px;border-radius:20px;border-top-right-radius:48px;font-size:11px}
+  .persona-info{padding-top:10px}
+  .persona-info .nombre{font-size:28px;margin-bottom:5px}
+  .persona-info .rol{font-size:11.5px;margin-bottom:14px}
+  .persona-info .voz{font-size:16px;line-height:1.55}
+  .atajo{margin-top:18px;font-size:13.5px}
+  .duena{
+    margin-top:24px;display:grid;grid-template-columns:.85fr 1.15fr;
+    gap:56px;align-items:center;padding:56px 52px;border-radius:30px;
+  }
+  .duena h3{font-size:32px;margin:14px 0 0}
+  .duena p{font-size:16px}
 
-    .feature-icon {
-      color: var(--color-sage);
-      flex-shrink: 0;
-    }
+  /* --- Reserva próximamente: argumento a la izquierda, lo que viene a la derecha --- */
+  .reserva{padding:104px 0}
+  .reserva .wrap{
+    display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start;
+  }
+  .reserva-texto{grid-column:1;grid-row:1}
+  .reserva-panel{grid-column:2;grid-row:1 / span 2;margin-top:0;padding:36px 34px;border-radius:28px}
+  .reserva-acciones{grid-column:1;grid-row:2;flex-direction:row;flex-wrap:wrap;margin-top:36px}
+  .reserva-acciones .btn{flex:0 1 auto}
+  .reserva h2{margin-bottom:20px}
+  .reserva-copy{font-size:17px}
+  .pronto-lista{gap:22px}
+  .pronto-lista div{font-size:14.5px}
+  .pronto-lista b{font-size:16px}
+  .pronto-ic{width:42px;height:42px;border-radius:14px}
 
-    .cta-banner {
-      background: linear-gradient(135deg, var(--color-sage) 0%, var(--color-petrol) 100%);
-      color: var(--color-white);
-      border-radius: 30px;
-      padding: 5rem 3rem;
-      text-align: center;
-      max-width: 1200px;
-      margin: 4rem auto;
-      position: relative;
-      overflow: hidden;
-    }
+  /* --- Confianza: dos columnas alineadas, sin huecos --- */
+  .datos{gap:24px;margin-bottom:56px}
+  .dato{padding:30px 18px;border-radius:20px}
+  .dato b{font-size:38px;margin-bottom:9px}
+  .dato span{font-size:13px}
+  .confianza-grid{
+    display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:start;
+  }
+  .sub-tit{
+    font-family:var(--serif);font-size:26px;line-height:1.2;margin-bottom:22px;
+    padding-bottom:16px;border-bottom:1px solid rgba(46,59,51,.1);
+  }
+  .mapa{height:320px;margin-bottom:26px}
+  .mapa-btn{left:16px;bottom:16px;font-size:13px;padding:12px 16px}
+  .contacto{font-size:16px;gap:16px}
+  .tarjeta-contacto{margin-top:0;padding:30px;border-radius:26px}
+  .contacto-copy{font-size:16px}
+  .contacto-mini{margin-top:22px;padding-top:22px;border-top:1px solid rgba(46,59,51,.09)}
+  .contacto-mini li{font-size:14.5px}
 
-    .cta-banner h2 {
-      font-size: clamp(2.4rem, 4vw, 3.5rem);
-      margin-bottom: 1.25rem;
-    }
+  /* --- Carrusel de reseñas --- */
+  .carrusel{padding:6px 0 10px}
+  .carrusel-set{gap:24px;padding-right:24px}
+  .resena{width:400px;padding:32px 30px;border-radius:26px}
+  .resena-texto{font-size:16px;line-height:1.7;-webkit-line-clamp:7}
+  .estrellas .ic{width:17px;height:17px}
+  .avatar{width:44px;height:44px;font-size:18px}
+  .resena-quien b{font-size:15px}
+  .carrusel-nota{margin-top:30px;font-size:13.5px}
 
-    .cta-banner p {
-      font-size: 1.15rem;
-      max-width: 650px;
-      margin: 0 auto 2.5rem;
-      color: rgba(255,255,255,0.85);
-    }
+  /* --- Footer de escritorio --- */
+  .pie{padding:56px 0 44px}
+  .pie .wrap{display:grid;grid-template-columns:1.5fr 1fr 1.2fr;gap:56px;align-items:start}
+  .pie .marca-pie{font-size:27px;margin-bottom:14px}
+  .semilla-pie{width:28px;height:28px}
+  .pie-tagline{font-size:15px;max-width:34ch}
+  .pie-col h4{
+    font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--terracota);margin-bottom:16px;
+  }
+  .pie-col ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+  .pie-col a{font-size:14.5px;color:var(--tinta-media);display:inline-flex;align-items:center;gap:8px}
+  .pie-col a:hover{color:var(--terracota)}
+  .pie-col .ic{width:16px;height:16px;color:var(--arena)}
+  .pie-legal{
+    grid-column:1 / -1;margin-top:36px;padding-top:24px;
+    border-top:1px solid rgba(46,59,51,.09);font-size:12.5px;
+  }
 
-    .btn-gold {
-      background-color: var(--color-beige);
-      color: var(--color-dark);
-      padding: 1rem 2.2rem;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1rem;
-      transition: all 0.3s;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
+  .wa-desktop{
+    position:fixed;right:30px;bottom:30px;z-index:55;
+    animation:respirar 3.4s ease-in-out infinite;
+  }
+}
+@media (max-width:1023px){.wa-desktop{display:none}}
 
-    .btn-gold:hover {
-      background-color: var(--color-cream);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    }
+@media (min-width:1440px){
+  .wrap{max-width:1320px}
+  .hero-texto,.hero-accion{max-width:1320px}
+  section{padding:120px 0}
+}
 
-    footer {
-      background-color: var(--color-dark);
-      color: var(--color-cream);
-      padding: 5rem 2rem 2rem;
-    }
-
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 4rem;
-      margin-bottom: 4rem;
-    }
-
-    @media (max-width: 800px) {
-      .footer-content {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-      }
-    }
-
-    .footer-brand h4 {
-      font-family: var(--font-heading);
-      font-size: 1.8rem;
-      letter-spacing: 0.1em;
-      margin-bottom: 1rem;
-    }
-
-    .footer-brand p {
-      color: var(--color-beige);
-      font-size: 0.95rem;
-      max-width: 350px;
-    }
-
-    .footer-col h5 {
-      font-size: 1.1rem;
-      margin-bottom: 1.25rem;
-      color: var(--color-beige);
-      font-family: var(--font-heading);
-      letter-spacing: 0.05em;
-    }
-
-    .footer-col ul {
-      list-style: none;
-    }
-
-    .footer-col ul li {
-      margin-bottom: 0.85rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .footer-col ul li a {
-      color: rgba(255,255,255,0.85);
-      text-decoration: none;
-      font-size: 0.9rem;
-      transition: color 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .footer-col ul li a:hover {
-      color: var(--color-blush);
-    }
-
-    .social-icon-wrapper {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.08);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--color-beige);
-    }
-
-    .footer-bottom {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.85rem;
-      color: rgba(255,255,255,0.5);
-    }
-  </style>
+/* ============================================================
+   ACCESIBILIDAD
+   ============================================================ */
+:focus-visible{outline:2.5px solid var(--arena);outline-offset:3px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .anim-ready [data-reveal]{opacity:1!important;transform:none!important}
+  .anim-ready .servicio-cuerpo-in .prestaciones li,
+  .anim-ready .servicio-cuerpo-in .chip{opacity:1!important}
+}
+</style>
 </head>
 <body>
 
-  <div class="top-announcement">
-    <i data-lucide="sparkles" style="width:16px; height:16px; stroke-width:1.75;"></i>
-    <span>Espacio Seed — Salud, Bienestar & Equilibrio Integral</span>
-  </div>
+<!-- Sprite de iconos: linea 1,5 px, 24 px, un solo color (Lucide, ISC) -->
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 5h16" /><path d="M4 12h16" /><path d="M4 19h16" /></symbol>
+<symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></symbol>
+<symbol id="i-repeat" viewBox="0 0 24 24"><path d="m17 2 4 4-4 4" /><path d="M3 11v-1a4 4 0 0 1 4-4h14" /><path d="m7 22-4-4 4-4" /><path d="M21 13v1a4 4 0 0 1-4 4H3" /></symbol>
+<symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /><path d="M20 2v4" /><path d="M22 4h-4" /><circle cx="4" cy="20" r="2" /></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14" /><path d="M12 5v14" /></symbol>
+<symbol id="i-flower-2" viewBox="0 0 24 24"><path d="M12 5a3 3 0 1 1 3 3m-3-3a3 3 0 1 0-3 3m3-3v1M9 8a3 3 0 1 0 3 3M9 8h1m5 0a3 3 0 1 1-3 3m3-3h-1m-2 3v-1" /><circle cx="12" cy="8" r="2" /><path d="M12 10v12" /><path d="M12 22c4.2 0 7-1.667 7-5-4.2 0-7 1.667-7 5Z" /><path d="M12 22c-4.2 0-7-1.667-7-5 4.2 0 7 1.667 7 5Z" /></symbol>
+<symbol id="i-salad" viewBox="0 0 24 24"><path d="M7 21h10" /><path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9Z" /><path d="M11.38 12a2.4 2.4 0 0 1-.4-4.77 2.4 2.4 0 0 1 3.2-2.77 2.4 2.4 0 0 1 3.47-.63 2.4 2.4 0 0 1 3.37 3.37 2.4 2.4 0 0 1-1.1 3.7 2.51 2.51 0 0 1 .03 1.1" /><path d="m13 12 4-4" /><path d="M10.9 7.25A3.99 3.99 0 0 0 4 10c0 .73.2 1.41.54 2" /></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" /></symbol>
+<symbol id="i-calendar-days" viewBox="0 0 24 24"><path d="M8 2v3" /><path d="M16 2v3" /><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18" /><path d="M8 13h.01" /><path d="M12 13h.01" /><path d="M16 13h.01" /><path d="M8 17h.01" /><path d="M12 17h.01" /><path d="M16 17h.01" /></symbol>
+<symbol id="i-circle-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /><path d="M12 17h.01" /></symbol>
+<symbol id="i-map-pin" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /><circle cx="12" cy="10" r="3" /></symbol>
+<symbol id="i-external-link" viewBox="0 0 24 24"><path d="M15 3h6v6" /><path d="M10 14 21 3" /><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></symbol>
+<symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" /><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" /></symbol>
+<symbol id="i-at-sign" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8" /></symbol>
+<symbol id="i-message-circle" viewBox="0 0 24 24"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" /></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><path d="M16 3.128a4 4 0 0 1 0 7.744" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><circle cx="9" cy="7" r="4" /></symbol>
+<symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" /></symbol>
+<symbol id="i-star" viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /><rect x="2" y="4" width="20" height="16" rx="2" /></symbol>
+<symbol id="i-id-card" viewBox="0 0 24 24"><path d="M16 10h2" /><path d="M16 14h2" /><path d="M6.17 15a3 3 0 0 1 5.66 0" /><circle cx="9" cy="11" r="2" /><rect x="2" y="5" width="20" height="14" rx="2" /></symbol>
+<symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7" /><path d="M19 12H5" /></symbol>
+<symbol id="i-calendar-check" viewBox="0 0 24 24"><path d="M8 2v3" /><path d="M16 2v3" /><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18" /><path d="m9 15 2 2 4-4" /></symbol>
+<symbol id="i-circle-check-big" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335" /><path d="m9 11 3 3L22 4" /></symbol>
+<symbol id="i-quote" viewBox="0 0 24 24"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" /><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" /></symbol>
+<symbol id="i-shield-check" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /><path d="m9 12 2 2 4-4" /></symbol>
+<symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6" /></symbol>
+<symbol id="i-loader-circle" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-6.219-8.56" /></symbol>
+<symbol id="i-rotate-ccw" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /></symbol>
+<symbol id="i-credit-card" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2" /><line x1="2" x2="22" y1="10" y2="10" /></symbol>
+<symbol id="i-bell-ring" viewBox="0 0 24 24"><path d="M10.268 21a2 2 0 0 0 3.464 0" /><path d="M22 8c0-2.3-.8-4.3-2-6" /><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326" /><path d="M4 2C2.8 3.7 2 5.7 2 8" /></symbol>
+<symbol id="i-lock-open" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 9.9-1" /></symbol>
+<symbol id="i-calendar-clock" viewBox="0 0 24 24"><path d="M16 14v2.2l1.6 1" /><path d="M16 2v3" /><path d="M21 7.338V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h2.338" /><path d="M3 9h5.859" /><path d="M8 2v3" /><circle cx="16" cy="16" r="6" /></symbol>
+<symbol id="i-database-zap" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3" /><path d="M3 5V19A9 3 0 0 0 15 21.84" /><path d="M21 5V8" /><path d="M21 12L18 17H22L19 22" /><path d="M3 12A9 3 0 0 0 14.59 14.87" /></symbol>
+<symbol id="i-whatsapp" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.87 9.87 0 0 0 4.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.13h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.05-.2-.31a8.18 8.18 0 0 1-1.26-4.36c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.41a8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.22-8.24 8.22zm4.52-6.16c-.25-.12-1.46-.72-1.69-.8-.23-.08-.39-.12-.56.13-.16.25-.64.8-.79.97-.14.16-.29.18-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.41-.56-.42h-.48c-.16 0-.43.06-.66.31-.23.25-.87.85-.87 2.07s.89 2.4 1.02 2.56c.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.46-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.29z"/></symbol>
+<symbol id="i-instagram" viewBox="0 0 24 24"><rect x="2.5" y="2.5" width="19" height="19" rx="5.4"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-estrella-llena" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M11.05 3.1a1.06 1.06 0 0 1 1.9 0l2.2 4.46 4.92.72c.86.12 1.2 1.18.58 1.79l-3.56 3.47.84 4.9c.15.86-.75 1.51-1.52 1.1L12 17.23l-4.4 2.31c-.77.41-1.67-.24-1.52-1.1l.84-4.9-3.56-3.47c-.62-.61-.28-1.67.58-1.79l4.92-.72z"/></symbol>
+<symbol id="i-comillas" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M9.6 5.2c-3.5 1.5-5.6 4.4-5.6 8.1 0 3.3 1.9 5.5 4.6 5.5 2.3 0 4-1.7 4-3.9 0-2.1-1.5-3.7-3.5-3.7-.4 0-.8.1-1 .2.4-1.7 1.7-3.2 3.4-4.1zm10 0c-3.5 1.5-5.6 4.4-5.6 8.1 0 3.3 1.9 5.5 4.6 5.5 2.3 0 4-1.7 4-3.9 0-2.1-1.5-3.7-3.5-3.7-.4 0-.8.1-1 .2.4-1.7 1.7-3.2 3.4-4.1z"/></symbol>
+</defs></svg>
 
-  <nav>
-    <a href="/" class="brand-logo">
-      <svg class="logo-isotype" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M50 5 C25 25 15 50 50 95 C85 50 75 25 50 5 Z" stroke="#5b6c5c" stroke-width="4" fill="none"/>
-        <path d="M50 25 C38 40 42 60 50 75 C58 60 62 40 50 25 Z" fill="#5b6c5c" opacity="0.85"/>
+
+<!-- ========================= HEADER ========================= -->
+<header class="header" id="header">
+  <div class="wrap">
+    <a href="/" class="marca" aria-label="Espacio Seed, inicio">
+      <svg class="semilla" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+        <path id="semilla-borde" d="M50 6 C25 26 15 51 50 94 C85 51 75 26 50 6 Z"
+              stroke="#2E3B33" stroke-width="5" stroke-linecap="round" fill="none"/>
+        <path id="semilla-hoja" d="M50 27 C38 42 42 62 50 76 C58 62 62 42 50 27 Z" fill="#C98A6B"/>
       </svg>
-      <div>
-        <div class="brand-text">Espacio Seed</div>
-        <div class="brand-tagline">Bienestar & Salud</div>
-      </div>
+      <span class="wordmark">Espacio Seed</span>
     </a>
 
-    <ul class="nav-links">
-      <li><a href="#pilares">Pilares</a></li>
-      <li><a href="#experiencias">Experiencias</a></li>
-      <li><a href="#filosofia">Filosofía</a></li>
-      <li><a href="#contacto">Contacto</a></li>
-      <li>
-        <a href="/turnos" class="btn-primary">
-          <span>Reservar Turno</span>
-          <i data-lucide="arrow-right" style="width:16px; height:16px; stroke-width:2;"></i>
-        </a>
-      </li>
-    </ul>
-  </nav>
+    <nav class="nav-desktop solo-desktop" aria-label="Secciones">
+      <a href="#servicios">Servicios</a>
+      <a href="#equipo">Nuestro equipo</a>
+      <a href="#donde">Cómo llegar</a>
+      <a href="https://wa.me/5493416652517" target="_blank" rel="noopener">WhatsApp</a>
+    </nav>
 
-  <!-- Hero Principal Informativo -->
-  <section class="hero">
-    <div class="hero-content">
-      <div class="hero-subtitle">Santuario de Bienestar Integral</div>
-      <h1>Tu espacio de paz, salud y reconexión profunda</h1>
-      <p>Un ambiente diseñado minuciosamente para cuidar tu cuerpo, calmar tu mente y revitalizar tu espíritu mediante prácticas conscientes.</p>
-      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-        <a href="/turnos" class="btn-gold">
-          <span>Agenda tu Cita</span>
-          <i data-lucide="calendar" style="width:18px; height:18px; stroke-width:2;"></i>
-        </a>
-        <a href="#pilares" class="btn-outline" style="color: #fff; border-color: rgba(255,255,255,0.4);">
-          <span>Conoce nuestros Pilares</span>
-        </a>
-      </div>
+    <div class="header-acciones">
+      <a href="/reservar" class="link-turnos">Turnos</a>
+      <a href="/reservar" class="btn btn-primario" id="cta-header">Reservar mi turno</a>
+      <button class="btn-menu" id="abrir-menu" aria-label="Abrir menú" aria-expanded="false" aria-controls="hoja">
+        <svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg>
+      </button>
     </div>
-  </section>
+  </div>
+</header>
 
-  <!-- Pilares de Marca -->
-  <section id="pilares">
-    <div class="section-title">
-      <span>Nuestra Identidad</span>
-      <h2>Los Cuatro Pilares de Espacio Seed</h2>
+<!-- ========================= HERO ========================= -->
+<section class="hero" id="inicio">
+  <div class="hero-media">
+    <img src="/images/hero.jpg" alt="El consultorio de Espacio Seed con luz natural" id="hero-img" fetchpriority="high">
+    <div class="hero-velo"></div>
+    <div class="hero-texto">
+      <span class="kicker" id="hero-kicker">Medicina integrativa · Rosario</span>
+      <h1 id="hero-titulo"><span class="w">Tu</span> <span class="w">transformación</span> <span class="w">empieza</span> <span class="w">en</span> <span class="w">la</span> <span class="w">raíz.</span></h1>
+      <p id="hero-bajada">La verdadera salud nace desde adentro. Buscamos el origen de tus síntomas para construir un bienestar real y duradero.</p>
     </div>
-
-    <div class="pilares-grid">
-      <div class="pilar-card pilar-armonia">
-        <div class="pilar-icon">
-          <i data-lucide="moon" style="width:26px; height:26px; stroke-width:1.75;"></i>
-        </div>
-        <h3>Armonía</h3>
-        <p>Meditación, silencio y calma mental. Espacios para liberar el estrés y reconectar con el centro interior.</p>
-      </div>
-
-      <div class="pilar-card pilar-yoga">
-        <div class="pilar-icon">
-          <i data-lucide="sun" style="width:26px; height:26px; stroke-width:1.75;"></i>
-        </div>
-        <h3>Yoga</h3>
-        <p>Movimiento consciente, fluidez corporal y respiración para potenciar la vitalidad física y espiritual.</p>
-      </div>
-
-      <div class="pilar-card pilar-salud">
-        <div class="pilar-icon">
-          <i data-lucide="sprout" style="width:26px; height:26px; stroke-width:1.75;"></i>
-        </div>
-        <h3>Salud</h3>
-        <p>Acompañamiento holístico, osteopatía y nutrición diseñados para cuidar de ti en cada etapa.</p>
-      </div>
-
-      <div class="pilar-card pilar-belleza">
-        <div class="pilar-icon">
-          <i data-lucide="sparkles" style="width:26px; height:26px; stroke-width:1.75;"></i>
-        </div>
-        <h3>Belleza</h3>
-        <p>Cosmiatría natural, masajes faciales Gua Sha y tratamientos regenerativos para hacer brillar tu piel.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Experiencias y Clases -->
-  <section id="experiencias" style="background-color: var(--color-white);">
-    <div class="section-title">
-      <span>Vivenciar Espacio Seed</span>
-      <h2>Prácticas diseñadas para tu bienestar</h2>
-    </div>
-
-    <div class="experiences-wrapper">
-      <div class="exp-img-container">
-        <img src="/images/yoga.jpg" alt="Clase de Yoga en Espacio Seed">
-      </div>
-
-      <div class="exp-content">
-        <h3>Yoga & Movimiento Consciente</h3>
-        <p>Impartimos clases reducidas orientadas a todos los niveles. Nuestro enfoque combina la respiración consciente (Pranayama) con alineación anatómica cuidada.</p>
-        <ul class="feature-list">
-          <li><i data-lucide="check-circle-2" class="feature-icon" style="width:18px; height:18px;"></i> Hatha Yoga tradicional & Vinyasa Flow</li>
-          <li><i data-lucide="check-circle-2" class="feature-icon" style="width:18px; height:18px;"></i> Prácticas de Yoga Restaurativo</li>
-          <li><i data-lucide="check-circle-2" class="feature-icon" style="width:18px; height:18px;"></i> Grupos reducidos y atención personalizada</li>
-          <li><i data-lucide="check-circle-2" class="feature-icon" style="width:18px; height:18px;"></i> Mat e implementos incluidos</li>
-        </ul>
-        <a href="/turnos" class="btn-primary">
-          <span>Ver Horarios de Clases</span>
-          <i data-lucide="clock" style="width:16px; height:16px;"></i>
-        </a>
-      </div>
-    </div>
-
-    <div class="experiences-wrapper" style="margin-top: 6rem;">
-      <div class="exp-content">
-        <h3>Estética Holística & Gua Sha</h3>
-        <p>Rituales de spa facial y corporal que nutren profundamente la piel utilizando botánica pura, aceites esenciales de grado terapéutico y técnicas de drenaje facial.</p>
-        <ul class="feature-list">
-          <li><i data-lucide="check-circle-2" class="feature-icon" style="width:18px; height:18px;"></i> Masaje facial escultórico con piedras Gua Sha</li>
-          <li><i data-lucide="check-circle-2" class="feature-icon" style="width:18px; height:18px;"></i> Cosmiatría botánica y orgánica</li>
-          <li><i data-lucide="check-circle-2" class="feature-icon" style="width:18px; height:18px;"></i> Sesiones de relajación neuromuscular</li>
-        </ul>
-        <a href="/turnos" class="btn-primary">
-          <span>Reservar Tratamiento</span>
-          <i data-lucide="sparkles" style="width:16px; height:16px;"></i>
-        </a>
-      </div>
-
-      <div class="exp-img-container">
-        <img src="/images/spa.jpg" alt="Tratamiento Facial Holístico">
-      </div>
-    </div>
-  </section>
-
-  <!-- Filosofía del Espacio -->
-  <section id="filosofia">
-    <div class="section-title">
-      <span>El Concepto</span>
-      <h2>¿Por qué Espacio Seed?</h2>
-    </div>
-    <div style="max-width: 800px; margin: 0 auto; text-align: center; font-size: 1.15rem; color: var(--color-dark-muted);">
-      <p style="margin-bottom: 1.5rem;">Una <strong>semilla (Seed)</strong> guarda en su interior todo el potencial de vida, fuerza y belleza para florecer. En Espacio Seed creamos el ambiente propicio —luz, tranquilidad y cuidado amoroso— para que cada persona despliegue su mejor versión.</p>
-      <p>Creemos en la salud integral donde el cuerpo, la mente y las emociones coexisten en perfecta armonía.</p>
-    </div>
-  </section>
-
-  <!-- Banner Destacado a Turnos -->
-  <div class="cta-banner">
-    <h2>Reserva tu espacio de desconexión</h2>
-    <p>Accede a nuestro portal exclusivo de agendamiento online para elegir día y horario para tus clases o tratamientos.</p>
-    <a href="/turnos" class="btn-gold">
-      <span>Ir al Portal de Turnos</span>
-      <i data-lucide="calendar-range" style="width:20px; height:20px;"></i>
-    </a>
   </div>
 
-  <!-- Footer -->
-  <footer id="contacto">
-    <div class="footer-content">
-      <div class="footer-brand">
-        <h4>ESPACIO SEED</h4>
-        <p>Bienestar & Salud — Armonía · Yoga · Salud · Belleza</p>
-      </div>
+  <div class="hero-accion">
+    <a href="/reservar" class="btn btn-primario btn-full" id="hero-cta">
+      Reservar mi turno
+      <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+    </a>
+    <div class="disponibilidad" id="hero-disp">
+      <span class="punto" aria-hidden="true"></span>
+      Callao 1281 PB, Rosario · también atendemos online
+    </div>
+  </div>
+</section>
 
-      <div class="footer-col">
-        <h5>Navegación</h5>
-        <ul>
-          <li><a href="#pilares">Pilares de Marca</a></li>
-          <li><a href="#experiencias">Experiencias</a></li>
-          <li><a href="#filosofia">Nuestra Filosofía</a></li>
-          <li><a href="/turnos">Agendar Turno Online</a></li>
-        </ul>
-      </div>
+<!-- ========================= SERVICIOS ========================= -->
+<section class="sec-arena" id="servicios">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="kicker">Qué hacemos</span>
+      <h2>Tres puertas de entrada al mismo abordaje.</h2>
+      <p>Tocá una tarjeta para ver las prestaciones, la duración y el valor de cada encuentro.</p>
+    </div>
 
-      <div class="footer-col">
-        <h5>Contacto & Redes</h5>
-        <ul>
-          <li>
-            <a href="https://wa.me/5493416652517" target="_blank">
-              <span class="social-icon-wrapper">
-                <!-- Clean WhatsApp Vector SVG -->
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1"/></svg>
-              </span>
-              <span>WhatsApp: +54 9 341 6652517</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://instagram.com/espacio.seed" target="_blank">
-              <span class="social-icon-wrapper">
-                <i data-lucide="instagram" style="width:16px; height:16px;"></i>
-              </span>
-              <span>Instagram: @espacio.seed</span>
-            </a>
-          </li>
-          <li>
-            <span style="color: rgba(255,255,255,0.85); font-size: 0.9rem; display: inline-flex; align-items: center; gap: 0.5rem;">
-              <span class="social-icon-wrapper">
-                <i data-lucide="map-pin" style="width:16px; height:16px;"></i>
-              </span>
-              <span>Rosario, Santa Fe, Argentina</span>
+    <div class="servicios">
+      <article class="servicio" data-reveal>
+        <button class="servicio-cab" aria-expanded="false" aria-controls="cuerpo-piel">
+          <span class="servicio-ic"><svg class="ic" aria-hidden="true"><use href="#i-sparkles"/></svg></span>
+          <span class="servicio-txt">
+            <span class="servicio-tit">Dermatología y salud de la piel</span>
+            <span class="servicio-sub">Con la Dra. Eliana David · desde $50.000</span>
+          </span>
+          <span class="servicio-mas" aria-hidden="true"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg></span>
+        </button>
+        <div class="servicio-cuerpo" id="cuerpo-piel">
+          <div class="servicio-cuerpo-in">
+            <ul class="prestaciones">
+            <li>
+              <div class="prest-txt">
+                <b>Abordaje piel · Primer encuentro</b>
+                <span>Evaluación, historia de vida, hábitos y lectura de tus análisis para definir el tratamiento.</span>
+              </div>
+              <div class="prest-meta">
+                <span class="prest-precio">$50.000</span>
+                <span class="prest-dur">60 min</span>
+              </div>
+            </li>
+            <li>
+              <div class="prest-txt">
+                <b>Abordaje piel · Tratamiento cosmetológico</b>
+                <span>Sesión 100 % personalizada para equilibrar, reparar y potenciar la piel. Con la Lic. Delfina Piccini.</span>
+              </div>
+              <div class="prest-meta">
+                <span class="prest-precio">$50.000</span>
+                <span class="prest-dur">60 min</span>
+              </div>
+            </li>
+            <li>
+              <div class="prest-txt">
+                <b>Abordaje piel · Tratamiento médico</b>
+                <span>Plasma rico en plaquetas facial y escote, o plasma capilar, según corresponda.</span>
+              </div>
+              <div class="prest-meta">
+                <span class="prest-precio">$85.000</span>
+                <span class="prest-dur">60 min</span>
+              </div>
+            </li>
+            <li>
+              <div class="prest-txt">
+                <b>Sueroterapia + tratamiento facial</b>
+                <span>Dos tratamientos en simultáneo: vitaminas y minerales por vía endovenosa más el facial que necesites.</span>
+              </div>
+              <div class="prest-meta">
+                <span class="prest-precio">$150.000</span>
+                <span class="prest-dur">60 min</span>
+              </div>
+            </li>
+            </ul>
+            <a class="chip chip-accion" href="/reservar?area=piel">Reservar turno <svg class="ic" style="width:13px;height:13px" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="servicio" data-reveal>
+        <button class="servicio-cab" aria-expanded="false" aria-controls="cuerpo-integrativa">
+          <span class="servicio-ic"><svg class="ic" aria-hidden="true"><use href="#i-flower-2"/></svg></span>
+          <span class="servicio-txt">
+            <span class="servicio-tit">Medicina integrativa y bienestar</span>
+            <span class="servicio-sub">Presencial y online · desde $70.000</span>
+          </span>
+          <span class="servicio-mas" aria-hidden="true"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg></span>
+        </button>
+        <div class="servicio-cuerpo" id="cuerpo-integrativa">
+          <div class="servicio-cuerpo-in">
+            <ul class="prestaciones">
+            <li>
+              <div class="prest-txt">
+                <b>Consulta inicial</b>
+                <span>Primer encuentro con enfoque holístico: atender síntomas, mejorar la calidad de vida o entender el origen de un diagnóstico.</span>
+              </div>
+              <div class="prest-meta">
+                <span class="prest-precio">$70.000</span>
+                <span class="prest-dur">60 min</span>
+              </div>
+            </li>
+            <li>
+              <div class="prest-txt">
+                <b>Consulta inicial online</b>
+                <span>El mismo primer encuentro, por videollamada.</span>
+              </div>
+              <div class="prest-meta">
+                <span class="prest-precio">$70.000</span>
+                <span class="prest-dur">60 min</span>
+              </div>
+            </li>
+            <li>
+              <div class="prest-txt">
+                <b>Encuentro de seguimiento</b>
+                <span>Revisar cómo van las indicaciones, ajustar lo necesario y evaluar la respuesta del cuerpo.</span>
+              </div>
+              <div class="prest-meta">
+                <span class="prest-precio">$70.000</span>
+                <span class="prest-dur">60 min</span>
+              </div>
+            </li>
+            <li>
+              <div class="prest-txt">
+                <b>Encuentro de seguimiento online</b>
+                <span>Devolución de estudios complementarios y entrega del plan de tratamiento integral.</span>
+              </div>
+              <div class="prest-meta">
+                <span class="prest-precio">$70.000</span>
+                <span class="prest-dur">60 min</span>
+              </div>
+            </li>
+            <li>
+              <div class="prest-txt">
+                <b>Plasma rico en plaquetas (PRP)</b>
+                <span>Bioestimulación con los factores de crecimiento de tu propia sangre para regenerar la piel.</span>
+              </div>
+              <div class="prest-meta">
+                <span class="prest-precio">$85.000</span>
+                <span class="prest-dur">60 min</span>
+              </div>
+            </li>
+            <li>
+              <div class="prest-txt">
+                <b>Sueroterapia</b>
+                <span>Vitaminas, minerales y antioxidantes directo al torrente sanguíneo, para máxima absorción.</span>
+              </div>
+              <div class="prest-meta">
+                <span class="prest-precio">$130.000</span>
+                <span class="prest-dur">60 min</span>
+              </div>
+            </li>
+            </ul>
+            <a class="chip chip-accion" href="/reservar?area=integrativa">Reservar turno <svg class="ic" style="width:13px;height:13px" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="servicio" data-reveal>
+        <button class="servicio-cab" aria-expanded="false" aria-controls="cuerpo-nutricion">
+          <span class="servicio-ic"><svg class="ic" aria-hidden="true"><use href="#i-salad"/></svg></span>
+          <span class="servicio-txt">
+            <span class="servicio-tit">Nutrición y rendimiento deportivo</span>
+            <span class="servicio-sub">Abordaje interdisciplinario · desde $70.000</span>
+          </span>
+          <span class="servicio-mas" aria-hidden="true"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg></span>
+        </button>
+        <div class="servicio-cuerpo" id="cuerpo-nutricion">
+          <div class="servicio-cuerpo-in">
+            <ul class="prestaciones">
+            <li>
+              <div class="prest-txt">
+                <b>Primer encuentro · Dra. Eliana David</b>
+                <span>Historia, hábitos y objetivos para potenciar el rendimiento físico y cambiar la composición corporal.</span>
+              </div>
+              <div class="prest-meta">
+                <span class="prest-precio">$70.000</span>
+                <span class="prest-dur">60 min</span>
+              </div>
+            </li>
+            <li>
+              <div class="prest-txt">
+                <b>Tercer encuentro · cierre del abordaje</b>
+                <span>Interpretación de los análisis corporales y de laboratorio, más el plan de recomendaciones final.</span>
+              </div>
+              <div class="prest-meta">
+                <span class="prest-precio">$70.000</span>
+                <span class="prest-dur">45 min</span>
+              </div>
+            </li>
+            </ul>
+            <p class="prest-nota">El tercer encuentro requiere haber hecho antes el primero con la Dra. Eliana David y el segundo con la Lic. Delfina Prieto.</p>
+            <a class="chip chip-accion" href="/reservar?area=nutricion">Reservar turno <svg class="ic" style="width:13px;height:13px" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <p class="aviso-precios" data-reveal>Valores en pesos argentinos, sujetos a actualización. Todos los encuentros son con turno previo.</p>
+  </div>
+</section>
+<!-- ========================= EQUIPO ========================= -->
+<section class="sec-lino" id="equipo">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="kicker">Quiénes somos</span>
+      <h2>Nos vas a reconocer al entrar.</h2>
+      <p>Un equipo interdisciplinario: lo que una ve en la consulta, la otra lo trabaja en el tratamiento.</p>
+    </div>
+
+    <div class="equipo">
+      <article class="persona" data-reveal>
+        <!-- REEMPLAZAR por retrato real vertical (3:4), luz de ventana -->
+        <div class="retrato retrato-eliana">Retrato Dra. Eliana David</div>
+        <div class="persona-info">
+          <div class="nombre">Eliana David</div>
+          <div class="rol">Médica · Medicina integrativa</div>
+          <p class="voz"><!-- FRASE PENDIENTE: reemplazar por una en primera persona, dicha por ella -->Lleva las consultas de medicina integrativa, el abordaje de la piel y los tratamientos médicos: PRP y sueroterapia.</p>
+          <a class="atajo" href="/reservar?area=integrativa">Reservar con ella <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+        </div>
+      </article>
+
+      <article class="persona" data-reveal>
+        <!-- REEMPLAZAR por retrato real vertical (3:4), luz de ventana -->
+        <div class="retrato retrato-delfina-p">Retrato Lic. Delfina Piccini</div>
+        <div class="persona-info">
+          <div class="nombre">Delfina Piccini</div>
+          <div class="rol">Licenciada · Cosmetología</div>
+          <p class="voz"><!-- FRASE PENDIENTE: reemplazar por una en primera persona, dicha por ella -->Está a cargo de los tratamientos faciales, pensados según tu estilo de vida y el estado actual de tu piel.</p>
+          <a class="atajo" href="/reservar?area=piel">Reservar con ella <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+        </div>
+      </article>
+
+      <article class="persona" data-reveal>
+        <!-- REEMPLAZAR por retrato real vertical (3:4), luz de ventana -->
+        <div class="retrato retrato-delfina-pr">Retrato Lic. Delfina Prieto</div>
+        <div class="persona-info">
+          <div class="nombre">Delfina Prieto</div>
+          <div class="rol">Licenciada · Nutrición deportiva</div>
+          <p class="voz"><!-- FRASE PENDIENTE: reemplazar por una en primera persona, dicha por ella -->Acompaña el abordaje interdisciplinario de rendimiento físico y composición corporal.</p>
+          <a class="atajo" href="/reservar?area=nutricion">Reservar con ella <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+        </div>
+      </article>
+    </div>
+
+    <div class="duena" data-reveal>
+      <div>
+        <span class="kicker">La propuesta</span>
+        <h3>La verdadera salud nace desde adentro.</h3>
+      </div>
+      <div>
+        <p>Espacio Seed es un lugar de medicina integrativa dedicado a encontrar el origen de tus síntomas, no a taparlos. Miramos tu historia, tus hábitos, tu descanso y tus estudios antes de indicarte nada.</p>
+        <p>Por eso trabajamos en equipo y por eso cada encuentro dura una hora: para construir un bienestar real y duradero. Tu transformación empieza en la raíz.</p>
+        <div class="firma">
+          <svg viewBox="0 0 200 70" fill="none" aria-label="Firma">
+            <path id="firma-trazo"
+              d="M8 52 C22 18 34 14 38 30 C42 46 30 58 26 48 C22 38 44 22 58 34 C68 43 60 54 56 48 C52 42 70 24 84 34 C92 40 88 52 82 50 C74 47 92 20 112 30 C124 36 118 52 110 50 C100 47 116 22 138 28 C152 32 150 46 142 48 C134 50 148 30 168 34 C180 36 188 42 192 46"
+              stroke="#C98A6B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+          <span>Dra. Eliana David</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= RESERVA ========================= -->
+<!-- ========================= RESERVA · PRÓXIMAMENTE =========================
+     La agenda propia todavía no existe. Mientras tanto el pedido de turno
+     viaja por WhatsApp desde /reservar, que es como opera el consultorio.
+     ============================================================ -->
+<section class="reserva" id="reservar">
+  <div class="wrap">
+    <div class="reserva-texto">
+      <span class="badge-pronto">
+        <svg class="ic" aria-hidden="true"><use href="#i-sparkles"/></svg>
+        Próximamente
+      </span>
+      <h2>La agenda online de Espacio Seed está en camino.</h2>
+      <p class="reserva-copy">Estamos construyendo el sistema de turnos propio del consultorio: vas a poder ver los horarios reales de cada profesional, elegir presencial u online, reservar y reprogramar sola, sin escribirle a nadie y sin crear ninguna cuenta.</p>
+      <p class="reserva-copy">Mientras tanto, dejanos tu pedido en un minuto y te lo confirmamos por WhatsApp el mismo día.</p>
+    </div>
+
+    <div class="reserva-panel">
+      <span class="panel-rotulo">Lo que viene</span>
+      <ul class="pronto-lista">
+        <li>
+          <span class="pronto-ic"><svg class="ic" aria-hidden="true"><use href="#i-calendar-clock"/></svg></span>
+          <div><b>Horarios reales, en vivo</b>Vas a ver la agenda del equipo al minuto, sin idas y vueltas.</div>
+        </li>
+        <li>
+          <span class="pronto-ic"><svg class="ic" aria-hidden="true"><use href="#i-rotate-ccw"/></svg></span>
+          <div><b>Reprogramás vos misma</b>Hasta 24 h antes, desde el mismo link, sin costo.</div>
+        </li>
+        <li>
+          <span class="pronto-ic"><svg class="ic" aria-hidden="true"><use href="#i-bell-ring"/></svg></span>
+          <div><b>Recordatorio automático</b>Un mensaje el día anterior para que no se te pase.</div>
+        </li>
+        <li>
+          <span class="pronto-ic"><svg class="ic" aria-hidden="true"><use href="#i-lock-open"/></svg></span>
+          <div><b>Sin cuentas ni contraseñas</b>Te reconocemos por tu número y listo.</div>
+        </li>
+      </ul>
+
+      <div class="progreso-obra" aria-hidden="true">
+        <div class="progreso-barra"><i></i></div>
+        <span>En desarrollo</span>
+      </div>
+    </div>
+
+    <div class="reserva-acciones">
+      <a href="/reservar" class="btn btn-claro">
+        Pedir mi turno ahora
+        <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+      </a>
+      <a href="https://wa.me/5493416652517?text=Hola!%20Quiero%20sacar%20un%20turno" target="_blank" rel="noopener" class="btn btn-borde">
+        <svg class="ic" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+        Escribirnos por WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========================= RESEÑAS =========================
+     ATENCIÓN ANTES DE PUBLICAR
+     · Patricia y Andrés son reseñas REALES, textuales. No tocar.
+     · Las cuatro marcadas con data-demo="true" (Marina, Sofía, Julieta,
+       Rocío) son texto de PRUEBA escrito para maquetar. No son pacientes
+       reales: hay que reemplazarlas por reseñas verdaderas antes de salir
+       a producción. Para encontrarlas: grep 'data-demo' en este archivo.
+     · Para sumar una real: copiar un bloque .resena, respetar el textual
+       tal como lo dejó la paciente y NO ponerle data-demo.
+     ============================================================ -->
+<section class="sec-arena" id="resenas">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="kicker">Lo que dicen</span>
+      <h2>No lo decimos nosotras. Lo dicen ellos.</h2>
+      <p>Reseñas textuales de pacientes, tal como las dejaron después de su turno.</p>
+    </div>
+  </div>
+
+  <div class="carrusel" id="carrusel" data-reveal>
+    <div class="carrusel-pista" id="pista">
+      <div class="carrusel-set">
+        <figure class="resena">
+          <span class="estrellas" role="img" aria-label="5 de 5 estrellas">
+            <svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg><svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg><svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg><svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg><svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg>
+          </span>
+          <blockquote class="resena-texto">“Era mi primer consulta, la Doc me encantó: amable, divina, todo excelente.”</blockquote>
+          <figcaption class="resena-pie">
+            <span class="avatar">P</span>
+            <span class="resena-quien">
+              <b>Patricia</b>
+              <span>Consulta inicial · ago 2026</span>
             </span>
+          </figcaption>
+        </figure>
+        <figure class="resena" data-demo="true">
+          <span class="estrellas" role="img" aria-label="5 de 5 estrellas">
+            <svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg><svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg><svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg><svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg><svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg>
+          </span>
+          <blockquote class="resena-texto">“Me explicaron qué productos me convenían y cuáles dejar de usar, no solo lo que me hacían en la sesión. A los dos meses la diferencia en la piel se nota.”</blockquote>
+          <figcaption class="resena-pie">
+            <span class="avatar">M</span>
+            <span class="resena-quien">
+              <b>Marina</b>
+              <span>Abordaje piel · Tratamiento cosmetológico · jul 2026</span>
+            </span>
+          </figcaption>
+        </figure>
+        <figure class="resena">
+          <span class="estrellas" role="img" aria-label="5 de 5 estrellas">
+            <svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg><svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg><svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg><svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg><svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg>
+          </span>
+          <blockquote class="resena-texto">“Experiencia muy satisfactoria en todas mis visitas. Desde el primer momento recibí una atención cálida, profesional y personalizada. Siempre dispuesta a escuchar mis necesidades y a brindarme el acompañamiento necesario, aportando planificación y recetas.”</blockquote>
+          <figcaption class="resena-pie">
+            <span class="avatar">A</span>
+            <span class="resena-quien">
+              <b>Andrés</b>
+              <span>Abordaje interdisciplinario · jun 2026</span>
+            </span>
+          </figcaption>
+        </figure>
+        <figure class="resena" data-demo="true">
+          <span class="estrellas" role="img" aria-label="5 de 5 estrellas">
+            <svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg><svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg><svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg><svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg><svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg>
+          </span>
+          <blockquote class="resena-texto">“Llegué cansada de planes imposibles de sostener. Me armaron uno con la comida que ya hago en casa y es la primera vez que llego al mes sin abandonar.”</blockquote>
+          <figcaption class="resena-pie">
+            <span class="avatar">S</span>
+            <span class="resena-quien">
+              <b>Sofía</b>
+              <span>Abordaje interdisciplinario · jun 2026</span>
+            </span>
+          </figcaption>
+        </figure>
+        <figure class="resena" data-demo="true">
+          <span class="estrellas" role="img" aria-label="5 de 5 estrellas">
+            <svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg><svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg><svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg><svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg><svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg>
+          </span>
+          <blockquote class="resena-texto">“Muy prolijas con todo: te confirman el turno el día anterior, te atienden a horario y no te empujan a comprar nada que no necesitás.”</blockquote>
+          <figcaption class="resena-pie">
+            <span class="avatar">J</span>
+            <span class="resena-quien">
+              <b>Julieta</b>
+              <span>Sueroterapia · may 2026</span>
+            </span>
+          </figcaption>
+        </figure>
+        <figure class="resena" data-demo="true">
+          <span class="estrellas" role="img" aria-label="5 de 5 estrellas">
+            <svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg><svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg><svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg><svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg><svg class="ic" aria-hidden="true"><use href="#i-estrella-llena"/></svg>
+          </span>
+          <blockquote class="resena-texto">“Vengo hace casi un año. Lo que más valoro es que me preguntan cómo venía la semana antes de indicarme cualquier cosa, y que el encuentro no se corta a los quince minutos.”</blockquote>
+          <figcaption class="resena-pie">
+            <span class="avatar">R</span>
+            <span class="resena-quien">
+              <b>Rocío</b>
+              <span>Encuentro de seguimiento · abr 2026</span>
+            </span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <!-- Volver a "Reseñas verificadas…" recién cuando no quede ningún data-demo -->
+    <p class="carrusel-nota" data-reveal>Reseñas de pacientes que ya se atendieron en el consultorio.</p>
+  </div>
+</section>
+
+
+<!-- ========================= CONFIANZA / UBICACIÓN ========================= -->
+<section class="sec-lino" id="donde">
+  <div class="wrap">
+    <!-- DATOS A CONFIRMAR con el consultorio antes de publicar -->
+    <div class="datos" data-reveal>
+      <div class="dato"><b data-contador="60" data-sufijo=" min">0</b><span>dura cada encuentro</span></div>
+      <div class="dato"><b data-contador="12" data-sufijo="">0</b><span>prestaciones</span></div>
+      <div class="dato"><b class="dato-txt">Online</b><span>o presencial en Rosario</span></div>
+    </div>
+
+    <div class="confianza-grid">
+      <div class="col-mapa">
+        <h2 class="sub-tit" data-reveal>Dónde estamos</h2>
+
+        <div class="mapa" data-reveal>
+          <svg class="mapa-fondo" viewBox="0 0 400 170" preserveAspectRatio="none" aria-hidden="true">
+            <g stroke="rgba(46,59,51,.14)" stroke-width="1.5" fill="none">
+              <path d="M-10 46 H410 M-10 118 H410 M74 -10 V180 M196 -10 V180 M310 -10 V180"/>
+            </g>
+            <g stroke="rgba(46,59,51,.2)" stroke-width="7" fill="none" stroke-linecap="round">
+              <path d="M-10 82 H410"/><path d="M138 -10 V180"/>
+            </g>
+            <g fill="rgba(250,246,241,.5)">
+              <rect x="16" y="10" width="44" height="26" rx="4"/><rect x="212" y="10" width="82" height="26" rx="4"/>
+              <rect x="16" y="126" width="44" height="34" rx="4"/><rect x="330" y="126" width="60" height="34" rx="4"/>
+              <rect x="212" y="126" width="96" height="34" rx="4"/>
+            </g>
+          </svg>
+          <div class="mapa-pin"><svg class="ic" aria-hidden="true"><use href="#i-map-pin"/></svg></div>
+          <a class="mapa-btn" href="https://www.google.com/maps/search/?api=1&query=Callao+1281+Rosario+Santa+Fe" target="_blank" rel="noopener">
+            Abrir en Maps <svg class="ic" aria-hidden="true"><use href="#i-external-link"/></svg>
+          </a>
+        </div>
+
+        <ul class="contacto" data-reveal>
+          <!-- DIRECCIÓN Y HORARIOS: reemplazar por los definitivos -->
+          <li>
+            <svg class="ic" aria-hidden="true"><use href="#i-map-pin"/></svg>
+            <div>Callao 1281, Planta Baja
+              <small>Rosario, Santa Fe</small>
+            </div>
+          </li>
+          <li>
+            <svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>
+            <div>Atención con turno previo<small>Consultanos los horarios disponibles</small></div>
+          </li>
+          <li>
+            <svg class="ic" aria-hidden="true"><use href="#i-credit-card"/></svg>
+            <div>Cada encuentro dura 60 min<small>El tercer encuentro de nutrición, 45 min</small></div>
+          </li>
+          <li>
+            <svg class="ic" aria-hidden="true"><use href="#i-instagram"/></svg>
+            <div><a href="https://instagram.com/espacio.seed" target="_blank" rel="noopener">@espacio.seed</a></div>
           </li>
         </ul>
       </div>
+
+      <div class="col-resenas">
+        <h2 class="sub-tit solo-desktop">¿Preferís escribirnos?</h2>
+        <div class="tarjeta-contacto" data-reveal>
+          <p class="contacto-copy">Si tenés una duda antes de reservar, escribinos. Contesta una persona, no un bot, y no te vamos a insistir después.</p>
+          <a class="btn btn-wa btn-full" href="https://wa.me/5493416652517?text=Hola!%20Tengo%20una%20consulta" target="_blank" rel="noopener">
+            <svg class="ic" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+            Escribinos por WhatsApp
+          </a>
+          <ul class="contacto-mini">
+            <li><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>Te contestamos en el día</li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-instagram"/></svg><a href="https://instagram.com/espacio.seed" target="_blank" rel="noopener">@espacio.seed</a></li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-shield-check"/></svg>Tus datos quedan solo en el consultorio</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= FOOTER ========================= -->
+<footer class="pie">
+  <div class="wrap">
+    <div class="pie-marca">
+      <div class="marca-pie">
+        <svg class="semilla-pie" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+          <path d="M50 6 C25 26 15 51 50 94 C85 51 75 26 50 6 Z" stroke="#2E3B33" stroke-width="5" stroke-linecap="round" fill="none"/>
+          <path d="M50 27 C38 42 42 62 50 76 C58 62 62 42 50 27 Z" fill="#C98A6B"/>
+        </svg>
+        Espacio Seed
+      </div>
+      <p class="pie-tagline">Medicina integrativa. Dermatología, bienestar y nutrición deportiva, en encuentros de una hora.</p>
+      <div class="pie-redes">
+        <a href="https://wa.me/5493416652517" target="_blank" rel="noopener" aria-label="WhatsApp" class="red red-wa">
+          <svg class="ic" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+        </a>
+        <a href="https://instagram.com/espacio.seed" target="_blank" rel="noopener" aria-label="Instagram" class="red red-ig">
+          <svg class="ic" aria-hidden="true"><use href="#i-instagram"/></svg>
+        </a>
+        <a href="https://www.google.com/maps/search/?api=1&query=Callao+1281+Rosario+Santa+Fe" target="_blank" rel="noopener" aria-label="Cómo llegar" class="red">
+          <svg class="ic" aria-hidden="true"><use href="#i-map-pin"/></svg>
+        </a>
+      </div>
     </div>
 
-    <div class="footer-bottom">
-      <div>© 2026 Espacio Seed. Todos los derechos reservados.</div>
-      <div>Desarrollado en Cloudflare Workers & D1</div>
+    <div class="pie-col solo-desktop">
+      <h4>Navegación</h4>
+      <ul>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#equipo">Nuestro equipo</a></li>
+        <li><a href="#resenas">Reseñas</a></li>
+        <li><a href="/reservar">Reservar turno</a></li>
+        <li><a href="#donde">Cómo llegar</a></li>
+      </ul>
     </div>
-  </footer>
 
-  <script>
-    lucide.createIcons();
-  </script>
+    <div class="pie-col solo-desktop">
+      <h4>Contacto</h4>
+      <ul>
+        <li><a href="https://wa.me/5493416652517" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-whatsapp"/></svg>+54 9 341 665-2517</a></li>
+        <li><a href="https://instagram.com/espacio.seed" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-instagram"/></svg>espacio.seed</a></li>
+        <li><a href="https://www.google.com/maps/search/?api=1&query=Callao+1281+Rosario+Santa+Fe" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-map-pin"/></svg>Callao 1281 PB, Rosario</a></li>
+        <li><a href="#donde"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>Atención con turno previo</a></li>
+      </ul>
+    </div>
+
+    <div class="pie-legal">© 2026 Espacio Seed · Medicina integrativa · Callao 1281 PB, Rosario, Santa Fe</div>
+  </div>
+</footer>
+
+<!-- ========================= BARRA FIJA ========================= -->
+<div class="barra" id="barra">
+  <a href="/reservar" class="btn btn-primario">Reservar mi turno</a>
+  <a class="wa" id="wa" href="https://wa.me/5493416652517?text=Hola!%20Quiero%20sacar%20un%20turno" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp">
+    <svg aria-hidden="true"><use href="#i-whatsapp"/></svg>
+  </a>
+</div>
+
+<a class="wa wa-desktop" href="https://wa.me/5493416652517?text=Hola!%20Quiero%20sacar%20un%20turno" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp">
+  <svg aria-hidden="true"><use href="#i-whatsapp"/></svg>
+</a>
+
+<!-- ========================= MENÚ (bottom sheet) ========================= -->
+<div class="velo" id="velo"></div>
+<nav class="hoja" id="hoja" aria-label="Menú" aria-hidden="true">
+  <div class="hoja-agarre"></div>
+  <a href="#servicios"><svg class="ic" aria-hidden="true"><use href="#i-sparkles"/></svg>Servicios<svg class="ic flecha" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
+  <a href="#equipo"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>Nuestro equipo<svg class="ic flecha" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
+  <a href="/reservar"><svg class="ic" aria-hidden="true"><use href="#i-calendar-days"/></svg>Reservar turno<svg class="ic flecha" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
+  <a href="#donde"><svg class="ic" aria-hidden="true"><use href="#i-map-pin"/></svg>Cómo llegar<svg class="ic flecha" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
+</nav>
+
+<script src="/vendor/anime.min.js"></script>
+<script>
+(function(){
+  'use strict';
+
+
+  var quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var A = window.anime;
+  var animando = !!A && !quieto;
+
+  // Sólo escondemos cosas si de verdad las vamos a poder mostrar.
+  if (animando) document.documentElement.classList.add('anim-ready');
+
+  var $  = function(s,c){ return (c||document).querySelector(s); };
+  var $$ = function(s,c){ return Array.prototype.slice.call((c||document).querySelectorAll(s)); };
+
+  /* ------------------------------------------------------------------
+     1 · ENTRADA DEL HERO
+     La foto se asienta (1.08 → 1) mientras el texto sube en cascada.
+     ------------------------------------------------------------------ */
+  var piezasHero = ['#hero-kicker','#hero-titulo .w','#hero-bajada','#hero-cta','#hero-disp'];
+
+  // Red de seguridad: pase lo que pase, el hero termina visible.
+  function heroVisible(){
+    if (!A) return;
+    A.remove(piezasHero.join(','));
+    A.set(piezasHero.join(','), { opacity:1, translateY:0, scale:1 });
+    A.set('#hero-img', { scale:1 });
+  }
+
+  function entradaHero(){
+    var tl = A.timeline({ easing:'cubicBezier(.2,.7,.2,1)' });
+
+    tl.add({ targets:'#hero-img', scale:[1.08,1], duration:1600, easing:'cubicBezier(.16,.8,.3,1)' }, 0)
+      .add({ targets:'#hero-kicker', opacity:[0,1], translateY:[10,0], duration:600 }, 260)
+      .add({ targets:'#hero-titulo .w', opacity:[0,1], translateY:[18,0], duration:760, delay:A.stagger(58) }, 340)
+      .add({ targets:'#hero-bajada', opacity:[0,1], translateY:[12,0], duration:700 }, 700)
+      .add({ targets:'#hero-cta', opacity:[0,1], translateY:[16,0], scale:[.97,1], duration:600 }, 820)
+      .add({ targets:'#hero-disp', opacity:[0,1], duration:600 }, 980);
+
+    // El isotipo se dibuja solo: la semilla "germina".
+    var borde = $('#semilla-borde');
+    if (borde && borde.getTotalLength) {
+      A({ targets:borde, strokeDashoffset:[A.setDashoffset,0], duration:1200,
+          easing:'cubicBezier(.2,.7,.2,1)', delay:180 });
+      A({ targets:'#semilla-hoja', opacity:[0,1], scale:[.4,1], duration:700,
+          easing:'cubicBezier(.34,1.56,.64,1)', delay:820 });
+    }
+
+    // Si la pestaña se abrió en segundo plano, requestAnimationFrame no corre
+    // y la línea de tiempo queda congelada en 0: forzamos el estado final.
+    setTimeout(function(){
+      if (parseFloat(getComputedStyle($('#hero-titulo .w')).opacity) < 1) heroVisible();
+    }, 2600);
+  }
+
+  if (animando) {
+    if (document.visibilityState === 'hidden') {
+      // Nada de animar a ciegas: mostramos el hero y animamos si vuelve a primer plano.
+      heroVisible();
+      document.addEventListener('visibilitychange', function unaVez(){
+        if (document.visibilityState !== 'visible') return;
+        document.removeEventListener('visibilitychange', unaVez);
+        entradaHero();
+      });
+    } else {
+      entradaHero();
+    }
+  }
+
+  /* ------------------------------------------------------------------
+     2 · REVEAL AL SCROLL — fade + 14 px, 700 ms, una sola vez.
+     Los hermanos entran escalonados cada 60 ms.
+     ------------------------------------------------------------------ */
+  var reveals = $$('[data-reveal]');
+  if (animando && 'IntersectionObserver' in window) {
+    var grupos = new Map();
+    reveals.forEach(function(el){
+      var p = el.parentElement;
+      if (!grupos.has(p)) grupos.set(p, []);
+      grupos.get(p).push(el);
+    });
+
+    var io = new IntersectionObserver(function(entradas){
+      entradas.forEach(function(e){
+        if (!e.isIntersecting) return;
+        var el = e.target;
+        var hermanos = grupos.get(el.parentElement) || [el];
+        var i = hermanos.indexOf(el);
+        el.style.transitionDelay = (i > 0 ? i * 60 : 0) + 'ms';
+        el.classList.add('in');
+        io.unobserve(el);
+      });
+    }, { rootMargin:'0px 0px -8% 0px', threshold:.05 });
+
+    reveals.forEach(function(el){ io.observe(el); });
+
+    // Si el usuario cae a mitad de página (o salta con un ancla), lo que quedó
+    // arriba nunca llega a intersectar: se muestra sin animación, no en blanco.
+    window.addEventListener('scroll', function(){
+      $$('[data-reveal]:not(.in)').forEach(function(el){
+        if (el.getBoundingClientRect().bottom < 0) {
+          el.style.transitionDuration = '0s';
+          el.classList.add('in');
+          io.unobserve(el);
+        }
+      });
+    }, { passive:true });
+  } else {
+    reveals.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* ------------------------------------------------------------------
+     3 · ACORDEÓN DE SERVICIOS — uno abierto por vez.
+     Altura animada + chips en cascada de 40 ms.
+     ------------------------------------------------------------------ */
+  var servicios = $$('.servicio');
+
+  function cerrar(art){
+    var cuerpo = $('.servicio-cuerpo', art);
+    var cab = $('.servicio-cab', art);
+    art.classList.remove('abierto');
+    cab.setAttribute('aria-expanded','false');
+    if (!animando) { cuerpo.style.height = '0px'; return; }
+
+    A.remove(cuerpo);
+
+    // anime no puede interpolar desde 'auto': fijamos el alto real antes de cerrar.
+    cuerpo.style.height = cuerpo.offsetHeight + 'px';
+    void cuerpo.offsetHeight;
+
+    // Las filas se desvanecen solas por CSS al perder .abierto.
+    A({ targets:cuerpo, height:0, duration:400, delay:80,
+        easing:'cubicBezier(.32,.72,.24,1)' });
+  }
+
+  function abrir(art){
+    var cuerpo = $('.servicio-cuerpo', art);
+    var cab = $('.servicio-cab', art);
+    var alto = $('.servicio-cuerpo-in', cuerpo).offsetHeight;
+    art.classList.add('abierto');
+    cab.setAttribute('aria-expanded','true');
+    if (!animando) { cuerpo.style.height = 'auto'; return; }
+    A.remove(cuerpo);
+    // El alto lo anima anime; la cascada de filas la hace el CSS con .abierto.
+    A({ targets:cuerpo, height:alto, duration:420, easing:'cubicBezier(.32,.72,.24,1)' });
+  }
+
+  // En escritorio no hay acordeón: las tres tarjetas se ven completas.
+  var enEscritorio = function(){ return window.matchMedia('(min-width:1024px)').matches; };
+
+  // Si cambia el ancho, el alto fijo del acordeón abierto deja de servir.
+  window.addEventListener('resize', function(){
+    servicios.forEach(function(art){
+      if (!art.classList.contains('abierto')) return;
+      var cuerpo = $('.servicio-cuerpo', art);
+      cuerpo.style.height = $('.servicio-cuerpo-in', cuerpo).offsetHeight + 'px';
+    });
+  });
+
+  servicios.forEach(function(art){
+    $('.servicio-cab', art).addEventListener('click', function(){
+      if (enEscritorio()) return;
+      var estaAbierto = art.classList.contains('abierto');
+      servicios.forEach(function(o){ if (o.classList.contains('abierto')) cerrar(o); });
+      if (!estaAbierto) abrir(art);
+    });
+  });
+
+  /* ------------------------------------------------------------------
+     4 · CARRUSEL DE RESEÑAS
+     Se clona el set hasta cubrir el doble del ancho visible, así el
+     desplazamiento es continuo y sin huecos en cualquier pantalla.
+     ------------------------------------------------------------------ */
+  (function(){
+    var pista = $("#pista");
+    if (!pista) return;
+    var set = $(".carrusel-set", pista);
+    var VELOCIDAD = 42;                       // px por segundo
+
+    function armar(){
+      while (pista.children.length > 1) pista.removeChild(pista.lastElementChild);
+
+      var ancho = set.getBoundingClientRect().width;
+      if (!ancho) return;
+
+      // Suficientes copias para tapar la pantalla mientras una entera se desplaza.
+      var copias = Math.max(2, Math.ceil(window.innerWidth / ancho) + 1);
+      for (var i = 1; i < copias; i++) {
+        var clon = set.cloneNode(true);
+        clon.setAttribute("aria-hidden", "true");
+        pista.appendChild(clon);
+      }
+
+      // El desplazamiento va en porcentaje de la pista, no en píxeles: así
+      // sigue midiendo exactamente un set aunque cambien las fuentes o el ancho.
+      pista.style.setProperty("--desplazamiento", (-100 / copias) + "%");
+      pista.style.animation = quieto
+        ? "none"
+        : "desfilar " + (ancho / VELOCIDAD) + "s linear infinite";
+    }
+
+    armar();
+    // Las webfonts cambian el alto de las tarjetas: rehacemos las cuentas.
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(armar);
+
+    var reArmar;
+    window.addEventListener("resize", function(){
+      clearTimeout(reArmar);
+      reArmar = setTimeout(armar, 220);
+    });
+  })();
+
+  function irA(hash){
+    var t = $(hash);
+    if (t) t.scrollIntoView({ behavior: quieto ? "auto" : "smooth", block: "start" });
+  }
+
+  /* ------------------------------------------------------------------
+     6 · CONTADORES DE CONFIANZA
+     ------------------------------------------------------------------ */
+  var contadores = $$('[data-contador]');
+  if (contadores.length && 'IntersectionObserver' in window) {
+    var ioNum = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (!e.isIntersecting) return;
+        var el = e.target;
+        var fin = parseFloat(el.dataset.contador);
+        var dec = parseInt(el.dataset.decimales || '0', 10);
+        var pre = el.dataset.prefijo || '';
+        var suf = el.dataset.sufijo || '';
+        if (!animando) { el.textContent = pre + fin.toFixed(dec).replace('.', ',') + suf; }
+        else {
+          var obj = { v:0 };
+          A({ targets:obj, v:fin, duration:1400, easing:'cubicBezier(.16,.8,.3,1)',
+              update:function(){ el.textContent = pre + obj.v.toFixed(dec).replace('.', ',') + suf; } });
+        }
+        ioNum.unobserve(el);
+      });
+    }, { threshold:.6 });
+    contadores.forEach(function(el){ ioNum.observe(el); });
+  }
+
+  /* ------------------------------------------------------------------
+     7 · FIRMA MANUSCRITA — se escribe al entrar en pantalla
+     ------------------------------------------------------------------ */
+  var firma = $('#firma-trazo');
+  if (firma && animando && 'IntersectionObserver' in window) {
+    var ioFirma = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (!e.isIntersecting) return;
+        A({ targets:firma, strokeDashoffset:[A.setDashoffset,0], duration:2000,
+            easing:'easeInOutSine', delay:200 });
+        ioFirma.unobserve(e.target);
+      });
+    }, { threshold:.5 });
+    ioFirma.observe(firma);
+  }
+
+  /* ------------------------------------------------------------------
+     8 · HEADER, BARRA FIJA Y WHATSAPP SEGÚN EL SCROLL
+     La barra aparece al salir del hero, se esconde al bajar,
+     vuelve al frenar, y desaparece dentro del bloque de reserva.
+     ------------------------------------------------------------------ */
+  var header = $('#header');
+  var barra = $('#barra');
+  var hero = $('.hero-media');
+  var bloqueReserva = $('#reservar');
+  var tick = false;
+
+  // La barra tiene dos estados y nada más: fuera del hero se queda,
+  // dentro del bloque de reserva se va. No parpadea con la dirección del scroll.
+  function alScrollear(){
+    var y = window.pageYOffset;
+    var altoHero = hero ? hero.offsetHeight : 400;
+
+    header.classList.toggle('compacto', y > 40);
+
+    var r = bloqueReserva.getBoundingClientRect();
+    var enReserva = r.top < window.innerHeight * .75 && r.bottom > window.innerHeight * .3;
+    var pie = document.querySelector('.pie').getBoundingClientRect();
+    var enPie = pie.top < window.innerHeight - 90;
+
+    barra.classList.toggle('visible', y > altoHero * .7 && !enReserva && !enPie);
+
+    tick = false;
+  }
+
+  window.addEventListener('scroll', function(){
+    if (!tick) { tick = true; requestAnimationFrame(alScrollear); }
+  }, { passive:true });
+  alScrollear();
+
+  /* ------------------------------------------------------------------
+     9 · MENÚ EN HOJA INFERIOR — el pulgar vive abajo
+     ------------------------------------------------------------------ */
+  var hoja = $('#hoja'), velo = $('#velo'), abrirMenu = $('#abrir-menu');
+
+  function menu(abierto){
+    hoja.classList.toggle('on', abierto);
+    velo.classList.toggle('on', abierto);
+    hoja.setAttribute('aria-hidden', String(!abierto));
+    abrirMenu.setAttribute('aria-expanded', String(abierto));
+    document.body.style.overflow = abierto ? 'hidden' : '';
+    if (abierto && animando) {
+      A({ targets:'#hoja a', opacity:[0,1], translateY:[10,0], duration:380,
+          delay:A.stagger(45, {start:100}), easing:'cubicBezier(.2,.7,.2,1)' });
+    }
+  }
+
+  abrirMenu.addEventListener('click', function(){ menu(!hoja.classList.contains('on')); });
+  velo.addEventListener('click', function(){ menu(false); });
+  $$('#hoja a').forEach(function(a){ a.addEventListener('click', function(){ menu(false); }); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') menu(false); });
+
+  /* ------------------------------------------------------------------
+     10 · PRESIÓN FÍSICA DEL BOTÓN PRINCIPAL
+     Confirma el toque incluso con conexión lenta.
+     ------------------------------------------------------------------ */
+  if (animando) {
+    $$('.btn').forEach(function(b){
+      b.addEventListener('pointerdown', function(){
+        A.remove(b);
+        A({ targets:b, scale:.97, duration:120, easing:'cubicBezier(.2,.7,.2,1)' });
+      });
+      ['pointerup','pointerleave','pointercancel'].forEach(function(ev){
+        b.addEventListener(ev, function(){
+          A.remove(b);
+          A({ targets:b, scale:1, duration:180, easing:'cubicBezier(.34,1.56,.64,1)' });
+        });
+      });
+    });
+  }
+})();
+</script>
 </body>
 </html>
