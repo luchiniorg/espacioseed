@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Cloudflare Wrangler local state & logs
+.wrangler/
+
+# Build output
+dist/
+
+# Environment files
+.env
+.env.local
+
+# IDE / OS files
+.DS_Store
+*.log

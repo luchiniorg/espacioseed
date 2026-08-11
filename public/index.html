@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Espacio Seed | Agendamiento de Turnos y Citas</title>
+  <meta name="description" content="Plataforma de turnos y agenda online para Espacio Seed con sincronización directa con Google Calendar.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --accent: #10b981;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --glass-bg: rgba(30, 41, 59, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --card-radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      min-height: 100vh;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 2rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .logo-badge {
+      background: linear-gradient(135deg, #6366f1, #10b981);
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .badge-edge {
+      background: rgba(99, 102, 241, 0.2);
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      color: #a5b4fc;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    main {
+      flex: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      width: 100%;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      background: linear-gradient(to right, #ffffff, #cbd5e1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .booking-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 850px) {
+      .booking-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--card-radius);
+      padding: 2rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .card h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .service-option {
+      border: 1px solid var(--glass-border);
+      background: rgba(15, 23, 42, 0.4);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .service-option:hover, .service-option.selected {
+      border-color: var(--primary);
+      background: rgba(99, 102, 241, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .service-option.selected {
+      box-shadow: 0 0 0 2px var(--primary);
+    }
+
+    .service-title {
+      font-weight: 600;
+      font-size: 1.05rem;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.35rem;
+    }
+
+    .service-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .service-meta {
+      margin-top: 0.75rem;
+      display: flex;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: #a5b4fc;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: #cbd5e1;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary);
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-top: 0.5rem;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+    }
+
+    .alert {
+      padding: 1rem;
+      border-radius: 10px;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .alert-success {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #34d399;
+    }
+
+    .alert-error {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #f87171;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      margin-top: 4rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="#" class="logo">
+      <div class="logo-badge">S</div>
+      <span>Espacio Seed</span>
+    </a>
+    <span class="badge-edge">Cloudflare Workers + D1</span>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Reserva tu turno de manera simple</h1>
+      <p>Selecciona el servicio y horario que mejor se adapte a ti. Sincronización automática de agenda.</p>
+    </section>
+
+    <div class="booking-grid">
+      <!-- Paso 1: Selección de Servicio -->
+      <div class="card">
+        <h2>1. Selecciona un Servicio</h2>
+        <div id="services-container">
+          <p style="color: var(--text-muted);">Cargando servicios disponibles...</p>
+        </div>
+      </div>
+
+      <!-- Paso 2: Datos y Confirmación -->
+      <div class="card">
+        <h2>2. Completa tus datos</h2>
+        <form id="booking-form">
+          <div class="form-group">
+            <label for="clientName">Nombre Completo *</label>
+            <input type="text" id="clientName" class="form-control" placeholder="Ej. María García" required>
+          </div>
+
+          <div class="form-group">
+            <label for="clientEmail">Correo Electrónico *</label>
+            <input type="email" id="clientEmail" class="form-control" placeholder="maria@ejemplo.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="clientPhone">Teléfono / WhatsApp</label>
+            <input type="tel" id="clientPhone" class="form-control" placeholder="+54 9 11 ...">
+          </div>
+
+          <div class="form-group">
+            <label for="startTime">Fecha y Hora deseada *</label>
+            <input type="datetime-local" id="startTime" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label for="notes">Notas adicionales</label>
+            <textarea id="notes" class="form-control" rows="2" placeholder="Cualquier detalle relevante..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submit-btn">Confirmar Reserva</button>
+        </form>
+
+        <div id="alert-box" class="alert"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Espacio Seed &copy; 2026 — Desplegado en Cloudflare Edge Infrastructure</p>
+  </footer>
+
+  <script>
+    let selectedServiceId = null;
+
+    // Cargar servicios desde la API Hono/D1
+    async function loadServices() {
+      const container = document.getElementById('services-container');
+      try {
+        const res = await fetch('/api/services');
+        const data = await res.json();
+
+        if (!data.services || data.services.length === 0) {
+          container.innerHTML = '<p style="color: var(--text-muted);">No hay servicios activos disponibles.</p>';
+          return;
+        }
+
+        container.innerHTML = data.services.map((svc, index) => `
+          <div class="service-option ${index === 0 ? 'selected' : ''}" onclick="selectService('${svc.id}', this)">
+            <div class="service-title">
+              <span>${svc.name}</span>
+              <span style="color: var(--accent);">$${svc.price.toLocaleString()}</span>
+            </div>
+            <div class="service-desc">${svc.description || ''}</div>
+            <div class="service-meta">
+              <span>⏱ ${svc.durationMinutes} min</span>
+              <span>📅 Confirmación inmediata</span>
+            </div>
+          </div>
+        `).join('');
+
+        // Seleccionar por defecto el primero
+        selectedServiceId = data.services[0].id;
+      } catch (err) {
+        container.innerHTML = '<p style="color: #f87171;">Error al conectar con la API de Cloudflare Workers.</p>';
+      }
+    }
+
+    function selectService(id, element) {
+      document.querySelectorAll('.service-option').forEach(el => el.classList.remove('selected'));
+      element.classList.add('selected');
+      selectedServiceId = id;
+    }
+
+    // Configurar fecha mínima en el selector
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    document.getElementById('startTime').min = now.toISOString().slice(0, 16);
+
+    // Manejar envío del formulario
+    document.getElementById('booking-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const alertBox = document.getElementById('alert-box');
+      const submitBtn = document.getElementById('submit-btn');
+
+      if (!selectedServiceId) {
+        alertBox.className = 'alert alert-error';
+        alertBox.innerText = 'Por favor selecciona un servicio de la lista.';
+        alertBox.style.display = 'block';
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'Procesando reserva...';
+      alertBox.style.display = 'none';
+
+      const payload = {
+        serviceId: selectedServiceId,
+        clientName: document.getElementById('clientName').value,
+        clientEmail: document.getElementById('clientEmail').value,
+        clientPhone: document.getElementById('clientPhone').value,
+        startTime: new Date(document.getElementById('startTime').value).toISOString(),
+        notes: document.getElementById('notes').value
+      };
+
+      try {
+        const response = await fetch('/api/appointments', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          alertBox.className = 'alert alert-success';
+          alertBox.innerHTML = `<strong>¡Reserva Confirmada!</strong><br>Gracias ${result.client.name}, tu turno ha quedado agendado para ${new Date(result.appointment.startTime).toLocaleString()}.`;
+          alertBox.style.display = 'block';
+          document.getElementById('booking-form').reset();
+        } else {
+          alertBox.className = 'alert alert-error';
+          alertBox.innerText = result.error || 'Ocurrió un error al procesar la reserva.';
+          alertBox.style.display = 'block';
+        }
+      } catch (err) {
+        alertBox.className = 'alert alert-error';
+        alertBox.innerText = 'Error de conexión con el servidor.';
+        alertBox.style.display = 'block';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Confirmar Reserva';
+      }
+    });
+
+    loadServices();
+  </script>
+</body>
+</html>
