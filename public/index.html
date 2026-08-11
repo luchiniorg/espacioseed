@@ -237,13 +237,11 @@ svg.ic{
   padding:14px 18px 18px;margin-top:2px;
   border-top:1px solid rgba(46,59,51,.08);
 }
-.anim-ready .servicio-cuerpo-in .prestaciones li,
-.anim-ready .servicio-cuerpo-in .chip{
+.anim-ready .servicio-cuerpo-in .prestaciones li{
   opacity:0;transform:translateY(10px);
   transition:opacity .3s var(--ease),transform .3s var(--ease);
 }
-.anim-ready .servicio.abierto .servicio-cuerpo-in .prestaciones li,
-.anim-ready .servicio.abierto .servicio-cuerpo-in .chip{
+.anim-ready .servicio.abierto .servicio-cuerpo-in .prestaciones li{
   opacity:1;transform:none;
   transition:opacity .42s var(--ease),transform .42s var(--ease);
 }
@@ -253,26 +251,39 @@ svg.ic{
 .anim-ready .servicio.abierto .prestaciones li:nth-child(4){transition-delay:.225s}
 .anim-ready .servicio.abierto .prestaciones li:nth-child(5){transition-delay:.27s}
 .anim-ready .servicio.abierto .prestaciones li:nth-child(6){transition-delay:.315s}
-.anim-ready .servicio.abierto .servicio-cuerpo-in .chip{transition-delay:.36s}
 
-/* Prestaciones: nombre, qué es, cuánto dura y cuánto sale */
-.prestaciones{list-style:none;display:flex;flex-direction:column}
-.prestaciones li{
-  display:flex;gap:14px;align-items:flex-start;justify-content:space-between;
-  padding:14px 0;border-bottom:1px solid rgba(46,59,51,.07);
+/* Prestaciones: cada una es un servicio con su valor, y se reserva sola */
+.prestaciones{list-style:none;display:flex;flex-direction:column;gap:6px}
+.prest{
+  display:flex;gap:14px;align-items:center;
+  padding:14px 12px;margin:0 -12px;border-radius:14px;
+  color:inherit;
+  transition:background .22s var(--ease),transform .18s var(--ease);
 }
-.prestaciones li:first-child{padding-top:0}
-.prest-txt{min-width:0}
+.prest:hover{background:rgba(201,138,107,.09)}
+.prest:active{transform:scale(.985);background:rgba(201,138,107,.14)}
+.prestaciones li + li{border-top:1px solid rgba(46,59,51,.07)}
+.prestaciones li + li .prest{margin-top:0}
+
+.prest-txt{min-width:0;flex:1}
 .prest-txt b{display:block;font-weight:600;font-size:14.5px;line-height:1.35;color:var(--tinta);margin-bottom:4px}
-.prest-txt span{display:block;font-size:12.5px;line-height:1.5;color:var(--tinta-suave)}
-.prest-meta{flex:none;text-align:right}
-.prest-precio{display:block;font-weight:600;font-size:14.5px;line-height:1.2;color:var(--terracota);white-space:nowrap}
-.prest-dur{display:block;font-size:11.5px;color:var(--tinta-suave);margin-top:3px;white-space:nowrap}
-.prest-nota{
-  font-size:12px;line-height:1.55;color:var(--tinta-suave);
-  margin:14px 0 16px;padding-left:12px;border-left:2px solid rgba(201,138,107,.4);
+.prest-txt > span{display:block;font-size:12.5px;line-height:1.5;color:var(--tinta-suave)}
+.prest-aviso{
+  display:block;margin-top:7px;padding-left:10px;
+  border-left:2px solid rgba(201,138,107,.45);
+  font-size:11.5px;line-height:1.5;color:var(--tinta-suave);
 }
-.prestaciones + .chip-accion{margin-top:16px}
+.prest-meta{flex:none;text-align:right}
+.prest-precio{display:block;font-weight:600;font-size:15px;line-height:1.2;color:var(--terracota);white-space:nowrap}
+.prest-dur{display:block;font-size:11.5px;color:var(--tinta-suave);margin-top:3px;white-space:nowrap}
+.prest-ir{
+  flex:none;width:26px;height:26px;border-radius:999px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--arena-clara);color:var(--terracota);
+  transition:background .22s,color .22s,transform .22s var(--ease);
+}
+.prest-ir .ic{width:15px;height:15px;stroke-width:2}
+.prest:hover .prest-ir{background:var(--arena);color:#FDFBF8;transform:translateX(2px)}
 .aviso-precios{
   margin-top:18px;font-size:12.5px;line-height:1.6;
   color:var(--tinta-suave);text-align:center;
@@ -674,29 +685,24 @@ svg.ic{
   .sec-head p{grid-column:2;grid-row:2;font-size:16px;max-width:44ch;padding-bottom:6px}
 
   /* --- Servicios: sin acordeón, todo a la vista, tarjetas parejas --- */
-  .servicios{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
+  .servicios{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start}
   .servicio{display:flex;flex-direction:column;transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .25s}
   .servicio:hover{transform:translateY(-4px);box-shadow:0 16px 38px rgba(46,59,51,.09);border-color:rgba(201,138,107,.4)}
-  .servicio-cab{flex-direction:column;align-items:flex-start;gap:0;padding:32px 30px 0;cursor:default}
+  .servicio-cab{flex-direction:column;align-items:flex-start;gap:0;padding:28px 22px 0;cursor:default}
   .servicio-ic{width:50px;height:50px;border-radius:15px;margin-bottom:20px}
   .servicio-ic .ic{width:24px;height:24px}
   .servicio-tit{font-size:20px;margin-bottom:8px}
   .servicio-sub{font-size:15px}
   .servicio-mas{display:none}
-  .servicio-cuerpo{height:auto!important;overflow:visible;flex:1;display:flex}
-  .servicio-cuerpo-in{
-    padding:20px 30px 30px;margin-top:20px;
-    flex:1;display:flex;flex-direction:column;
-  }
-  .prestaciones + .chip-accion,
-  .prest-nota + .chip-accion{margin-top:auto;padding-top:20px}
-  .anim-ready .servicio-cuerpo-in .prestaciones li,
-  .anim-ready .servicio-cuerpo-in .chip{opacity:1}
+  .servicio-cuerpo{height:auto!important;overflow:visible}
+  .servicio-cuerpo-in{padding:18px 22px 24px;margin-top:18px}
+  .prest{padding:16px 12px}
+  .anim-ready .servicio-cuerpo-in .prestaciones li{opacity:1;transform:none}
   .prest-txt b{font-size:15px}
-  .prest-txt span{font-size:13px}
-  .prest-precio{font-size:15px}
+  .prest-txt > span{font-size:13px}
+  .prest-precio{font-size:16px}
   .aviso-precios{margin-top:28px;font-size:13.5px}
-  .servicio-cuerpo-in .chip-accion{margin-top:6px;flex-basis:100%;justify-content:center;min-height:46px}
+
 
   /* --- Equipo: retratos grandes --- */
   .equipo{flex-direction:row;gap:24px}
@@ -800,8 +806,7 @@ svg.ic{
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
   .anim-ready [data-reveal]{opacity:1!important;transform:none!important}
-  .anim-ready .servicio-cuerpo-in .prestaciones li,
-  .anim-ready .servicio-cuerpo-in .chip{opacity:1!important}
+  .anim-ready .servicio-cuerpo-in .prestaciones li{opacity:1!important}
 }
 </style>
 </head>
@@ -911,7 +916,7 @@ svg.ic{
     <div class="sec-head" data-reveal>
       <span class="kicker">Qué hacemos</span>
       <h2>Tres puertas de entrada al mismo abordaje.</h2>
-      <p>Tocá una tarjeta para ver las prestaciones, la duración y el valor de cada encuentro.</p>
+      <p>Cada prestación se reserva por separado. Tocá la que necesites y te llevamos directo al pedido de turno.</p>
     </div>
 
     <div class="servicios">
@@ -927,48 +932,59 @@ svg.ic{
         <div class="servicio-cuerpo" id="cuerpo-piel">
           <div class="servicio-cuerpo-in">
             <ul class="prestaciones">
-            <li>
-              <div class="prest-txt">
-                <b>Abordaje piel · Primer encuentro</b>
-                <span>Evaluación, historia de vida, hábitos y lectura de tus análisis para definir el tratamiento.</span>
-              </div>
-              <div class="prest-meta">
-                <span class="prest-precio">$50.000</span>
-                <span class="prest-dur">60 min</span>
-              </div>
-            </li>
-            <li>
-              <div class="prest-txt">
-                <b>Abordaje piel · Tratamiento cosmetológico</b>
-                <span>Sesión 100 % personalizada para equilibrar, reparar y potenciar la piel. Con la Lic. Delfina Piccini.</span>
-              </div>
-              <div class="prest-meta">
-                <span class="prest-precio">$50.000</span>
-                <span class="prest-dur">60 min</span>
-              </div>
-            </li>
-            <li>
-              <div class="prest-txt">
-                <b>Abordaje piel · Tratamiento médico</b>
-                <span>Plasma rico en plaquetas facial y escote, o plasma capilar, según corresponda.</span>
-              </div>
-              <div class="prest-meta">
-                <span class="prest-precio">$85.000</span>
-                <span class="prest-dur">60 min</span>
-              </div>
-            </li>
-            <li>
-              <div class="prest-txt">
-                <b>Sueroterapia + tratamiento facial</b>
-                <span>Dos tratamientos en simultáneo: vitaminas y minerales por vía endovenosa más el facial que necesites.</span>
-              </div>
-              <div class="prest-meta">
-                <span class="prest-precio">$150.000</span>
-                <span class="prest-dur">60 min</span>
-              </div>
-            </li>
+              <li>
+                <a class="prest" href="/reservar?area=piel&amp;servicio=piel-primer-encuentro">
+                  <span class="prest-txt">
+                    <b>Abordaje piel · Primer encuentro</b>
+                    <span>Evaluación, historia de vida, hábitos y lectura de tus análisis para definir el tratamiento.</span>
+                  </span>
+                  <span class="prest-meta">
+                    <span class="prest-precio">$50.000</span>
+                    <span class="prest-dur">60 min</span>
+                  </span>
+                  <span class="prest-ir" aria-hidden="true"><svg class="ic"><use href="#i-chevron-right"/></svg></span>
+                </a>
+              </li>
+              <li>
+                <a class="prest" href="/reservar?area=piel&amp;servicio=piel-cosmetologico">
+                  <span class="prest-txt">
+                    <b>Abordaje piel · Tratamiento cosmetológico</b>
+                    <span>Sesión 100 % personalizada para equilibrar, reparar y potenciar la piel. Con la Lic. Delfina Piccini.</span>
+                  </span>
+                  <span class="prest-meta">
+                    <span class="prest-precio">$50.000</span>
+                    <span class="prest-dur">60 min</span>
+                  </span>
+                  <span class="prest-ir" aria-hidden="true"><svg class="ic"><use href="#i-chevron-right"/></svg></span>
+                </a>
+              </li>
+              <li>
+                <a class="prest" href="/reservar?area=piel&amp;servicio=piel-medico">
+                  <span class="prest-txt">
+                    <b>Abordaje piel · Tratamiento médico</b>
+                    <span>Plasma rico en plaquetas facial y escote, o plasma capilar, según corresponda.</span>
+                  </span>
+                  <span class="prest-meta">
+                    <span class="prest-precio">$85.000</span>
+                    <span class="prest-dur">60 min</span>
+                  </span>
+                  <span class="prest-ir" aria-hidden="true"><svg class="ic"><use href="#i-chevron-right"/></svg></span>
+                </a>
+              </li>
+              <li>
+                <a class="prest" href="/reservar?area=piel&amp;servicio=suero-facial">
+                  <span class="prest-txt">
+                    <b>Sueroterapia + tratamiento facial</b>
+                    <span>Dos tratamientos en simultáneo: vitaminas y minerales por vía endovenosa más el facial que necesites.</span>
+                  </span>
+                  <span class="prest-meta">
+                    <span class="prest-precio">$150.000</span>
+                    <span class="prest-dur">60 min</span>
+                  </span>
+                  <span class="prest-ir" aria-hidden="true"><svg class="ic"><use href="#i-chevron-right"/></svg></span>
+                </a>
+              </li>
             </ul>
-            <a class="chip chip-accion" href="/reservar?area=piel">Reservar turno <svg class="ic" style="width:13px;height:13px" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
           </div>
         </div>
       </article>
@@ -985,68 +1001,85 @@ svg.ic{
         <div class="servicio-cuerpo" id="cuerpo-integrativa">
           <div class="servicio-cuerpo-in">
             <ul class="prestaciones">
-            <li>
-              <div class="prest-txt">
-                <b>Consulta inicial</b>
-                <span>Primer encuentro con enfoque holístico: atender síntomas, mejorar la calidad de vida o entender el origen de un diagnóstico.</span>
-              </div>
-              <div class="prest-meta">
-                <span class="prest-precio">$70.000</span>
-                <span class="prest-dur">60 min</span>
-              </div>
-            </li>
-            <li>
-              <div class="prest-txt">
-                <b>Consulta inicial online</b>
-                <span>El mismo primer encuentro, por videollamada.</span>
-              </div>
-              <div class="prest-meta">
-                <span class="prest-precio">$70.000</span>
-                <span class="prest-dur">60 min</span>
-              </div>
-            </li>
-            <li>
-              <div class="prest-txt">
-                <b>Encuentro de seguimiento</b>
-                <span>Revisar cómo van las indicaciones, ajustar lo necesario y evaluar la respuesta del cuerpo.</span>
-              </div>
-              <div class="prest-meta">
-                <span class="prest-precio">$70.000</span>
-                <span class="prest-dur">60 min</span>
-              </div>
-            </li>
-            <li>
-              <div class="prest-txt">
-                <b>Encuentro de seguimiento online</b>
-                <span>Devolución de estudios complementarios y entrega del plan de tratamiento integral.</span>
-              </div>
-              <div class="prest-meta">
-                <span class="prest-precio">$70.000</span>
-                <span class="prest-dur">60 min</span>
-              </div>
-            </li>
-            <li>
-              <div class="prest-txt">
-                <b>Plasma rico en plaquetas (PRP)</b>
-                <span>Bioestimulación con los factores de crecimiento de tu propia sangre para regenerar la piel.</span>
-              </div>
-              <div class="prest-meta">
-                <span class="prest-precio">$85.000</span>
-                <span class="prest-dur">60 min</span>
-              </div>
-            </li>
-            <li>
-              <div class="prest-txt">
-                <b>Sueroterapia</b>
-                <span>Vitaminas, minerales y antioxidantes directo al torrente sanguíneo, para máxima absorción.</span>
-              </div>
-              <div class="prest-meta">
-                <span class="prest-precio">$130.000</span>
-                <span class="prest-dur">60 min</span>
-              </div>
-            </li>
+              <li>
+                <a class="prest" href="/reservar?area=integrativa&amp;servicio=consulta-inicial">
+                  <span class="prest-txt">
+                    <b>Consulta inicial</b>
+                    <span>Primer encuentro con enfoque holístico: atender síntomas, mejorar la calidad de vida o entender el origen de un diagnóstico.</span>
+                  </span>
+                  <span class="prest-meta">
+                    <span class="prest-precio">$70.000</span>
+                    <span class="prest-dur">60 min</span>
+                  </span>
+                  <span class="prest-ir" aria-hidden="true"><svg class="ic"><use href="#i-chevron-right"/></svg></span>
+                </a>
+              </li>
+              <li>
+                <a class="prest" href="/reservar?area=integrativa&amp;servicio=consulta-inicial-online">
+                  <span class="prest-txt">
+                    <b>Consulta inicial online</b>
+                    <span>El mismo primer encuentro, por videollamada.</span>
+                  </span>
+                  <span class="prest-meta">
+                    <span class="prest-precio">$70.000</span>
+                    <span class="prest-dur">60 min</span>
+                  </span>
+                  <span class="prest-ir" aria-hidden="true"><svg class="ic"><use href="#i-chevron-right"/></svg></span>
+                </a>
+              </li>
+              <li>
+                <a class="prest" href="/reservar?area=integrativa&amp;servicio=seguimiento">
+                  <span class="prest-txt">
+                    <b>Encuentro de seguimiento</b>
+                    <span>Revisar cómo van las indicaciones, ajustar lo necesario y evaluar la respuesta del cuerpo.</span>
+                  </span>
+                  <span class="prest-meta">
+                    <span class="prest-precio">$70.000</span>
+                    <span class="prest-dur">60 min</span>
+                  </span>
+                  <span class="prest-ir" aria-hidden="true"><svg class="ic"><use href="#i-chevron-right"/></svg></span>
+                </a>
+              </li>
+              <li>
+                <a class="prest" href="/reservar?area=integrativa&amp;servicio=seguimiento-online">
+                  <span class="prest-txt">
+                    <b>Encuentro de seguimiento online</b>
+                    <span>Devolución de estudios complementarios y entrega del plan de tratamiento integral.</span>
+                  </span>
+                  <span class="prest-meta">
+                    <span class="prest-precio">$70.000</span>
+                    <span class="prest-dur">60 min</span>
+                  </span>
+                  <span class="prest-ir" aria-hidden="true"><svg class="ic"><use href="#i-chevron-right"/></svg></span>
+                </a>
+              </li>
+              <li>
+                <a class="prest" href="/reservar?area=integrativa&amp;servicio=prp">
+                  <span class="prest-txt">
+                    <b>Plasma rico en plaquetas (PRP)</b>
+                    <span>Bioestimulación con los factores de crecimiento de tu propia sangre para regenerar la piel.</span>
+                  </span>
+                  <span class="prest-meta">
+                    <span class="prest-precio">$85.000</span>
+                    <span class="prest-dur">60 min</span>
+                  </span>
+                  <span class="prest-ir" aria-hidden="true"><svg class="ic"><use href="#i-chevron-right"/></svg></span>
+                </a>
+              </li>
+              <li>
+                <a class="prest" href="/reservar?area=integrativa&amp;servicio=sueroterapia">
+                  <span class="prest-txt">
+                    <b>Sueroterapia</b>
+                    <span>Vitaminas, minerales y antioxidantes directo al torrente sanguíneo, para máxima absorción.</span>
+                  </span>
+                  <span class="prest-meta">
+                    <span class="prest-precio">$130.000</span>
+                    <span class="prest-dur">60 min</span>
+                  </span>
+                  <span class="prest-ir" aria-hidden="true"><svg class="ic"><use href="#i-chevron-right"/></svg></span>
+                </a>
+              </li>
             </ul>
-            <a class="chip chip-accion" href="/reservar?area=integrativa">Reservar turno <svg class="ic" style="width:13px;height:13px" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
           </div>
         </div>
       </article>
@@ -1063,29 +1096,34 @@ svg.ic{
         <div class="servicio-cuerpo" id="cuerpo-nutricion">
           <div class="servicio-cuerpo-in">
             <ul class="prestaciones">
-            <li>
-              <div class="prest-txt">
-                <b>Primer encuentro · Dra. Eliana David</b>
-                <span>Historia, hábitos y objetivos para potenciar el rendimiento físico y cambiar la composición corporal.</span>
-              </div>
-              <div class="prest-meta">
-                <span class="prest-precio">$70.000</span>
-                <span class="prest-dur">60 min</span>
-              </div>
-            </li>
-            <li>
-              <div class="prest-txt">
-                <b>Tercer encuentro · cierre del abordaje</b>
-                <span>Interpretación de los análisis corporales y de laboratorio, más el plan de recomendaciones final.</span>
-              </div>
-              <div class="prest-meta">
-                <span class="prest-precio">$70.000</span>
-                <span class="prest-dur">45 min</span>
-              </div>
-            </li>
+              <li>
+                <a class="prest" href="/reservar?area=nutricion&amp;servicio=nutricion-primer-encuentro">
+                  <span class="prest-txt">
+                    <b>Primer encuentro · Dra. Eliana David</b>
+                    <span>Historia, hábitos y objetivos para potenciar el rendimiento físico y cambiar la composición corporal.</span>
+                  </span>
+                  <span class="prest-meta">
+                    <span class="prest-precio">$70.000</span>
+                    <span class="prest-dur">60 min</span>
+                  </span>
+                  <span class="prest-ir" aria-hidden="true"><svg class="ic"><use href="#i-chevron-right"/></svg></span>
+                </a>
+              </li>
+              <li>
+                <a class="prest" href="/reservar?area=nutricion&amp;servicio=nutricion-tercer-encuentro">
+                  <span class="prest-txt">
+                    <b>Tercer encuentro · cierre del abordaje</b>
+                    <span>Interpretación de los análisis corporales y de laboratorio, más el plan de recomendaciones final.</span>
+                <span class="prest-aviso">Requiere haber hecho antes el primer encuentro con la Dra. Eliana David y el segundo con la Lic. Delfina Prieto.</span>
+                  </span>
+                  <span class="prest-meta">
+                    <span class="prest-precio">$70.000</span>
+                    <span class="prest-dur">45 min</span>
+                  </span>
+                  <span class="prest-ir" aria-hidden="true"><svg class="ic"><use href="#i-chevron-right"/></svg></span>
+                </a>
+              </li>
             </ul>
-            <p class="prest-nota">El tercer encuentro requiere haber hecho antes el primero con la Dra. Eliana David y el segundo con la Lic. Delfina Prieto.</p>
-            <a class="chip chip-accion" href="/reservar?area=nutricion">Reservar turno <svg class="ic" style="width:13px;height:13px" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
           </div>
         </div>
       </article>

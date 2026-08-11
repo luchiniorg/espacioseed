@@ -464,22 +464,22 @@ svg.ic{
      ------------------------------------------------------------------ */
   var CATALOGO = {
     piel: [
-      { n:'Abordaje piel · Primer encuentro', dur:'60 min', precio:'$50.000' },
-      { n:'Abordaje piel · Tratamiento cosmetológico', dur:'60 min', precio:'$50.000' },
-      { n:'Abordaje piel · Tratamiento médico (PRP)', dur:'60 min', precio:'$85.000' },
-      { n:'Sueroterapia + tratamiento facial', dur:'60 min', precio:'$150.000' }
+      { id:'piel-primer-encuentro', n:'Abordaje piel · Primer encuentro', dur:'60 min', precio:'$50.000' },
+      { id:'piel-cosmetologico', n:'Abordaje piel · Tratamiento cosmetológico', dur:'60 min', precio:'$50.000' },
+      { id:'piel-medico', n:'Abordaje piel · Tratamiento médico', dur:'60 min', precio:'$85.000' },
+      { id:'suero-facial', n:'Sueroterapia + tratamiento facial', dur:'60 min', precio:'$150.000' }
     ],
     integrativa: [
-      { n:'Consulta inicial', dur:'60 min', precio:'$70.000' },
-      { n:'Consulta inicial ONLINE', dur:'60 min', precio:'$70.000' },
-      { n:'Encuentro de seguimiento', dur:'60 min', precio:'$70.000' },
-      { n:'Encuentro de seguimiento ONLINE', dur:'60 min', precio:'$70.000' },
-      { n:'Plasma rico en plaquetas (PRP)', dur:'60 min', precio:'$85.000' },
-      { n:'Sueroterapia', dur:'60 min', precio:'$130.000' }
+      { id:'consulta-inicial', n:'Consulta inicial', dur:'60 min', precio:'$70.000' },
+      { id:'consulta-inicial-online', n:'Consulta inicial online', dur:'60 min', precio:'$70.000' },
+      { id:'seguimiento', n:'Encuentro de seguimiento', dur:'60 min', precio:'$70.000' },
+      { id:'seguimiento-online', n:'Encuentro de seguimiento online', dur:'60 min', precio:'$70.000' },
+      { id:'prp', n:'Plasma rico en plaquetas (PRP)', dur:'60 min', precio:'$85.000' },
+      { id:'sueroterapia', n:'Sueroterapia', dur:'60 min', precio:'$130.000' }
     ],
     nutricion: [
-      { n:'Primer encuentro · Dra. Eliana David', dur:'60 min', precio:'$70.000' },
-      { n:'Tercer encuentro · cierre del abordaje', dur:'45 min', precio:'$70.000', nota:'Requiere el primer encuentro con la Dra. Eliana David y el segundo con la Lic. Delfina Prieto.' }
+      { id:'nutricion-primer-encuentro', n:'Primer encuentro · Dra. Eliana David', dur:'60 min', precio:'$70.000' },
+      { id:'nutricion-tercer-encuentro', n:'Tercer encuentro · cierre del abordaje', dur:'45 min', precio:'$70.000', nota:'Requiere el primer encuentro con la Dra. Eliana David y el segundo con la Lic. Delfina Prieto.' }
     ]
   };
 
@@ -504,6 +504,7 @@ svg.ic{
       var b = document.createElement('button');
       b.type = 'button';
       b.className = 'op';
+      b.dataset.id = item.id;
       b.innerHTML = '<span class="op-nom">' + item.n + '</span>' +
                     '<span class="op-meta">' + item.precio + ' · ' + item.dur + '</span>';
       b.addEventListener('click', function(){
@@ -769,6 +770,14 @@ svg.ic{
      ------------------------------------------------------------------ */
   var q = new URLSearchParams(location.search);
   var areaQ = q.get('area') || q.get('pro');
+  var servQ = q.get('servicio');
+
+  // Si no viene el área pero sí la prestación, deducimos a qué área pertenece.
+  if (!areaQ && servQ) {
+    Object.keys(CATALOGO).forEach(function(a){
+      if (CATALOGO[a].some(function(i){ return i.id === servQ; })) areaQ = a;
+    });
+  }
 
   if (areaQ && CATALOGO[areaQ]) {
     var destino = pros.filter(function(p){ return p.dataset.pro === areaQ; })[0];
@@ -776,6 +785,11 @@ svg.ic{
       destino.click();
       $('#cab-sub').textContent = 'Espacio Seed · ' + (estado.area || 'Rosario');
     }
+  }
+
+  if (servQ) {
+    var elegida = $$('.op', contServicios).filter(function(o){ return o.dataset.id === servQ; })[0];
+    if (elegida) elegida.click();
   }
 
   /* Presión física del botón */
