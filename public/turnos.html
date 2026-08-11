@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     :root {
       --color-sage: #5b6c5c;
@@ -38,7 +40,6 @@
       flex-direction: column;
     }
 
-    /* Header Navegación */
     header {
       background-color: var(--color-white);
       border-bottom: 1px solid rgba(91, 108, 92, 0.15);
@@ -84,7 +85,6 @@
       opacity: 0.75;
     }
 
-    /* Layout Principal de Agendamiento */
     main {
       flex: 1;
       max-width: 1100px;
@@ -115,7 +115,6 @@
       line-height: 1.15;
     }
 
-    /* Grid de Pasos */
     .booking-grid {
       display: grid;
       grid-template-columns: 1.1fr 0.9fr;
@@ -143,10 +142,10 @@
       color: var(--color-dark);
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.55rem;
     }
 
-    .card h2 span {
+    .card h2 .step-num {
       background-color: var(--color-beige);
       color: var(--color-dark);
       width: 30px;
@@ -160,7 +159,6 @@
       font-weight: 600;
     }
 
-    /* Opciones de Servicio */
     .service-card {
       border: 1.5px solid rgba(91, 108, 92, 0.15);
       border-radius: 16px;
@@ -212,7 +210,7 @@
     .service-badge {
       display: inline-flex;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.35rem;
       font-size: 0.8rem;
       color: var(--color-sage-dark);
       background-color: rgba(91, 108, 92, 0.1);
@@ -221,7 +219,6 @@
       font-weight: 500;
     }
 
-    /* Formulario */
     .form-group {
       margin-bottom: 1.25rem;
     }
@@ -266,6 +263,10 @@
       cursor: pointer;
       transition: all 0.3s ease;
       margin-top: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
     }
 
     .btn-submit:hover {
@@ -316,7 +317,10 @@
       <span class="brand-title">Espacio Seed</span>
     </a>
 
-    <a href="/" class="btn-back">← Volver al Sitio Informativo</a>
+    <a href="/" class="btn-back">
+      <i data-lucide="arrow-left" style="width:16px; height:16px;"></i>
+      <span>Volver al Sitio Informativo</span>
+    </a>
   </header>
 
   <main>
@@ -328,7 +332,7 @@
     <div class="booking-grid">
       <!-- Paso 1: Selección de Servicio -->
       <div class="card">
-        <h2><span>1</span> Selecciona la Sesión o Clase</h2>
+        <h2><span class="step-num">1</span> Selecciona la Sesión o Clase</h2>
         <div id="services-container">
           <p style="color: #666;">Cargando servicios disponibles de Espacio Seed...</p>
         </div>
@@ -336,7 +340,7 @@
 
       <!-- Paso 2: Formulario -->
       <div class="card">
-        <h2><span>2</span> Tus Datos y Confirmación</h2>
+        <h2><span class="step-num">2</span> Tus Datos y Confirmación</h2>
         <form id="booking-form">
           <div class="form-group">
             <label for="clientName">Nombre y Apellido *</label>
@@ -363,7 +367,10 @@
             <textarea id="notes" class="form-control" rows="2" placeholder="Cualquier información adicional..."></textarea>
           </div>
 
-          <button type="submit" class="btn-submit" id="submit-btn">Agendar Turno 📅</button>
+          <button type="submit" class="btn-submit" id="submit-btn">
+            <span>Agendar Turno</span>
+            <i data-lucide="calendar-check" style="width:18px; height:18px;"></i>
+          </button>
         </form>
 
         <div id="alert-box" class="alert"></div>
@@ -378,7 +385,6 @@
   <script>
     let selectedServiceId = null;
 
-    // Cargar servicios desde la API
     async function loadServices() {
       const container = document.getElementById('services-container');
       try {
@@ -397,11 +403,15 @@
               <div class="service-price">$${svc.price.toLocaleString()}</div>
             </div>
             <div class="service-desc">${svc.description || ''}</div>
-            <div class="service-badge">⏱ ${svc.durationMinutes} min de sesión</div>
+            <div class="service-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>${svc.durationMinutes} min de sesión</span>
+            </div>
           </div>
         `).join('');
 
         selectedServiceId = data.services[0].id;
+        lucide.createIcons();
       } catch (err) {
         container.innerHTML = '<p style="color: #991b1b;">Error de comunicación con la base de datos.</p>';
       }
@@ -413,12 +423,10 @@
       selectedServiceId = id;
     }
 
-    // Configurar tiempo mínimo
     const now = new Date();
     now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
     document.getElementById('startTime').min = now.toISOString().slice(0, 16);
 
-    // Form submission
     document.getElementById('booking-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const alertBox = document.getElementById('alert-box');
@@ -469,7 +477,8 @@
         alertBox.style.display = 'block';
       } finally {
         submitBtn.disabled = false;
-        submitBtn.innerText = 'Agendar Turno 📅';
+        submitBtn.innerHTML = '<span>Agendar Turno</span><i data-lucide="calendar-check" style="width:18px; height:18px;"></i>';
+        lucide.createIcons();
       }
     });
 

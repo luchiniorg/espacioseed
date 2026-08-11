@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     :root {
       --color-sage: #5b6c5c;
@@ -40,13 +42,11 @@
       overflow-x: hidden;
     }
 
-    /* Typography Utilities */
     h1, h2, h3, .font-serif {
       font-family: var(--font-heading);
       font-weight: 500;
     }
 
-    /* Top Bar Announcement */
     .top-announcement {
       background-color: var(--color-dark);
       color: var(--color-beige);
@@ -55,9 +55,12 @@
       font-size: 0.825rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
     }
 
-    /* Navbar */
     nav {
       position: sticky;
       top: 0;
@@ -165,7 +168,6 @@
       color: var(--color-white);
     }
 
-    /* Hero Section */
     .hero {
       position: relative;
       min-height: 82vh;
@@ -207,7 +209,6 @@
       font-weight: 300;
     }
 
-    /* Section Component */
     section {
       padding: 6rem 2rem;
     }
@@ -234,7 +235,6 @@
       line-height: 1.2;
     }
 
-    /* Pilares Brand Grid */
     .pilares-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -261,21 +261,20 @@
     }
 
     .pilar-icon {
-      width: 54px;
-      height: 54px;
+      width: 58px;
+      height: 58px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 1.5rem;
-      font-size: 1.3rem;
     }
 
     .pilar-armonia {
       background-color: var(--color-dark);
       color: var(--color-cream);
     }
-    .pilar-armonia .pilar-icon { background-color: rgba(255,255,255,0.1); color: var(--color-beige); }
+    .pilar-armonia .pilar-icon { background-color: rgba(255,255,255,0.12); color: var(--color-beige); }
 
     .pilar-yoga {
       background-color: var(--color-sage);
@@ -306,7 +305,6 @@
       opacity: 0.9;
     }
 
-    /* Experiences Section */
     .experiences-wrapper {
       max-width: 1200px;
       margin: 0 auto;
@@ -363,13 +361,11 @@
       color: var(--color-dark);
     }
 
-    .feature-list li::before {
-      content: '✦';
+    .feature-icon {
       color: var(--color-sage);
-      font-size: 0.9rem;
+      flex-shrink: 0;
     }
 
-    /* CTA Section Banner */
     .cta-banner {
       background: linear-gradient(135deg, var(--color-sage) 0%, var(--color-petrol) 100%);
       color: var(--color-white);
@@ -414,7 +410,6 @@
       box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
 
-    /* Footer */
     footer {
       background-color: var(--color-dark);
       color: var(--color-cream);
@@ -463,18 +458,35 @@
     }
 
     .footer-col ul li {
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
     }
 
     .footer-col ul li a {
-      color: rgba(255,255,255,0.7);
+      color: rgba(255,255,255,0.85);
       text-decoration: none;
       font-size: 0.9rem;
       transition: color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .footer-col ul li a:hover {
       color: var(--color-blush);
+    }
+
+    .social-icon-wrapper {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-beige);
     }
 
     .footer-bottom {
@@ -493,7 +505,8 @@
 <body>
 
   <div class="top-announcement">
-    Espacio Seed — Salud, Bienestar & Equilibrio Integral
+    <i data-lucide="sparkles" style="width:16px; height:16px; stroke-width:1.75;"></i>
+    <span>Espacio Seed — Salud, Bienestar & Equilibrio Integral</span>
   </div>
 
   <nav>
@@ -513,7 +526,12 @@
       <li><a href="#experiencias">Experiencias</a></li>
       <li><a href="#filosofia">Filosofía</a></li>
       <li><a href="#contacto">Contacto</a></li>
-      <li><a href="/turnos" class="btn-primary">Reservar Turno ➔</a></li>
+      <li>
+        <a href="/turnos" class="btn-primary">
+          <span>Reservar Turno</span>
+          <i data-lucide="arrow-right" style="width:16px; height:16px; stroke-width:2;"></i>
+        </a>
+      </li>
     </ul>
   </nav>
 
@@ -524,8 +542,13 @@
       <h1>Tu espacio de paz, salud y reconexión profunda</h1>
       <p>Un ambiente diseñado minuciosamente para cuidar tu cuerpo, calmar tu mente y revitalizar tu espíritu mediante prácticas conscientes.</p>
       <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-        <a href="/turnos" class="btn-gold">Agenda tu Cita ➔</a>
-        <a href="#pilares" class="btn-outline" style="color: #fff; border-color: rgba(255,255,255,0.4);">Conoce nuestros Pilares</a>
+        <a href="/turnos" class="btn-gold">
+          <span>Agenda tu Cita</span>
+          <i data-lucide="calendar" style="width:18px; height:18px; stroke-width:2;"></i>
+        </a>
+        <a href="#pilares" class="btn-outline" style="color: #fff; border-color: rgba(255,255,255,0.4);">
+          <span>Conoce nuestros Pilares</span>
+        </a>
       </div>
     </div>
   </section>
@@ -539,25 +562,33 @@
 
     <div class="pilares-grid">
       <div class="pilar-card pilar-armonia">
-        <div class="pilar-icon">☯</div>
+        <div class="pilar-icon">
+          <i data-lucide="moon" style="width:26px; height:26px; stroke-width:1.75;"></i>
+        </div>
         <h3>Armonía</h3>
         <p>Meditación, silencio y calma mental. Espacios para liberar el estrés y reconectar con el centro interior.</p>
       </div>
 
       <div class="pilar-card pilar-yoga">
-        <div class="pilar-icon">🧘‍♀️</div>
+        <div class="pilar-icon">
+          <i data-lucide="sun" style="width:26px; height:26px; stroke-width:1.75;"></i>
+        </div>
         <h3>Yoga</h3>
         <p>Movimiento consciente, fluidez corporal y respiración para potenciar la vitalidad física y espiritual.</p>
       </div>
 
       <div class="pilar-card pilar-salud">
-        <div class="pilar-icon">🌿</div>
+        <div class="pilar-icon">
+          <i data-lucide="sprout" style="width:26px; height:26px; stroke-width:1.75;"></i>
+        </div>
         <h3>Salud</h3>
         <p>Acompañamiento holístico, osteopatía y nutrición diseñados para cuidar de ti en cada etapa.</p>
       </div>
 
       <div class="pilar-card pilar-belleza">
-        <div class="pilar-icon">✨</div>
+        <div class="pilar-icon">
+          <i data-lucide="sparkles" style="width:26px; height:26px; stroke-width:1.75;"></i>
+        </div>
         <h3>Belleza</h3>
         <p>Cosmiatría natural, masajes faciales Gua Sha y tratamientos regenerativos para hacer brillar tu piel.</p>
       </div>
@@ -573,19 +604,22 @@
 
     <div class="experiences-wrapper">
       <div class="exp-img-container">
-        <img src="/images/yoga.jpg" fill alt="Clase de Yoga en Espacio Seed">
+        <img src="/images/yoga.jpg" alt="Clase de Yoga en Espacio Seed">
       </div>
 
       <div class="exp-content">
         <h3>Yoga & Movimiento Consciente</h3>
-        <p>Impartimos clases reducidas orientadas a todos los niveles. Nuestro enfoque combina la respiración consiente (Pranayama) con alineación anatómica cuidada.</p>
+        <p>Impartimos clases reducidas orientadas a todos los niveles. Nuestro enfoque combina la respiración consciente (Pranayama) con alineación anatómica cuidada.</p>
         <ul class="feature-list">
-          <li>Hatha Yoga tradicional & Vinyasa Flow</li>
-          <li>Prácticas de Yoga Restaurativo</li>
-          <li>Grupos reducidos y atención personalizada</li>
-          <li>Mat e implementos incluidos</li>
+          <li><i data-lucide="check-circle-2" class="feature-icon" style="width:18px; height:18px;"></i> Hatha Yoga tradicional & Vinyasa Flow</li>
+          <li><i data-lucide="check-circle-2" class="feature-icon" style="width:18px; height:18px;"></i> Prácticas de Yoga Restaurativo</li>
+          <li><i data-lucide="check-circle-2" class="feature-icon" style="width:18px; height:18px;"></i> Grupos reducidos y atención personalizada</li>
+          <li><i data-lucide="check-circle-2" class="feature-icon" style="width:18px; height:18px;"></i> Mat e implementos incluidos</li>
         </ul>
-        <a href="/turnos" class="btn-primary">Ver Horarios de Clases ➔</a>
+        <a href="/turnos" class="btn-primary">
+          <span>Ver Horarios de Clases</span>
+          <i data-lucide="clock" style="width:16px; height:16px;"></i>
+        </a>
       </div>
     </div>
 
@@ -594,11 +628,14 @@
         <h3>Estética Holística & Gua Sha</h3>
         <p>Rituales de spa facial y corporal que nutren profundamente la piel utilizando botánica pura, aceites esenciales de grado terapéutico y técnicas de drenaje facial.</p>
         <ul class="feature-list">
-          <li>Masaje facial escultórico con piedras Gua Sha</li>
-          <li>Cosmiatría botánica y orgánica</li>
-          <li>Sesiones de relajación neuromuscular</li>
+          <li><i data-lucide="check-circle-2" class="feature-icon" style="width:18px; height:18px;"></i> Masaje facial escultórico con piedras Gua Sha</li>
+          <li><i data-lucide="check-circle-2" class="feature-icon" style="width:18px; height:18px;"></i> Cosmiatría botánica y orgánica</li>
+          <li><i data-lucide="check-circle-2" class="feature-icon" style="width:18px; height:18px;"></i> Sesiones de relajación neuromuscular</li>
         </ul>
-        <a href="/turnos" class="btn-primary">Reservar Tratamiento ➔</a>
+        <a href="/turnos" class="btn-primary">
+          <span>Reservar Tratamiento</span>
+          <i data-lucide="sparkles" style="width:16px; height:16px;"></i>
+        </a>
       </div>
 
       <div class="exp-img-container">
@@ -623,7 +660,10 @@
   <div class="cta-banner">
     <h2>Reserva tu espacio de desconexión</h2>
     <p>Accede a nuestro portal exclusivo de agendamiento online para elegir día y horario para tus clases o tratamientos.</p>
-    <a href="/turnos" class="btn-gold">Ir al Portal de Turnos 📅</a>
+    <a href="/turnos" class="btn-gold">
+      <span>Ir al Portal de Turnos</span>
+      <i data-lucide="calendar-range" style="width:20px; height:20px;"></i>
+    </a>
   </div>
 
   <!-- Footer -->
@@ -645,11 +685,33 @@
       </div>
 
       <div class="footer-col">
-        <h5>Contacto</h5>
+        <h5>Contacto & Redes</h5>
         <ul>
-          <li>📱 WhatsApp: <a href="https://wa.me/5493416652517" target="_blank">+54 9 341 6652517</a></li>
-          <li>📷 Instagram: <a href="https://instagram.com/espacio.seed" target="_blank">@espacio.seed</a></li>
-          <li>📍 Rosario, Santa Fe, Argentina</li>
+          <li>
+            <a href="https://wa.me/5493416652517" target="_blank">
+              <span class="social-icon-wrapper">
+                <!-- Clean WhatsApp Vector SVG -->
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1"/></svg>
+              </span>
+              <span>WhatsApp: +54 9 341 6652517</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://instagram.com/espacio.seed" target="_blank">
+              <span class="social-icon-wrapper">
+                <i data-lucide="instagram" style="width:16px; height:16px;"></i>
+              </span>
+              <span>Instagram: @espacio.seed</span>
+            </a>
+          </li>
+          <li>
+            <span style="color: rgba(255,255,255,0.85); font-size: 0.9rem; display: inline-flex; align-items: center; gap: 0.5rem;">
+              <span class="social-icon-wrapper">
+                <i data-lucide="map-pin" style="width:16px; height:16px;"></i>
+              </span>
+              <span>Rosario, Santa Fe, Argentina</span>
+            </span>
+          </li>
         </ul>
       </div>
     </div>
@@ -660,5 +722,8 @@
     </div>
   </footer>
 
+  <script>
+    lucide.createIcons();
+  </script>
 </body>
 </html>
