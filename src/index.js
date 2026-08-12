@@ -9,6 +9,12 @@ app.get('/turnos', async (c) => {
     url.pathname = '/turnos.html';
     return c.env.ASSETS.fetch(new Request(url));
 });
+// Pantalla dedicada de reserva de turnos
+app.get('/reservar', async (c) => {
+    const url = new URL(c.req.url);
+    url.pathname = '/reservar.html';
+    return c.env.ASSETS.fetch(new Request(url));
+});
 // Enable CORS for frontend requests
 app.use('/api/*', cors());
 // Healthcheck endpoint
