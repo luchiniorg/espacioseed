@@ -7,6 +7,10 @@ export const clients = sqliteTable('clients', {
   name: text('name').notNull(),
   email: text('email').notNull(),
   phone: text('phone'),
+  dni: text('dni'),
+  age: integer('age'),
+  gender: text('gender'),
+  birthdate: text('birthdate'),
   createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`).notNull(),
 });
 
