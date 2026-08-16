@@ -15,8 +15,36 @@ app.get('/reservar', async (c) => {
     url.pathname = '/reservar.html';
     return c.env.ASSETS.fetch(new Request(url));
 });
+// Panel de Administración de Clientes y Turnos
+app.get('/admin', async (c) => {
+    const url = new URL(c.req.url);
+    url.pathname = '/admin.html';
+    return c.env.ASSETS.fetch(new Request(url));
+});
 // Enable CORS for frontend requests
 app.use('/api/*', cors());
+// GET /api/clients - Obtener y buscar lista de clientes
+app.get('/api/clients', async (c) => {
+    try {
+        const db = getDb(c.env.DB);
+        const search = c.req.query('q')?.trim()?.toLowerCase() || '';
+        const allClients = await db.select().from(schema.clients);
+        let filtered = allClients;
+        if (search) {
+            filtered = allClients.filter(client => (client.name && client.name.toLowerCase().includes(search)) ||
+                (client.email && client.email.toLowerCase().includes(search)) ||
+                (client.phone && client.phone.toLowerCase().includes(search)) ||
+                (client.dni && client.dni.toLowerCase().includes(search)));
+        }
+        return c.json({
+            total: filtered.length,
+            clients: filtered.slice(0, 100), // Devuelve los primeros 100 resultados para máxima velocidad
+        });
+    }
+    catch (err) {
+        return c.json({ error: 'Error al consultar clientes', message: err?.message }, 500);
+    }
+});
 // Healthcheck endpoint
 app.get('/api/health', async (c) => {
     try {
