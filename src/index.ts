@@ -59,7 +59,7 @@ app.get('/api/clients', async (c) => {
 
     return c.json({
       total: filtered.length,
-      clients: filtered.slice(0, 100), // Devuelve los primeros 100 resultados para máxima velocidad
+      clients: filtered,
     });
   } catch (err: any) {
     return c.json({ error: 'Error al consultar clientes', message: err?.message }, 500);
