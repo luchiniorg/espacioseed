@@ -1,0 +1,1 @@
+ALTER TABLE `appointments` ADD `calcom_booking_id` text;

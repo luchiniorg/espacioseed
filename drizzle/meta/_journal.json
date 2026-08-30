@@ -15,6 +15,13 @@
       "when": 1786899747456,
       "tag": "0001_dazzling_excalibur",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1788047793287,
+      "tag": "0002_purple_butterfly",
+      "breakpoints": true
     }
   ]
 }

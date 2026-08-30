@@ -34,6 +34,7 @@ export const appointments = sqliteTable('appointments', {
         .default('scheduled'),
     notes: text('notes'),
     googleEventId: text('google_event_id'), // ID del evento en Google Calendar tras sync
+    calcomBookingId: text('calcom_booking_id'), // ID de reserva en Cal.com tras sync
     createdAt: text('created_at').default(sql `(CURRENT_TIMESTAMP)`).notNull(),
 });
 // Reglas de Disponibilidad / Agenda

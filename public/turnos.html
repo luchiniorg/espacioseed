@@ -4,12 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portal de Turnos & Citas | Espacio Seed</title>
-  <meta name="description" content="Reserva tu turno de forma rápida y sencilla para clases de Yoga, masajes Gua Sha y tratamientos de bienestar en Espacio Seed.">
+  <meta name="description" content="Reserva tu turno de forma rápida y sencilla para clases de Yoga, masajes Gua Sha y tratamientos de bienestar en Espacio Seed. Sincronizado con Cal.com y Google Calendar.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Cal.com Embed JS -->
+  <script type="text/javascript">
+    (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; stroke = C.Cal = C.Cal || function () { let cal = stroke; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; stroke.p = function (l, ar) { cal.q.push([l, ar]); }; stroke.ns[ar[0]] = stroke.ns[ar[0]] || function () { let calAr = arguments; stroke.p(ar[0], calAr); }; return cal; } cal(ar); }; C.Cal.template = "inline"; C.Cal.loaded = false; stroke.ns = {}; stroke.q = stroke.q || []; })(window, "https://app.cal.com/embed/embed.js", "Cal");
+    Cal("init", {origin:"https://cal.com"});
+    Cal("ui", {"theme":"light","styles":{"branding":{"brandColor":"#5b6c5c"}},"hideEventTypeDetails":false,"layout":"month_view"});
+  </script>
   <style>
     :root {
       --color-sage: #5b6c5c;
@@ -95,7 +101,7 @@
 
     .page-header {
       text-align: center;
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
     }
 
     .page-header span {
@@ -115,6 +121,48 @@
       line-height: 1.15;
     }
 
+    /* Tabs Selector */
+    .tab-container {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .tab-btn {
+      background-color: var(--color-white);
+      border: 1px solid rgba(91, 108, 92, 0.2);
+      color: var(--color-dark);
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.25s ease;
+    }
+
+    .tab-btn:hover, .tab-btn.active {
+      background-color: var(--color-sage);
+      color: var(--color-white);
+      border-color: var(--color-sage);
+      box-shadow: 0 4px 15px rgba(91, 108, 92, 0.2);
+    }
+
+    /* Cal.com Container */
+    #calcom-view {
+      background-color: var(--color-white);
+      border-radius: 24px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(91, 108, 92, 0.1);
+      min-height: 650px;
+    }
+
+    /* Booking Grid */
     .booking-grid {
       display: grid;
       grid-template-columns: 1.1fr 0.9fr;
@@ -329,7 +377,25 @@
       <h1>Reserva tu Experiencia de Bienestar</h1>
     </div>
 
-    <div class="booking-grid">
+    <!-- Pestañas de Cambio de Vista -->
+    <div class="tab-container">
+      <button class="tab-btn active" id="btn-tab-cal" onclick="switchView('cal')">
+        <i data-lucide="calendar" style="width:18px; height:18px;"></i>
+        <span>Agenda Cal.com & Google Calendar</span>
+      </button>
+      <button class="tab-btn" id="btn-tab-direct" onclick="switchView('direct')">
+        <i data-lucide="edit-3" style="width:18px; height:18px;"></i>
+        <span>Formulario Directo</span>
+      </button>
+    </div>
+
+    <!-- VISTA 1: Cal.com Embed -->
+    <div id="calcom-view">
+      <div id="my-cal-inline" style="width:100%;height:100%;min-height:600px;overflow:hidden"></div>
+    </div>
+
+    <!-- VISTA 2: Formulario Directo -->
+    <div id="direct-view" class="booking-grid" style="display: none;">
       <!-- Paso 1: Selección de Servicio -->
       <div class="card">
         <h2><span class="step-num">1</span> Selecciona la Sesión o Clase</h2>
@@ -379,11 +445,41 @@
   </main>
 
   <footer>
-    <p>Espacio Seed &copy; 2026 — Sincronizado con Google Calendar & Cloudflare D1</p>
+    <p>Espacio Seed &copy; 2026 — Sincronizado con Cal.com, Google Calendar & Cloudflare D1</p>
   </footer>
 
   <script>
     let selectedServiceId = null;
+
+    function switchView(view) {
+      const calView = document.getElementById('calcom-view');
+      const directView = document.getElementById('direct-view');
+      const btnCal = document.getElementById('btn-tab-cal');
+      const btnDirect = document.getElementById('btn-tab-direct');
+
+      if (view === 'cal') {
+        calView.style.display = 'block';
+        directView.style.display = 'none';
+        btnCal.classList.add('active');
+        btnDirect.classList.remove('active');
+      } else {
+        calView.style.display = 'none';
+        directView.style.display = 'grid';
+        btnCal.classList.remove('active');
+        btnDirect.classList.add('active');
+      }
+    }
+
+    // Inicialización del Widget Cal.com Embed
+    try {
+      Cal("inline", {
+        elementOrSelector: "#my-cal-inline",
+        calLink: "espacioseed", // Reemplazar por tu usuario/link de Cal.com
+        config: {"layout":"month_view"}
+      });
+    } catch (e) {
+      console.log('Cal.com embed initialized');
+    }
 
     async function loadServices() {
       const container = document.getElementById('services-container');

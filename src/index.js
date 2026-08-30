@@ -203,4 +203,91 @@ app.get('/api/auth/google/url', (c) => {
     const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scope}&access_type=offline&prompt=consent`;
     return c.json({ url: authUrl });
 });
+// POST /api/webhooks/cal - Webhook para recibir reservas automáticas desde Cal.com
+app.post('/api/webhooks/cal', async (c) => {
+    try {
+        const db = getDb(c.env.DB);
+        const body = await c.req.json();
+        const event = body.triggerEvent || body.event || 'BOOKING_CREATED';
+        const payload = body.payload || body;
+        const bookingId = String(payload.uid || payload.id || '');
+        if (!bookingId) {
+            return c.json({ status: 'ignored', message: 'No booking ID found' }, 200);
+        }
+        // 1. Extraer datos del asistente / cliente
+        const attendee = payload.attendees?.[0] || {};
+        const clientName = (attendee.name || payload.responses?.name?.value || payload.responses?.name || 'Cliente Cal.com').trim();
+        const clientEmail = (attendee.email || payload.responses?.email?.value || payload.responses?.email || '').trim().toLowerCase();
+        const clientPhone = (attendee.phoneNumber || payload.responses?.location?.value || payload.responses?.phone || '').trim();
+        const notes = payload.description || payload.responses?.notes?.value || '';
+        if (!clientEmail) {
+            return c.json({ status: 'ignored', message: 'No client email provided' }, 200);
+        }
+        // 2. Buscar o crear cliente en D1
+        let [client] = await db.select().from(schema.clients).where(eq(schema.clients.email, clientEmail));
+        if (!client) {
+            [client] = await db
+                .insert(schema.clients)
+                .values({
+                name: clientName,
+                email: clientEmail,
+                phone: clientPhone || null,
+            })
+                .returning();
+        }
+        // 3. Buscar servicio coincidente o usar el primero activo
+        const serviceTitle = payload.type || payload.title || '';
+        const allServices = await db.select().from(schema.services).where(eq(schema.services.active, true));
+        let service = allServices.find(s => s.name.toLowerCase().includes(serviceTitle.toLowerCase()) || serviceTitle.toLowerCase().includes(s.name.toLowerCase())) || allServices[0];
+        if (!service) {
+            [service] = await db.insert(schema.services).values({
+                name: serviceTitle || 'Consulta Espacio Seed',
+                description: 'Servicio agendado vía Cal.com',
+                durationMinutes: 60,
+                price: 0,
+                active: true
+            }).returning();
+        }
+        // 4. Manejar cancelación
+        if (event === 'BOOKING_CANCELLED') {
+            const [existingAppointment] = await db.select().from(schema.appointments).where(eq(schema.appointments.calcomBookingId, bookingId));
+            if (existingAppointment) {
+                await db.update(schema.appointments)
+                    .set({ status: 'cancelled' })
+                    .where(eq(schema.appointments.id, existingAppointment.id));
+            }
+            return c.json({ status: 'cancelled', bookingId }, 200);
+        }
+        // 5. Manejar creación o reprogramación
+        const startTime = payload.startTime ? new Date(payload.startTime).toISOString() : new Date().toISOString();
+        const endTime = payload.endTime ? new Date(payload.endTime).toISOString() : new Date(new Date(startTime).getTime() + (service.durationMinutes * 60 * 1000)).toISOString();
+        const [existingAppointment] = await db.select().from(schema.appointments).where(eq(schema.appointments.calcomBookingId, bookingId));
+        if (existingAppointment) {
+            await db.update(schema.appointments)
+                .set({
+                startTime,
+                endTime,
+                status: 'confirmed',
+                notes: notes || existingAppointment.notes,
+            })
+                .where(eq(schema.appointments.id, existingAppointment.id));
+            return c.json({ status: 'updated', bookingId }, 200);
+        }
+        else {
+            await db.insert(schema.appointments).values({
+                clientId: client.id,
+                serviceId: service.id,
+                startTime,
+                endTime,
+                status: 'confirmed',
+                notes: notes || '',
+                calcomBookingId: bookingId,
+            });
+            return c.json({ status: 'created', bookingId }, 200);
+        }
+    }
+    catch (err) {
+        return c.json({ error: 'Webhook processing error', details: err?.message }, 500);
+    }
+});
 export default app;
