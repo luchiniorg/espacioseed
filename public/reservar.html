@@ -355,17 +355,22 @@ svg.ic{
 
   <!-- ================= PASO 2 ================= -->
   <section class="paso" id="paso-2">
-    <h2>¿Qué día te queda cómodo?</h2>
-    <p class="bajada">Elegí una fecha y una franja. Confirmamos el horario exacto por WhatsApp.</p>
+    <h2 id="paso-2-titulo">¿Qué día te queda cómodo?</h2>
+    <p class="bajada" id="paso-2-bajada">Elegí una fecha y una franja. Confirmamos el horario exacto por WhatsApp.</p>
 
-    <div class="dias" id="dias"></div>
+    <!-- Contenedor dinámico Cal.com para Dra. Eliana David -->
+    <div id="calcom-paso2" style="display:none; width:100%; margin-top:1rem;"></div>
 
-    <span class="rotulo">Horarios</span>
-    <div class="horarios" id="horarios"></div>
+    <div id="estatico-paso2">
+      <div class="dias" id="dias"></div>
 
-    <div class="aviso">
-      <svg class="ic" aria-hidden="true"><use href="#i-circle-alert"/></svg>
-      <div>Estos son los horarios habituales del consultorio. Todavía no mostramos la agenda en vivo: al enviar el pedido lo confirmamos con el equipo y te avisamos el mismo día.</div>
+      <span class="rotulo">Horarios</span>
+      <div class="horarios" id="horarios"></div>
+
+      <div class="aviso">
+        <svg class="ic" aria-hidden="true"><use href="#i-circle-alert"/></svg>
+        <div>Estos son los horarios habituales del consultorio. Todavía no mostramos la agenda en vivo: al enviar el pedido lo confirmamos con el equipo y te avisamos el mismo día.</div>
+      </div>
     </div>
   </section>
 
@@ -467,18 +472,18 @@ svg.ic{
       { id:'piel-primer-encuentro', n:'Abordaje piel · Primer encuentro', dur:'60 min', precio:'$50.000' },
       { id:'piel-cosmetologico', n:'Abordaje piel · Tratamiento cosmetológico', dur:'60 min', precio:'$50.000' },
       { id:'piel-medico', n:'Abordaje piel · Tratamiento médico', dur:'60 min', precio:'$85.000' },
-      { id:'suero-facial', n:'Sueroterapia + tratamiento facial', dur:'60 min', precio:'$150.000' }
+      { id:'suero-facial', n:'Sueroterapia + tratamiento facial', dur:'60 min', precio:'$150.000', calSlug:'elidavid/sueroterapia' }
     ],
     integrativa: [
-      { id:'consulta-inicial', n:'Consulta inicial', dur:'60 min', precio:'$70.000' },
-      { id:'consulta-inicial-online', n:'Consulta inicial online', dur:'60 min', precio:'$70.000' },
-      { id:'seguimiento', n:'Encuentro de seguimiento', dur:'60 min', precio:'$70.000' },
-      { id:'seguimiento-online', n:'Encuentro de seguimiento online', dur:'60 min', precio:'$70.000' },
-      { id:'prp', n:'Plasma rico en plaquetas (PRP)', dur:'60 min', precio:'$85.000' },
-      { id:'sueroterapia', n:'Sueroterapia', dur:'60 min', precio:'$130.000' }
+      { id:'consulta-inicial', n:'Consulta inicial', dur:'60 min', precio:'$70.000', calSlug:'elidavid/inicial' },
+      { id:'consulta-inicial-online', n:'Consulta inicial online', dur:'60 min', precio:'$70.000', calSlug:'elidavid/inicialonline' },
+      { id:'seguimiento', n:'Encuentro de seguimiento', dur:'60 min', precio:'$70.000', calSlug:'elidavid/encuentroseguimiento' },
+      { id:'seguimiento-online', n:'Encuentro de seguimiento online', dur:'60 min', precio:'$70.000', calSlug:'elidavid/encuentro-de-seguimiento-online' },
+      { id:'prp', n:'Plasma rico en plaquetas (PRP)', dur:'60 min', precio:'$85.000', calSlug:'elidavid/plasma-rico-en-plaquetas-prp' },
+      { id:'sueroterapia', n:'Sueroterapia', dur:'60 min', precio:'$130.000', calSlug:'elidavid/sueroterapia' }
     ],
     nutricion: [
-      { id:'nutricion-primer-encuentro', n:'Primer encuentro · Dra. Eliana David', dur:'60 min', precio:'$70.000' },
+      { id:'nutricion-primer-encuentro', n:'Primer encuentro · Dra. Eliana David', dur:'60 min', precio:'$70.000', calSlug:'elidavid/inicial' },
       { id:'nutricion-tercer-encuentro', n:'Tercer encuentro · cierre del abordaje', dur:'45 min', precio:'$70.000', nota:'Requiere el primer encuentro con la Dra. Eliana David y el segundo con la Lic. en Nutrición.' }
     ]
   };
@@ -488,7 +493,7 @@ svg.ic{
     sabado: ['09:00','10:00','11:00','12:00']
   };
 
-  var estado = { pro:null, area:null, servicio:null, precio:null, duracion:null, fecha:null, hora:null, paso:1 };
+  var estado = { pro:null, area:null, servicio:null, precio:null, duracion:null, calSlug:null, fecha:null, hora:null, paso:1 };
 
   /* ------------------------------------------------------------------
      PASO 1 · PROFESIONAL Y SERVICIO
@@ -513,6 +518,7 @@ svg.ic{
         estado.servicio = item.n;
         estado.precio = item.precio;
         estado.duracion = item.dur;
+        estado.calSlug = item.calSlug || null;
         $('#op-nota').textContent = item.nota || '';
         $('#op-nota').style.display = item.nota ? 'block' : 'none';
         revisar();
@@ -677,6 +683,23 @@ svg.ic{
       wa.innerHTML = '<svg class="ic" aria-hidden="true"><use href="#i-whatsapp"/></svg> Abrir el chat de WhatsApp';
       notaPie.textContent = 'Guardá este pedido. Te escribimos al celular que dejaste.';
       return;
+    }
+
+    if (n === 2) {
+      var calBox = $('#calcom-paso2');
+      var estBox = $('#estatico-paso2');
+      if (estado.calSlug) {
+        estBox.style.display = 'none';
+        calBox.style.display = 'block';
+        $('#paso-2-titulo').textContent = 'Agenda en vivo · Dra. Eliana David';
+        $('#paso-2-bajada').textContent = 'Seleccioná la fecha y horario directamente en la agenda oficial de la Dra. Eliana David.';
+        calBox.innerHTML = '<iframe src="https://cal.com/' + estado.calSlug + '?embed=true&theme=light" style="width:100%; height:750px; border:none; border-radius:16px;" loading="lazy"></iframe>';
+      } else {
+        calBox.style.display = 'none';
+        estBox.style.display = 'block';
+        $('#paso-2-titulo').textContent = '¿Qué día te queda cómodo?';
+        $('#paso-2-bajada').textContent = 'Elegí una fecha y una franja. Confirmamos el horario exacto por WhatsApp.';
+      }
     }
 
     estado.paso = n;
