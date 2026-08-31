@@ -57,18 +57,10 @@ svg.ic{
 .cab-tit{font-family:var(--serif);font-size:19px;color:#FDFBF8;line-height:1}
 .cab-sub{font-size:12px;color:var(--salvia);margin-top:3px}
 
-/* --- Barra de progreso --- */
-.progreso{padding:18px 20px 0;max-width:620px;margin:0 auto;width:100%}
-.pasos{display:flex;gap:8px}
-.pasos i{
-  flex:1;height:3px;border-radius:99px;background:rgba(253,251,248,.2);
-  transition:background .45s var(--ease);
-}
-.pasos i.on{background:var(--arena)}
-.paso-txt{font-size:12px;color:var(--salvia);margin-top:10px}
-
 /* --- Contenedor de pasos --- */
-.escena{max-width:620px;margin:0 auto;padding:22px 20px 140px;width:100%}
+.escena,.progreso{max-width:620px;margin:0 auto;width:100%;transition:max-width .35s var(--ease)}
+.escena.ancho-cal,.progreso.ancho-cal{max-width:980px}
+.escena{padding:22px 20px 140px}
 .paso{display:none}
 .paso.activo{display:block}
 .paso h2{font-size:26px;color:#FDFBF8;margin-bottom:6px;text-wrap:balance}
@@ -688,18 +680,29 @@ svg.ic{
     if (n === 2) {
       var calBox = $('#calcom-paso2');
       var estBox = $('#estatico-paso2');
+      var escena = $('.escena');
+      var progreso = $('.progreso');
       if (estado.calSlug) {
+        if (escena) escena.classList.add('ancho-cal');
+        if (progreso) progreso.classList.add('ancho-cal');
         estBox.style.display = 'none';
         calBox.style.display = 'block';
         $('#paso-2-titulo').textContent = 'Agenda en vivo · Dra. Eliana David';
         $('#paso-2-bajada').textContent = 'Seleccioná la fecha y horario directamente en la agenda oficial de la Dra. Eliana David.';
-        calBox.innerHTML = '<iframe src="https://cal.com/' + estado.calSlug + '?embed=true&theme=light" style="width:100%; height:750px; border:none; border-radius:16px;" loading="lazy"></iframe>';
+        calBox.innerHTML = '<iframe src="https://cal.com/' + estado.calSlug + '?embed=true&theme=light" style="width:100%; height:800px; border:none; border-radius:20px; background:#ffffff; box-shadow:0 12px 35px rgba(0,0,0,0.25);" loading="lazy"></iframe>';
       } else {
+        if (escena) escena.classList.remove('ancho-cal');
+        if (progreso) progreso.classList.remove('ancho-cal');
         calBox.style.display = 'none';
         estBox.style.display = 'block';
         $('#paso-2-titulo').textContent = '¿Qué día te queda cómodo?';
         $('#paso-2-bajada').textContent = 'Elegí una fecha y una franja. Confirmamos el horario exacto por WhatsApp.';
       }
+    } else {
+      var escena = $('.escena');
+      var progreso = $('.progreso');
+      if (escena) escena.classList.remove('ancho-cal');
+      if (progreso) progreso.classList.remove('ancho-cal');
     }
 
     estado.paso = n;
