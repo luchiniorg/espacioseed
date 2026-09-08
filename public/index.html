@@ -1957,12 +1957,33 @@ svg.ic{
      11 · CATÁLOGO DE PRODUCTOS & CARRITO A WHATSAPP (ELI: +54 9 3434 63-5359)
      ------------------------------------------------------------------ */
   var PRODUCTOS = [
-    { id:'p1', cat:'suplementos', catLabel:'Suplementación', n:'Magnesio Quelado + Zinc', desc:'Fórmula alta biodisponibilidad para descanso profundo, salud muscular y metabólica.', precio:24000 },
-    { id:'p2', cat:'suplementos', catLabel:'Suplementación', n:'Colágeno Hidrolizado + Vit C', desc:'Favorece la firmeza cutánea, fortalece articulaciones y tejidos de sostén.', precio:32000 },
-    { id:'p3', cat:'dermocosmetica', catLabel:'Dermocosmética', n:'Serum Antioxidante Vitamina C', desc:'Ilumina la piel, neutraliza radicales libres y unifica el tono facial.', precio:28000 },
-    { id:'p4', cat:'dermocosmetica', catLabel:'Dermocosmética', n:'Bruma Botánica Calmante', desc:'Hidratación inmediata y acción antiinflamatoria para pieles sensibles.', precio:18000 },
-    { id:'p5', cat:'dermocosmetica', catLabel:'Dermocosmética', n:'Protector Solar Mineral FPS 50+', desc:'Filtros físicos fotoestables de amplio espectro sin químicos sintéticos.', precio:26000 },
-    { id:'p6', cat:'bienestar', catLabel:'Bienestar', n:'Gua Sha Cuarzo Rosa', desc:'Piedra natural para automasaje facial, drenaje linfático y esculpido.', precio:22000 }
+    // Aceites Simple (CBD & Bienestar)
+    { id:'p-gold-line', cat:'bienestar', catLabel:'CBD & Bienestar', n:'Aceite Golden Line (Ratio 1:1 Full Spectrum)', desc:'Aceite de CBD Full Spectrum Simple. Equilibrio y bienestar integral.', precio:35000 },
+    { id:'p-platinum-line', cat:'bienestar', catLabel:'CBD & Bienestar', n:'Aceite Platinum Line (Aislado 100% CBD)', desc:'Fórmula aislada de CBD puro de alta concentración.', precio:38000 },
+    { id:'p-pet-line', cat:'bienestar', catLabel:'CBD & Mascotas', n:'Aceite Pet Line (CBD para Mascotas)', desc:'Formulación especial de CBD para el bienestar y calma de mascotas.', precio:28000 },
+
+    // Nutrición & Suplementos
+    { id:'p-best-coco', cat:'suplementos', catLabel:'Nutrición Proteica', n:'Barra Proteica B3ST! Coco (bnb brands)', desc:'Barra proteica nutricional 20g proteína sabor Coco.', precio:4500, img:'/images/barra-bestcoco.png' },
+    { id:'p-best-caramel', cat:'suplementos', catLabel:'Nutrición Proteica', n:'Barra Proteica B3ST! Salted Caramel (bnb brands)', desc:'Barra proteica nutricional 20g proteína sabor Salted Caramel.', precio:4500, img:'/images/barra-bestcaramel.png' },
+    { id:'p-omega3-max', cat:'suplementos', catLabel:'Suplementación', n:'Pack x 2 Omega 3 Max (1000 EPA / 500 DHA)', desc:'Certificación IFOS. Alta pureza y concentración de ácidos grasos esenciales.', precio:42000 },
+    { id:'p-yerba-gran-comision', cat:'suplementos', catLabel:'Bienestar', n:'Yerba La Gran Comisión x 500gr', desc:'Yerba mate natural de calidad superior y estacionamiento natural.', precio:3800 },
+
+    // Línea Cosmética (The Glow Factor)
+    { id:'p-rose-toner', cat:'dermocosmetica', catLabel:'The Glow Factor', n:'Rosé Toner', desc:'Tónico facial equilibrante e hidratante con extractos botánicos.', precio:22000 },
+    { id:'p-c-bright-oil', cat:'dermocosmetica', catLabel:'The Glow Factor', n:'C Bright Oil', desc:'Aceite facial iluminador y antioxidante con Vitamina C.', precio:34000 },
+    { id:'p-c-peptidos', cat:'dermocosmetica', catLabel:'The Glow Factor', n:'C Péptidos', desc:'Tratamiento regenerador con péptidos y complejo revitalizante.', precio:36000 },
+    { id:'p-radiant-eyes', cat:'dermocosmetica', catLabel:'The Glow Factor', n:'Radiant Eyes', desc:'Contorno de ojos iluminador para ojeras y signos de fatiga.', precio:29000 },
+    { id:'p-aqua-blu', cat:'dermocosmetica', catLabel:'The Glow Factor', n:'Aqua Blu', desc:'Concentrado hidratante intensivo con complejo de ácido hialurónico.', precio:31000 },
+    { id:'p-tremella-barriere', cat:'dermocosmetica', catLabel:'The Glow Factor', n:'Tremella Barrière', desc:'Fortalecedor de la barrera cutánea con extracto de hongo Tremella.', precio:38000 },
+    { id:'p-youthful-eyes', cat:'dermocosmetica', catLabel:'The Glow Factor', n:'Youthful Eyes', desc:'Sérum tensor para líneas de expresión y contorno de ojos.', precio:32000 },
+    { id:'p-c-ferulic-booster', cat:'dermocosmetica', catLabel:'The Glow Factor', n:'C Ferulic Booster', desc:'Potente booster antioxidante con Vitamina C y Ácido Ferúlico.', precio:39000 },
+    { id:'p-youth-booster', cat:'dermocosmetica', catLabel:'The Glow Factor', n:'Youth Booster', desc:'Concentrado antiedad intensivo para firmeza y densidad.', precio:41000 },
+    { id:'p-huile-balayage', cat:'dermocosmetica', catLabel:'The Glow Factor', n:'Huile de Balayage', desc:'Aceite nutritivo y reparador para rostro y escote.', precio:33000 },
+    { id:'p-emeral-cbd', cat:'dermocosmetica', catLabel:'The Glow Factor', n:'Émeral C.B.D.', desc:'Elixir facial calmante enriquecido con CBD natural y fito-nutrientes.', precio:45000 },
+    { id:'p-sun-drops', cat:'dermocosmetica', catLabel:'The Glow Factor', n:'Sun Drops', desc:'Gotas protectoras solares faciales ligeras de amplio espectro.', precio:30000 },
+    { id:'p-lips-hydrater', cat:'dermocosmetica', catLabel:'The Glow Factor', n:'Lips Hydrater', desc:'Bálsamo ultra-nutritivo y reparador de labios.', precio:15000 },
+    { id:'p-exfoliate-renew', cat:'dermocosmetica', catLabel:'The Glow Factor', n:'Exfoliate and Renew', desc:'Tratamiento renovador celular y exfoliante suave.', precio:27000 },
+    { id:'p-mains-hydrate', cat:'dermocosmetica', catLabel:'The Glow Factor', n:'Mains Hydrate', desc:'Crema de manos de hidratación profunda e intensiva.', precio:16000 }
   ];
 
   var carrito = {};
@@ -1975,8 +1996,10 @@ svg.ic{
     var lista = catActual === 'todos' ? PRODUCTOS : PRODUCTOS.filter(function(p){ return p.cat === catActual; });
 
     grid.innerHTML = lista.map(function(p){
+      var imgHtml = p.img ? '<div style="height:140px; margin:-18px -18px 12px; overflow:hidden; border-top-left-radius:var(--r-card); border-top-right-radius:var(--r-card); background:#f4eee8; display:flex; align-items:center; justify-content:center;"><img src="' + p.img + '" alt="' + p.n + '" style="max-height:100%; object-fit:contain;"></div>' : '';
       return '<div class="prod-card">' +
         '<div>' +
+          imgHtml +
           '<span class="prod-badge">' + p.catLabel + '</span>' +
           '<h3 class="prod-tit">' + p.n + '</h3>' +
           '<p class="prod-desc">' + p.desc + '</p>' +
