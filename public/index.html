@@ -1198,7 +1198,7 @@ svg.ic{
       <button class="prod-chip" onclick="filtrarProd('bienestar', this)">Bienestar</button>
     </div>
 
-    <div class="prod-grid" id="grid-productos" data-reveal>
+    <div class="prod-grid" id="grid-productos">
       <!-- Cargado por JS -->
     </div>
   </div>
@@ -2132,6 +2132,8 @@ svg.ic{
   }
 
   renderProductos();
+  document.addEventListener('DOMContentLoaded', renderProductos);
+  window.addEventListener('load', renderProductos);
 })();
 </script>
 </body>
