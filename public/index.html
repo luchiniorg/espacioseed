@@ -798,6 +798,51 @@ svg.ic{
   section{padding:120px 0}
 }
 
+/* --- Sección Productos & Catálogo --- */
+.prod-filtros{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:24px;scrollbar-width:none;-ms-overflow-style:none}
+.prod-filtros::-webkit-scrollbar{display:none}
+.prod-chip{flex:none;padding:8px 16px;border-radius:999px;background:var(--lino);border:1px solid rgba(46,59,51,.12);font-size:13px;font-weight:500;color:var(--tinta-media);cursor:pointer;transition:all .2s var(--ease)}
+.prod-chip.on,.prod-chip:hover{background:var(--verde);color:var(--lino);border-color:var(--verde)}
+
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.prod-card{background:#FDFBF8;border:1px solid rgba(46,59,51,.1);border-radius:var(--r-card);padding:18px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+.prod-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(46,59,51,.08)}
+.prod-badge{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--terracota);margin-bottom:6px}
+.prod-tit{font-family:var(--serif);font-size:19px;color:var(--tinta);line-height:1.25;margin-bottom:6px}
+.prod-desc{font-size:13px;color:var(--tinta-suave);margin-bottom:16px;line-height:1.45}
+.prod-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:12px;border-top:1px solid rgba(46,59,51,.06)}
+.prod-precio{font-weight:700;font-size:17px;color:var(--verde)}
+.btn-add-cart{padding:8px 14px;border-radius:999px;background:var(--arena-clara);color:var(--terracota);font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:5px;transition:all .2s var(--ease)}
+.btn-add-cart:hover,.btn-add-cart:active{background:var(--arena);color:#fff}
+
+/* --- Barra Flotante del Carrito --- */
+.cart-bar{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);z-index:85;width:calc(100% - 40px);max-width:480px;background:var(--verde);color:var(--lino);border-radius:999px;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 12px 35px rgba(46,59,51,.35);opacity:0;pointer-events:none;transition:transform .35s var(--spring),opacity .3s var(--ease)}
+.cart-bar.on{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:auto}
+.cart-bar-info{display:flex;align-items:center;gap:12px}
+.cart-count-badge{background:var(--arena);color:var(--verde);font-weight:700;font-size:13px;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.cart-bar-monto{font-weight:600;font-size:15px}
+.btn-ver-cart{background:var(--arena);color:var(--verde);font-weight:600;font-size:13.5px;padding:8px 16px;border-radius:999px;display:inline-flex;align-items:center;gap:6px;transition:transform .18s var(--ease)}
+.btn-ver-cart:active{transform:scale(.95)}
+
+/* --- Modal Carrito Slide-Up --- */
+.cart-modal-backdrop{position:fixed;inset:0;z-index:95;background:rgba(35,41,37,.6);opacity:0;pointer-events:none;transition:opacity .3s var(--ease);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.cart-modal-backdrop.on{opacity:1;pointer-events:auto}
+.cart-modal{position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);z-index:100;width:100%;max-width:540px;background:var(--lino);border-top-left-radius:28px;border-top-right-radius:28px;padding:24px 20px 32px;max-height:85vh;display:flex;flex-direction:column;transition:transform .38s var(--spring);box-shadow:0 -10px 40px rgba(0,0,0,.25)}
+.cart-modal.on{transform:translateX(-50%) translateY(0)}
+.cart-modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid rgba(46,59,51,.1)}
+.cart-modal-tit{font-family:var(--serif);font-size:22px;color:var(--verde)}
+.cart-items-list{overflow-y:auto;max-height:320px;display:flex;flex-direction:column;gap:12px;margin-bottom:20px;padding-right:4px}
+.cart-item{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#FDFBF8;padding:12px 14px;border-radius:14px;border:1px solid rgba(46,59,51,.08)}
+.cart-item-nom{font-size:14px;font-weight:600;color:var(--tinta)}
+.cart-item-precio{font-size:13px;color:var(--tinta-suave)}
+.cart-controls{display:flex;align-items:center;gap:8px}
+.btn-qty{width:28px;height:28px;border-radius:50%;background:var(--arena-clara);color:var(--tinta);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:15px;border:0;cursor:pointer}
+.cart-qty{font-weight:600;font-size:14px;min-width:20px;text-align:center}
+.cart-total-box{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;padding-top:12px;border-top:1.5px solid rgba(46,59,51,.12);font-size:17px;font-weight:700;color:var(--verde)}
+.cart-input{width:100%;padding:12px 16px;border-radius:12px;border:1px solid rgba(46,59,51,.2);background:#FDFBF8;font-family:inherit;font-size:14px;margin-bottom:16px;outline:none}
+.cart-input:focus{border-color:var(--verde)}
+.btn-send-wa{width:100%;padding:16px;border-radius:999px;background:var(--wa);color:#ffffff;font-weight:600;font-size:15.5px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 8px 25px rgba(37,211,102,.3);text-decoration:none}
+
 /* ============================================================
    ACCESIBILIDAD
    ============================================================ */
@@ -854,6 +899,10 @@ svg.ic{
 <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="2.5" y="2.5" width="19" height="19" rx="5.4"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></symbol>
 <symbol id="i-estrella-llena" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M11.05 3.1a1.06 1.06 0 0 1 1.9 0l2.2 4.46 4.92.72c.86.12 1.2 1.18.58 1.79l-3.56 3.47.84 4.9c.15.86-.75 1.51-1.52 1.1L12 17.23l-4.4 2.31c-.77.41-1.67-.24-1.52-1.1l.84-4.9-3.56-3.47c-.62-.61-.28-1.67.58-1.79l4.92-.72z"/></symbol>
 <symbol id="i-comillas" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M9.6 5.2c-3.5 1.5-5.6 4.4-5.6 8.1 0 3.3 1.9 5.5 4.6 5.5 2.3 0 4-1.7 4-3.9 0-2.1-1.5-3.7-3.5-3.7-.4 0-.8.1-1 .2.4-1.7 1.7-3.2 3.4-4.1zm10 0c-3.5 1.5-5.6 4.4-5.6 8.1 0 3.3 1.9 5.5 4.6 5.5 2.3 0 4-1.7 4-3.9 0-2.1-1.5-3.7-3.5-3.7-.4 0-.8.1-1 .2.4-1.7 1.7-3.2 3.4-4.1z"/></symbol>
+<symbol id="i-shopping-bag" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+<symbol id="i-trash-2" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
 </defs></svg>
 
 
@@ -1132,6 +1181,67 @@ svg.ic{
     <p class="aviso-precios" data-reveal>Valores en pesos argentinos, sujetos a actualización. Todos los encuentros son con turno previo.</p>
   </div>
 </section>
+
+<!-- ========================= PRODUCTOS & CATÁLOGO ========================= -->
+<section class="sec-arena" id="productos">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="kicker">Productos & Suplementación</span>
+      <h2>Potenciá tu bienestar desde adentro y desde afuera.</h2>
+      <p>Selección de suplementos integrativos, dermocosmética limpia y herramientas de cuidado personal.</p>
+    </div>
+
+    <div class="prod-filtros" data-reveal>
+      <button class="prod-chip on" onclick="filtrarProd('todos', this)">Todos</button>
+      <button class="prod-chip" onclick="filtrarProd('suplementos', this)">Suplementación</button>
+      <button class="prod-chip" onclick="filtrarProd('dermocosmetica', this)">Dermocosmética</button>
+      <button class="prod-chip" onclick="filtrarProd('bienestar', this)">Bienestar</button>
+    </div>
+
+    <div class="prod-grid" id="grid-productos" data-reveal>
+      <!-- Cargado por JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ========================= CARRITO DE COMPRAS ========================= -->
+<div class="cart-bar" id="cart-bar">
+  <div class="cart-bar-info">
+    <div class="cart-count-badge" id="cart-count">0</div>
+    <div class="cart-bar-monto" id="cart-total-bar">$0</div>
+  </div>
+  <button class="btn-ver-cart" onclick="toggleCartModal(true)">
+    <span>Ver pedido</span>
+    <svg class="ic" aria-hidden="true"><use href="#i-shopping-bag"/></svg>
+  </button>
+</div>
+
+<div class="cart-modal-backdrop" id="cart-backdrop" onclick="toggleCartModal(false)"></div>
+<div class="cart-modal" id="cart-modal" aria-label="Tu pedido" role="dialog">
+  <div class="cart-modal-head">
+    <h3 class="cart-modal-tit">Tu Pedido</h3>
+    <button onclick="toggleCartModal(false)" style="color:var(--tinta-suave); padding:4px;" aria-label="Cerrar">
+      <svg class="ic" aria-hidden="true"><use href="#i-x"/></svg>
+    </button>
+  </div>
+
+  <div class="cart-items-list" id="cart-items-list">
+    <!-- Cargado por JS -->
+  </div>
+
+  <div class="cart-total-box">
+    <span>Total</span>
+    <span id="cart-modal-total">$0</span>
+  </div>
+
+  <input type="text" id="cart-client-name" class="cart-input" placeholder="Tu nombre y apellido (opcional)">
+
+  <a href="#" id="btn-send-wa-cart" class="btn-send-wa" target="_blank" rel="noopener">
+    <svg class="ic" style="width:22px; height:22px; fill:currentColor;" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+    Enviar pedido por WhatsApp (Eli)
+  </a>
+</div>
+
 <!-- ========================= EQUIPO ========================= -->
 <section class="sec-lino" id="equipo">
   <div class="wrap">
@@ -1508,6 +1618,7 @@ svg.ic{
 <nav class="hoja" id="hoja" aria-label="Menú" aria-hidden="true">
   <div class="hoja-agarre"></div>
   <a href="#servicios"><svg class="ic" aria-hidden="true"><use href="#i-sparkles"/></svg>Servicios<svg class="ic flecha" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
+  <a href="#productos"><svg class="ic" aria-hidden="true"><use href="#i-shopping-bag"/></svg>Productos & Catálogo<svg class="ic flecha" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
   <a href="#equipo"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>Nuestro equipo<svg class="ic flecha" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
   <a href="/reservar"><svg class="ic" aria-hidden="true"><use href="#i-calendar-days"/></svg>Reservar turno<svg class="ic flecha" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
   <a href="#donde"><svg class="ic" aria-hidden="true"><use href="#i-map-pin"/></svg>Cómo llegar<svg class="ic flecha" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
@@ -1842,10 +1953,162 @@ svg.ic{
         b.addEventListener(ev, function(){
           A.remove(b);
           A({ targets:b, scale:1, duration:180, easing:'cubicBezier(.34,1.56,.64,1)' });
-        });
-      });
+  /* ------------------------------------------------------------------
+     11 · CATÁLOGO DE PRODUCTOS & CARRITO A WHATSAPP (ELI: +54 9 3434 63-5359)
+     ------------------------------------------------------------------ */
+  var PRODUCTOS = [
+    { id:'p1', cat:'suplementos', catLabel:'Suplementación', n:'Magnesio Quelado + Zinc', desc:'Fórmula alta biodisponibilidad para descanso profundo, salud muscular y metabólica.', precio:24000 },
+    { id:'p2', cat:'suplementos', catLabel:'Suplementación', n:'Colágeno Hidrolizado + Vit C', desc:'Favorece la firmeza cutánea, fortalece articulaciones y tejidos de sostén.', precio:32000 },
+    { id:'p3', cat:'dermocosmetica', catLabel:'Dermocosmética', n:'Serum Antioxidante Vitamina C', desc:'Ilumina la piel, neutraliza radicales libres y unifica el tono facial.', precio:28000 },
+    { id:'p4', cat:'dermocosmetica', catLabel:'Dermocosmética', n:'Bruma Botánica Calmante', desc:'Hidratación inmediata y acción antiinflamatoria para pieles sensibles.', precio:18000 },
+    { id:'p5', cat:'dermocosmetica', catLabel:'Dermocosmética', n:'Protector Solar Mineral FPS 50+', desc:'Filtros físicos fotoestables de amplio espectro sin químicos sintéticos.', precio:26000 },
+    { id:'p6', cat:'bienestar', catLabel:'Bienestar', n:'Gua Sha Cuarzo Rosa', desc:'Piedra natural para automasaje facial, drenaje linfático y esculpido.', precio:22000 }
+  ];
+
+  var carrito = {};
+  var catActual = 'todos';
+  var PHONE_ELI = '5493434635359';
+
+  function renderProductos(){
+    var grid = $('#grid-productos');
+    if (!grid) return;
+    var lista = catActual === 'todos' ? PRODUCTOS : PRODUCTOS.filter(function(p){ return p.cat === catActual; });
+
+    grid.innerHTML = lista.map(function(p){
+      return '<div class="prod-card">' +
+        '<div>' +
+          '<span class="prod-badge">' + p.catLabel + '</span>' +
+          '<h3 class="prod-tit">' + p.n + '</h3>' +
+          '<p class="prod-desc">' + p.desc + '</p>' +
+        '</div>' +
+        '<div class="prod-foot">' +
+          '<span class="prod-precio">$' + p.precio.toLocaleString('es-AR') + '</span>' +
+          '<button class="btn-add-cart" onclick="agregarAlCarrito(\'' + p.id + '\')">' +
+            '<svg class="ic" style="width:15px;height:15px;" aria-hidden="true"><use href="#i-plus"/></svg> Agregar' +
+          '</button>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  window.filtrarProd = function(cat, btnEl){
+    catActual = cat;
+    $$('.prod-chip').forEach(function(c){ c.classList.remove('on'); });
+    if (btnEl) btnEl.classList.add('on');
+    renderProductos();
+  };
+
+  window.agregarAlCarrito = function(id){
+    carrito[id] = (carrito[id] || 0) + 1;
+    actualizarCarritoUI();
+  };
+
+  window.modificarCantidad = function(id, delta){
+    if (!carrito[id]) return;
+    carrito[id] += delta;
+    if (carrito[id] <= 0) delete carrito[id];
+    actualizarCarritoUI();
+  };
+
+  function actualizarCarritoUI(){
+    var cantTotal = 0;
+    var montoTotal = 0;
+
+    Object.keys(carrito).forEach(function(id){
+      var cant = carrito[id];
+      var prod = PRODUCTOS.find(function(p){ return p.id === id; });
+      if (prod) {
+        cantTotal += cant;
+        montoTotal += prod.precio * cant;
+      }
+    });
+
+    var bar = $('#cart-bar');
+    var countBadge = $('#cart-count');
+    var totalBar = $('#cart-total-bar');
+
+    if (countBadge) countBadge.textContent = cantTotal;
+    if (totalBar) totalBar.textContent = '$' + montoTotal.toLocaleString('es-AR');
+
+    if (bar) {
+      if (cantTotal > 0) bar.classList.add('on');
+      else {
+        bar.classList.remove('on');
+        toggleCartModal(false);
+      }
+    }
+
+    var itemsList = $('#cart-items-list');
+    var modalTotal = $('#cart-modal-total');
+    if (modalTotal) modalTotal.textContent = '$' + montoTotal.toLocaleString('es-AR');
+
+    if (itemsList) {
+      if (cantTotal === 0) {
+        itemsList.innerHTML = '<p style="text-align:center; color:var(--tinta-suave); padding:1.5rem;">Tu carrito está vacío.</p>';
+      } else {
+        itemsList.innerHTML = Object.keys(carrito).map(function(id){
+          var cant = carrito[id];
+          var prod = PRODUCTOS.find(function(p){ return p.id === id; });
+          if (!prod) return '';
+          var sub = prod.precio * cant;
+          return '<div class="cart-item">' +
+            '<div>' +
+              '<div class="cart-item-nom">' + prod.n + '</div>' +
+              '<div class="cart-item-precio">$' + prod.precio.toLocaleString('es-AR') + ' x ' + cant + ' = $' + sub.toLocaleString('es-AR') + '</div>' +
+            '</div>' +
+            '<div class="cart-controls">' +
+              '<button class="btn-qty" onclick="modificarCantidad(\'' + id + '\', -1)">-</button>' +
+              '<span class="cart-qty">' + cant + '</span>' +
+              '<button class="btn-qty" onclick="modificarCantidad(\'' + id + '\', 1)">+</button>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+      }
+    }
+
+    actualizarBotonWhatsApp(montoTotal);
+  }
+
+  window.toggleCartModal = function(abrir){
+    var modal = $('#cart-modal');
+    var backdrop = $('#cart-backdrop');
+    if (modal) modal.classList.toggle('on', abrir);
+    if (backdrop) backdrop.classList.toggle('on', abrir);
+  };
+
+  function actualizarBotonWhatsApp(total){
+    var btnWa = $('#btn-send-wa-cart');
+    var inputNombre = $('#cart-client-name');
+    var nombre = inputNombre ? inputNombre.value.trim() : '';
+
+    var lineas = ['Hola Eli! Quisiera realizar el siguiente pedido en Espacio Seed:\n'];
+    Object.keys(carrito).forEach(function(id){
+      var cant = carrito[id];
+      var prod = PRODUCTOS.find(function(p){ return p.id === id; });
+      if (prod) {
+        lineas.push('• ' + cant + 'x ' + prod.n + ' ($' + (prod.precio * cant).toLocaleString('es-AR') + ')');
+      }
+    });
+
+    lineas.push('\nTotal: $' + total.toLocaleString('es-AR'));
+    if (nombre) lineas.push('Nombre: ' + nombre);
+
+    var texto = encodeURIComponent(lineas.join('\n'));
+    if (btnWa) btnWa.href = 'https://wa.me/' + PHONE_ELI + '?text=' + texto;
+  }
+
+  var inputNombre = $('#cart-client-name');
+  if (inputNombre) {
+    inputNombre.addEventListener('input', function(){
+      var total = Object.keys(carrito).reduce(function(acc, id){
+        var prod = PRODUCTOS.find(function(p){ return p.id === id; });
+        return acc + (prod ? prod.precio * carrito[id] : 0);
+      }, 0);
+      actualizarBotonWhatsApp(total);
     });
   }
+
+  renderProductos();
 })();
 </script>
 </body>
