@@ -461,9 +461,9 @@ svg.ic{
      ------------------------------------------------------------------ */
   var CATALOGO = {
     piel: [
-      { id:'piel-primer-encuentro', n:'Abordaje piel · Primer encuentro', dur:'60 min', precio:'$50.000' },
-      { id:'piel-cosmetologico', n:'Abordaje piel · Tratamiento cosmetológico', dur:'60 min', precio:'$50.000' },
-      { id:'piel-medico', n:'Abordaje piel · Tratamiento médico', dur:'60 min', precio:'$85.000' },
+      { id:'piel-primer-encuentro', n:'Abordaje piel · Primer encuentro', dur:'60 min', precio:'$50.000', calSlug:'elidavid/inicial' },
+      { id:'piel-cosmetologico', n:'Abordaje piel · Tratamiento cosmetológico (Lic. Delfina Piccini)', dur:'60 min', precio:'$50.000', waDirect:'https://wa.me/5492473452834?text=Hola%20Delfina!%20Quiero%20consultar%20por%20un%20turno%20de%20cosmetologia' },
+      { id:'piel-medico', n:'Abordaje piel · Tratamiento médico', dur:'60 min', precio:'$85.000', calSlug:'elidavid/inicial' },
       { id:'suero-facial', n:'Sueroterapia + tratamiento facial', dur:'60 min', precio:'$150.000', calSlug:'elidavid/sueroterapia' }
     ],
     integrativa: [
@@ -485,7 +485,7 @@ svg.ic{
     sabado: ['09:00','10:00','11:00','12:00']
   };
 
-  var estado = { pro:null, area:null, servicio:null, precio:null, duracion:null, calSlug:null, fecha:null, hora:null, paso:1 };
+  var estado = { pro:null, area:null, servicio:null, precio:null, duracion:null, calSlug:null, waDirect:null, fecha:null, hora:null, paso:1 };
 
   /* ------------------------------------------------------------------
      PASO 1 · PROFESIONAL Y SERVICIO
@@ -511,6 +511,7 @@ svg.ic{
         estado.precio = item.precio;
         estado.duracion = item.dur;
         estado.calSlug = item.calSlug || null;
+        estado.waDirect = item.waDirect || null;
         $('#op-nota').textContent = item.nota || '';
         $('#op-nota').style.display = item.nota ? 'block' : 'none';
         revisar();
@@ -682,7 +683,25 @@ svg.ic{
       var estBox = $('#estatico-paso2');
       var escena = $('.escena');
       var progreso = $('.progreso');
-      if (estado.calSlug) {
+      if (estado.waDirect) {
+        if (escena) escena.classList.remove('ancho-cal');
+        if (progreso) progreso.classList.remove('ancho-cal');
+        estBox.style.display = 'none';
+        calBox.style.display = 'block';
+        $('#paso-2-titulo').textContent = 'Contacto directo por WhatsApp';
+        $('#paso-2-bajada').textContent = 'Los turnos de Cosmetología con la Lic. Delfina Piccini se acuerdan directamente por mensaje.';
+        calBox.innerHTML = '<div style="text-align:center; padding:2.5rem 1.5rem; background:rgba(253,251,248,0.06); border:1.5px solid rgba(201,138,107,0.3); border-radius:24px; color:#FDFBF8; max-width:600px; margin:0 auto;">' +
+          '<div style="width:96px; height:96px; margin:0 auto 1.25rem; border-radius:50%; overflow:hidden; border:3px solid #C98A6B; box-shadow:0 8px 20px rgba(0,0,0,0.3);">' +
+            '<img src="/images/delfina-piccini.png" alt="Lic. Delfina Piccini" style="width:100%; height:100%; object-fit:cover;">' +
+          '</div>' +
+          '<h3 style="font-family:var(--serif); font-size:1.8rem; margin-bottom:0.4rem; color:#FDFBF8;">Lic. Delfina Piccini</h3>' +
+          '<p style="color:var(--salvia); font-size:0.95rem; margin-bottom:1.75rem; line-height:1.5;">Escribile directamente a su WhatsApp para consultar disponibilidad y acordar el día y horario de tu tratamiento cosmetológico.</p>' +
+          '<a href="' + estado.waDirect + '" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; justify-content:center; gap:0.6rem; background:#25D366; color:#ffffff; padding:1rem 2rem; border-radius:50px; font-weight:600; text-decoration:none; font-size:1.05rem; box-shadow:0 8px 25px rgba(37,211,102,0.35);">' +
+            '<svg class="ic" style="width:24px; height:24px; fill:currentColor;"><use href="#i-whatsapp"/></svg>' +
+            'Enviar mensaje a Delfina (+54 9 2473 45-2834)' +
+          '</a>' +
+        '</div>';
+      } else if (estado.calSlug) {
         if (escena) escena.classList.add('ancho-cal');
         if (progreso) progreso.classList.add('ancho-cal');
         estBox.style.display = 'none';
