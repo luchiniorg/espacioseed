@@ -1846,25 +1846,33 @@ svg.ic{
      6 · CONTADORES DE CONFIANZA
      ------------------------------------------------------------------ */
   var contadores = $$('[data-contador]');
-  if (contadores.length && 'IntersectionObserver' in window) {
-    var ioNum = new IntersectionObserver(function(es){
-      es.forEach(function(e){
-        if (!e.isIntersecting) return;
-        var el = e.target;
+  if (contadores.length) {
+    if ('IntersectionObserver' in window) {
+      var ioNum = new IntersectionObserver(function(es){
+        es.forEach(function(e){
+          if (!e.isIntersecting) return;
+          var el = e.target;
+          var fin = parseFloat(el.dataset.contador);
+          var dec = parseInt(el.dataset.decimales || '0', 10);
+          var pre = el.dataset.prefijo || '';
+          var suf = el.dataset.sufijo || '';
+          if (!animando) { el.textContent = pre + fin.toFixed(dec).replace('.', ',') + suf; }
+          else {
+            var obj = { v:0 };
+            A({ targets:obj, v:fin, duration:1400, easing:'cubicBezier(.16,.8,.3,1)',
+                update:function(){ el.textContent = pre + Math.round(obj.v) + suf; } });
+          }
+          ioNum.unobserve(el);
+        });
+      }, { threshold:.1, rootMargin:'0px 0px 100px 0px' });
+      contadores.forEach(function(el){ ioNum.observe(el); });
+    } else {
+      contadores.forEach(function(el){
         var fin = parseFloat(el.dataset.contador);
-        var dec = parseInt(el.dataset.decimales || '0', 10);
-        var pre = el.dataset.prefijo || '';
         var suf = el.dataset.sufijo || '';
-        if (!animando) { el.textContent = pre + fin.toFixed(dec).replace('.', ',') + suf; }
-        else {
-          var obj = { v:0 };
-          A({ targets:obj, v:fin, duration:1400, easing:'cubicBezier(.16,.8,.3,1)',
-              update:function(){ el.textContent = pre + obj.v.toFixed(dec).replace('.', ',') + suf; } });
-        }
-        ioNum.unobserve(el);
+        el.textContent = fin + suf;
       });
-    }, { threshold:.6 });
-    contadores.forEach(function(el){ ioNum.observe(el); });
+    }
   }
 
   /* ------------------------------------------------------------------
