@@ -814,6 +814,8 @@ svg.ic{
 .prod-precio{font-weight:700;font-size:17px;color:var(--verde)}
 .btn-add-cart{padding:8px 14px;border-radius:999px;background:var(--arena-clara);color:var(--terracota);font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:5px;transition:all .2s var(--ease)}
 .btn-add-cart:hover,.btn-add-cart:active{background:var(--arena);color:#fff}
+.badge-sin-stock{background:#fee2e2;color:#991b1b;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700;margin-left:6px;display:inline-block}
+.btn-add-cart.disabled,.btn-add-cart:disabled{background:#EFE5DA!important;color:#a3a3a3!important;cursor:not-allowed!important;opacity:0.7!important;border-color:transparent!important}
 
 /* --- Barra Flotante del Carrito --- */
 .cart-bar{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);z-index:85;width:calc(100% - 40px);max-width:480px;background:var(--verde);color:var(--lino);border-radius:999px;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 12px 35px rgba(46,59,51,.35);opacity:0;pointer-events:none;transition:transform .35s var(--spring),opacity .3s var(--ease)}
@@ -2003,29 +2005,63 @@ svg.ic{
   var catActual = 'todos';
   var PHONE_ELI = '5493434635359';
 
+  function fetchProductsFromAPI(){
+    fetch('/api/products')
+      .then(function(res){ return res.json(); })
+      .then(function(data){
+        if (data && data.products && data.products.length > 0) {
+          PRODUCTOS = data.products.map(function(p){
+            return {
+              id: p.id || p.slug,
+              slug: p.slug,
+              cat: p.category,
+              catLabel: p.categoryLabel,
+              n: p.name,
+              desc: p.description || '',
+              precio: p.price,
+              stock: p.stock,
+              outOfStock: p.outOfStock || p.stock <= 0,
+              img: p.imageUrl || null
+            };
+          });
+          renderProductos();
+        }
+      })
+      .catch(function(err){
+        console.warn('Usando catálogo fallback local:', err);
+      });
+  }
+
   function renderProductos(){
     var grid = $('#grid-productos');
     if (!grid) return;
     var lista = catActual === 'todos' ? PRODUCTOS : PRODUCTOS.filter(function(p){ return p.cat === catActual; });
 
     grid.innerHTML = lista.map(function(p){
+      var isSinStock = p.outOfStock || (p.stock !== undefined && p.stock <= 0);
       var imgHtml = p.img ? '<div style="height:140px; margin:-18px -18px 12px; overflow:hidden; border-top-left-radius:var(--r-card); border-top-right-radius:var(--r-card); background:#f4eee8; display:flex; align-items:center; justify-content:center;"><img src="' + p.img + '" alt="' + p.n + '" style="max-height:100%; object-fit:contain;"></div>' : '';
-      return '<div class="prod-card">' +
+      var stockBadgeHtml = isSinStock ? '<span class="badge-sin-stock">SIN STOCK</span>' : '';
+
+      var buttonHtml = isSinStock 
+        ? '<button class="btn-add-cart disabled" disabled style="background:#EFE5DA; color:#a3a3a3; cursor:not-allowed;">Sin Stock</button>'
+        : '<button class="btn-add-cart" onclick="agregarAlCarrito(\'' + p.id + '\')"><svg class="ic" style="width:15px;height:15px;" aria-hidden="true"><use href="#i-plus"/></svg> Agregar</button>';
+
+      return '<div class="prod-card" style="' + (isSinStock ? 'opacity:0.85;' : '') + '">' +
         '<div>' +
           imgHtml +
-          '<span class="prod-badge">' + p.catLabel + '</span>' +
+          '<div><span class="prod-badge">' + p.catLabel + '</span>' + stockBadgeHtml + '</div>' +
           '<h3 class="prod-tit">' + p.n + '</h3>' +
           '<p class="prod-desc">' + p.desc + '</p>' +
         '</div>' +
         '<div class="prod-foot">' +
           '<span class="prod-precio">$' + p.precio.toLocaleString('es-AR') + '</span>' +
-          '<button class="btn-add-cart" onclick="agregarAlCarrito(\'' + p.id + '\')">' +
-            '<svg class="ic" style="width:15px;height:15px;" aria-hidden="true"><use href="#i-plus"/></svg> Agregar' +
-          '</button>' +
+          buttonHtml +
         '</div>' +
       '</div>';
     }).join('');
   }
+
+  fetchProductsFromAPI();
 
   window.filtrarProd = function(cat, btnEl){
     catActual = cat;

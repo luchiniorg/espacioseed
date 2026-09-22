@@ -290,4 +290,161 @@ app.post('/api/webhooks/cal', async (c) => {
         return c.json({ error: 'Webhook processing error', details: err?.message }, 500);
     }
 });
+// ==========================================
+// PRODUCTOS & INVENTARIO BACKOFFICE ENDPOINTS
+// ==========================================
+const INITIAL_PRODUCTS = [
+    { slug: 'p-gold-line', category: 'bienestar', categoryLabel: 'CBD & Bienestar', name: 'Aceite Golden Line (Ratio 1:1 Full Spectrum)', description: 'Aceite de CBD Full Spectrum Simple. Equilibrio y bienestar integral.', price: 35000, stock: 10, isVisible: true },
+    { slug: 'p-platinum-line', category: 'bienestar', categoryLabel: 'CBD & Bienestar', name: 'Aceite Platinum Line (Aislado 100% CBD)', description: 'Fórmula aislada de CBD puro de alta concentración.', price: 38000, stock: 10, isVisible: true },
+    { slug: 'p-pet-line', category: 'bienestar', categoryLabel: 'CBD & Mascotas', name: 'Aceite Pet Line (CBD para Mascotas)', description: 'Formulación especial de CBD para el bienestar y calma de mascotas.', price: 28000, stock: 10, isVisible: true },
+    { slug: 'p-best-coco', category: 'suplementos', categoryLabel: 'Nutrición Proteica', name: 'Barra Proteica B3ST! Coco (bnb brands)', description: 'Barra proteica nutricional 20g proteína sabor Coco.', price: 4500, stock: 10, isVisible: true, imageUrl: '/images/barra-bestcoco.png' },
+    { slug: 'p-best-caramel', category: 'suplementos', categoryLabel: 'Nutrición Proteica', name: 'Barra Proteica B3ST! Salted Caramel (bnb brands)', description: 'Barra proteica nutricional 20g proteína sabor Salted Caramel.', price: 4500, stock: 10, isVisible: true, imageUrl: '/images/barra-bestcaramel.png' },
+    { slug: 'p-omega3-max', category: 'suplementos', categoryLabel: 'Suplementación', name: 'Pack x 2 Omega 3 Max (1000 EPA / 500 DHA)', description: 'Certificación IFOS. Alta pureza y concentración de ácidos grasos esenciales.', price: 42000, stock: 10, isVisible: true },
+    { slug: 'p-yerba-gran-comision', category: 'suplementos', categoryLabel: 'Bienestar', name: 'Yerba La Gran Comisión x 500gr', description: 'Yerba mate natural de calidad superior y estacionamiento natural.', price: 3800, stock: 10, isVisible: true },
+    { slug: 'p-rose-toner', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Rosé Toner', description: 'Tónico facial equilibrante e hidratante con extractos botánicos.', price: 22000, stock: 10, isVisible: true },
+    { slug: 'p-c-bright-oil', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'C Bright Oil', description: 'Aceite facial iluminador y antioxidante con Vitamina C.', price: 34000, stock: 10, isVisible: true },
+    { slug: 'p-c-peptidos', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'C Péptidos', description: 'Tratamiento regenerador con péptidos y complejo revitalizante.', price: 36000, stock: 10, isVisible: true },
+    { slug: 'p-radiant-eyes', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Radiant Eyes', description: 'Contorno de ojos iluminador para ojeras y signos de fatiga.', price: 29000, stock: 10, isVisible: true },
+    { slug: 'p-aqua-blu', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Aqua Blu', description: 'Concentrado hidratante intensivo con complejo de ácido hialurónico.', price: 31000, stock: 10, isVisible: true },
+    { slug: 'p-tremella-barriere', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Tremella Barrière', description: 'Fortalecedor de la barrera cutánea con extracto de hongo Tremella.', price: 38000, stock: 10, isVisible: true },
+    { slug: 'p-youthful-eyes', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Youthful Eyes', description: 'Sérum tensor para líneas de expresión y contorno de ojos.', price: 32000, stock: 10, isVisible: true },
+    { slug: 'p-c-ferulic-booster', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'C Ferulic Booster', description: 'Potente booster antioxidante con Vitamina C y Ácido Ferúlico.', price: 39000, stock: 10, isVisible: true },
+    { slug: 'p-youth-booster', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Youth Booster', description: 'Concentrado antiedad intensivo para firmeza y densidad.', price: 41000, stock: 10, isVisible: true },
+    { slug: 'p-huile-balayage', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Huile de Balayage', description: 'Aceite nutritivo y reparador para rostro y escote.', price: 33000, stock: 10, isVisible: true },
+    { slug: 'p-emeral-cbd', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Émeral C.B.D.', description: 'Elixir facial calmante enriquecido con CBD natural y fito-nutrientes.', price: 45000, stock: 10, isVisible: true },
+    { slug: 'p-sun-drops', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Sun Drops', description: 'Gotas protectoras solares faciales ligeras de amplio espectro.', price: 30000, stock: 10, isVisible: true },
+    { slug: 'p-lips-hydrater', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Lips Hydrater', description: 'Bálsamo ultra-nutritivo y reparador de labios.', price: 15000, stock: 10, isVisible: true },
+    { slug: 'p-exfoliate-renew', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Exfoliate and Renew', description: 'Tratamiento renovador celular y exfoliante suave.', price: 27000, stock: 10, isVisible: true },
+    { slug: 'p-mains-hydrate', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Mains Hydrate', description: 'Crema de manos de hidratación profunda e intensiva.', price: 16000, stock: 10, isVisible: true }
+];
+// POST /api/admin/seed-products - Sembrar catálogo inicial de productos
+app.post('/api/admin/seed-products', async (c) => {
+    try {
+        const db = getDb(c.env.DB);
+        const existing = await db.select().from(schema.products);
+        if (existing.length > 0) {
+            return c.json({ message: 'La tabla de productos ya contiene datos', count: existing.length, products: existing });
+        }
+        for (const prod of INITIAL_PRODUCTS) {
+            await db.insert(schema.products).values(prod);
+        }
+        const inserted = await db.select().from(schema.products);
+        return c.json({ message: 'Productos iniciales sembrados con éxito en D1', count: inserted.length, products: inserted }, 201);
+    }
+    catch (err) {
+        return c.json({ error: 'Error al sembrar productos', details: err?.message }, 500);
+    }
+});
+// GET /api/products - Catálogo público de productos visibles
+app.get('/api/products', async (c) => {
+    try {
+        const db = getDb(c.env.DB);
+        let list = await db.select().from(schema.products).where(eq(schema.products.isVisible, true));
+        // Si la tabla está vacía, sembramos automáticamente
+        if (list.length === 0) {
+            const existingAll = await db.select().from(schema.products);
+            if (existingAll.length === 0) {
+                await db.insert(schema.products).values(INITIAL_PRODUCTS);
+                list = await db.select().from(schema.products).where(eq(schema.products.isVisible, true));
+            }
+        }
+        const productsFormatted = list.map(p => ({
+            ...p,
+            outOfStock: p.stock <= 0
+        }));
+        return c.json({ products: productsFormatted });
+    }
+    catch (err) {
+        return c.json({ error: 'Error al consultar productos', details: err?.message }, 500);
+    }
+});
+// GET /api/admin/products - Listado completo para el Backoffice / Admin
+app.get('/api/admin/products', async (c) => {
+    try {
+        const db = getDb(c.env.DB);
+        const search = c.req.query('q')?.trim()?.toLowerCase() || '';
+        let list = await db.select().from(schema.products);
+        if (list.length === 0) {
+            await db.insert(schema.products).values(INITIAL_PRODUCTS);
+            list = await db.select().from(schema.products);
+        }
+        let filtered = list;
+        if (search) {
+            filtered = list.filter(p => p.name.toLowerCase().includes(search) ||
+                p.category.toLowerCase().includes(search) ||
+                p.categoryLabel.toLowerCase().includes(search) ||
+                (p.description && p.description.toLowerCase().includes(search)));
+        }
+        return c.json({ total: filtered.length, products: filtered });
+    }
+    catch (err) {
+        return c.json({ error: 'Error al consultar productos de administración', details: err?.message }, 500);
+    }
+});
+// PATCH /api/admin/products/:id - Modificar stock, visibilidad, precio o datos
+app.patch('/api/admin/products/:id', async (c) => {
+    try {
+        const db = getDb(c.env.DB);
+        const id = c.req.param('id');
+        const body = await c.req.json();
+        const [existing] = await db.select().from(schema.products).where(eq(schema.products.id, id));
+        if (!existing) {
+            return c.json({ error: 'Producto no encontrado' }, 404);
+        }
+        const updates = {
+            updatedAt: new Date().toISOString()
+        };
+        if (body.stock !== undefined)
+            updates.stock = Math.max(0, Number(body.stock));
+        if (body.stockDelta !== undefined)
+            updates.stock = Math.max(0, (existing.stock || 0) + Number(body.stockDelta));
+        if (body.isVisible !== undefined)
+            updates.isVisible = Boolean(body.isVisible);
+        if (body.price !== undefined)
+            updates.price = Number(body.price);
+        if (body.name !== undefined)
+            updates.name = String(body.name);
+        if (body.description !== undefined)
+            updates.description = String(body.description);
+        if (body.category !== undefined)
+            updates.category = String(body.category);
+        if (body.categoryLabel !== undefined)
+            updates.categoryLabel = String(body.categoryLabel);
+        const [updated] = await db.update(schema.products)
+            .set(updates)
+            .where(eq(schema.products.id, id))
+            .returning();
+        return c.json({ message: 'Producto actualizado con éxito', product: updated });
+    }
+    catch (err) {
+        return c.json({ error: 'Error al actualizar producto', details: err?.message }, 500);
+    }
+});
+// POST /api/admin/products - Crear un nuevo producto
+app.post('/api/admin/products', async (c) => {
+    try {
+        const db = getDb(c.env.DB);
+        const body = await c.req.json();
+        if (!body.name || body.price === undefined) {
+            return c.json({ error: 'Nombre y Precio son campos obligatorios.' }, 400);
+        }
+        const slug = body.slug || body.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+        const [newProduct] = await db.insert(schema.products).values({
+            slug: slug || `p-${Date.now()}`,
+            name: body.name,
+            category: body.category || 'suplementos',
+            categoryLabel: body.categoryLabel || 'Productos',
+            description: body.description || '',
+            price: Number(body.price || 0),
+            stock: Number(body.stock ?? 10),
+            isVisible: body.isVisible !== undefined ? Boolean(body.isVisible) : true,
+            imageUrl: body.imageUrl || null,
+            link: body.link || null,
+        }).returning();
+        return c.json({ message: 'Producto creado exitosamente', product: newProduct }, 201);
+    }
+    catch (err) {
+        return c.json({ error: 'Error al crear producto', details: err?.message }, 500);
+    }
+});
 export default app;

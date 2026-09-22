@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel de Administración | Espacio Seed</title>
+  <title>Panel de Administración & Inventario | Espacio Seed</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -17,6 +17,8 @@
       --color-dark: #121614;
       --color-cream: #faf9f6;
       --color-white: #ffffff;
+      --color-red: #d9534f;
+      --color-green: #2e7d32;
 
       --font-heading: 'Cormorant Garamond', serif;
       --font-body: 'Plus Jakarta Sans', sans-serif;
@@ -36,7 +38,7 @@
     header {
       background-color: var(--color-white);
       border-bottom: 1px solid rgba(91, 108, 92, 0.15);
-      padding: 1.25rem 2rem;
+      padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -69,19 +71,62 @@
       text-transform: uppercase;
     }
 
+    /* Tabs Navigation */
+    .tabs-nav {
+      background-color: var(--color-white);
+      border-bottom: 1px solid rgba(91, 108, 92, 0.12);
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      padding: 0 1.5rem;
+    }
+
+    .tab-btn {
+      padding: 1rem 1.5rem;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #666;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover {
+      color: var(--color-sage);
+    }
+
+    .tab-btn.active {
+      color: var(--color-sage-dark);
+      border-bottom-color: var(--color-sage);
+    }
+
     main {
       flex: 1;
-      max-width: 1200px;
-      margin: 2.5rem auto;
+      max-width: 1280px;
+      margin: 2rem auto;
       padding: 0 1.5rem;
       width: 100%;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
     }
 
     .admin-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       flex-wrap: wrap;
       gap: 1rem;
     }
@@ -92,22 +137,28 @@
       color: var(--color-dark);
     }
 
+    .stats-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
     .stats-card {
       background-color: var(--color-white);
-      border-radius: 16px;
-      padding: 1rem 1.5rem;
+      border-radius: 14px;
+      padding: 0.85rem 1.25rem;
       border: 1px solid rgba(91, 108, 92, 0.15);
       display: flex;
       align-items: center;
-      gap: 1rem;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+      gap: 0.85rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
     }
 
     .stats-icon {
-      width: 44px;
-      height: 44px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      background-color: rgba(91, 108, 92, 0.12);
+      background-color: rgba(91, 108, 92, 0.1);
       color: var(--color-sage);
       display: flex;
       align-items: center;
@@ -115,35 +166,43 @@
     }
 
     .stats-info div {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: #666;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
 
     .stats-info span {
-      font-size: 1.5rem;
+      font-size: 1.35rem;
       font-weight: 700;
       color: var(--color-dark);
     }
 
-    /* Buscador */
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+
     .search-box {
       position: relative;
-      margin-bottom: 1.5rem;
+      flex: 1;
+      min-width: 280px;
     }
 
     .search-input {
       width: 100%;
-      padding: 0.9rem 1rem 0.9rem 3rem;
+      padding: 0.85rem 1rem 0.85rem 2.8rem;
       border: 1px solid rgba(91, 108, 92, 0.2);
       border-radius: 12px;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       font-family: inherit;
       background-color: var(--color-white);
       outline: none;
       transition: all 0.2s;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
     }
 
     .search-input:focus {
@@ -159,13 +218,33 @@
       color: #888;
     }
 
-    /* Tabla */
+    .btn-action {
+      background-color: var(--color-sage);
+      color: var(--color-white);
+      padding: 0.85rem 1.5rem;
+      border-radius: 12px;
+      border: none;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background 0.2s;
+    }
+
+    .btn-action:hover {
+      background-color: var(--color-sage-dark);
+    }
+
+    /* Tablas */
     .table-container {
       background-color: var(--color-white);
-      border-radius: 20px;
+      border-radius: 16px;
       border: 1px solid rgba(91, 108, 92, 0.12);
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+      overflow-x: auto;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.03);
     }
 
     table {
@@ -176,44 +255,234 @@
 
     th {
       background-color: var(--color-cream);
-      padding: 1rem 1.25rem;
-      font-size: 0.8rem;
+      padding: 0.9rem 1.1rem;
+      font-size: 0.78rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--color-sage-dark);
       border-bottom: 1px solid rgba(91, 108, 92, 0.1);
+      white-space: nowrap;
     }
 
     td {
-      padding: 1rem 1.25rem;
-      font-size: 0.9rem;
+      padding: 0.85rem 1.1rem;
+      font-size: 0.88rem;
       border-bottom: 1px solid rgba(91, 108, 92, 0.08);
       color: #333;
+      vertical-align: middle;
     }
 
     tr:hover td {
       background-color: rgba(91, 108, 92, 0.03);
     }
 
-    .client-name {
+    .product-name {
       font-weight: 600;
       color: var(--color-dark);
     }
 
-    .client-email {
+    .product-desc {
       color: #666;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
+      max-width: 320px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .tag-gender {
+    .tag-cat {
       display: inline-block;
-      padding: 0.2rem 0.55rem;
+      padding: 0.2rem 0.6rem;
       border-radius: 12px;
       font-size: 0.75rem;
-      font-weight: 500;
-      background-color: rgba(91, 108, 92, 0.1);
+      font-weight: 600;
+      background-color: var(--color-beige-light);
       color: var(--color-sage-dark);
+    }
+
+    /* Quick Stock Adjustment Buttons */
+    .stock-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .stock-input {
+      width: 65px;
+      padding: 0.4rem 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .btn-stock {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      background-color: #f8f9fa;
+      color: #333;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .btn-stock:hover {
+      background-color: var(--color-sage);
+      color: white;
+      border-color: var(--color-sage);
+    }
+
+    .btn-stock-plus {
+      background-color: #e8f5e9;
+      color: #2e7d32;
+      border-color: #c8e6c9;
+    }
+
+    .btn-stock-minus {
+      background-color: #ffebee;
+      color: #c62828;
+      border-color: #ffcdd2;
+    }
+
+    /* Badges de Estado */
+    .badge-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .badge-disponible {
+      background-color: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .badge-sin-stock {
+      background-color: #ffebee;
+      color: #c62828;
+    }
+
+    .badge-oculto {
+      background-color: #f5f5f5;
+      color: #757575;
+    }
+
+    /* Switch Toggle */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #ccc;
+      transition: .3s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px; width: 18px;
+      left: 3px; bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--color-sage);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+
+    /* Modal Form */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal {
+      background-color: var(--color-white);
+      border-radius: 20px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 520px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-header h3 {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: var(--color-dark);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.9rem;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--color-sage);
     }
 
     footer {
@@ -235,67 +504,396 @@
       </svg>
       <span class="brand-title">Espacio Seed</span>
     </a>
-    <span class="badge-admin">Panel de Administración</span>
+    <span class="badge-admin">Panel Backoffice</span>
   </header>
 
+  <!-- Pestañas de Navegación -->
+  <div class="tabs-nav">
+    <button class="tab-btn active" id="tab-inventory-btn" onclick="switchTab('inventory')">
+      <i data-lucide="package" style="width:18px; height:18px;"></i>
+      Inventario & Stock
+    </button>
+    <button class="tab-btn" id="tab-clients-btn" onclick="switchTab('clients')">
+      <i data-lucide="users" style="width:18px; height:18px;"></i>
+      Base de Clientes
+    </button>
+  </div>
+
   <main>
-    <div class="admin-header">
-      <div>
-        <h1>Base de Datos de Clientes</h1>
-        <p style="color: #666; font-size: 0.95rem;">Gestión e inspección de clientes registrados en Espacio Seed.</p>
+    <!-- TAB 1: INVENTARIO & STOCK -->
+    <div id="tab-inventory" class="tab-content active">
+      <div class="admin-header">
+        <div>
+          <h1>Gestión de Inventario & Stock</h1>
+          <p style="color: #666; font-size: 0.95rem;">Monitoreo y control de productos sincronizados en tiempo real con la web.</p>
+        </div>
+
+        <div class="stats-group">
+          <div class="stats-card">
+            <div class="stats-icon">
+              <i data-lucide="box" style="width:20px; height:20px;"></i>
+            </div>
+            <div class="stats-info">
+              <div>Total Prod.</div>
+              <span id="prod-total-count">0</span>
+            </div>
+          </div>
+          <div class="stats-card">
+            <div class="stats-icon" style="color: #2e7d32; background-color: #e8f5e9;">
+              <i data-lucide="check-circle" style="width:20px; height:20px;"></i>
+            </div>
+            <div class="stats-info">
+              <div>En Stock</div>
+              <span id="prod-available-count">0</span>
+            </div>
+          </div>
+          <div class="stats-card">
+            <div class="stats-icon" style="color: #c62828; background-color: #ffebee;">
+              <i data-lucide="alert-triangle" style="width:20px; height:20px;"></i>
+            </div>
+            <div class="stats-info">
+              <div>Sin Stock</div>
+              <span id="prod-outofstock-count">0</span>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="stats-card">
-        <div class="stats-icon">
-          <i data-lucide="users" style="width:22px; height:22px;"></i>
+      <div class="toolbar">
+        <div class="search-box">
+          <i data-lucide="search" class="search-icon" style="width:18px; height:18px;"></i>
+          <input type="text" id="prod-search" class="search-input" placeholder="Buscar por nombre de producto, marca o categoría...">
         </div>
-        <div class="stats-info">
-          <div>Total Importados</div>
-          <span id="total-count">0</span>
-        </div>
+        <button class="btn-action" onclick="openNewProductModal()">
+          <i data-lucide="plus" style="width:18px; height:18px;"></i>
+          + Nuevo Producto
+        </button>
+      </div>
+
+      <!-- Tabla de Productos estilo Excel -->
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Producto / Descripción</th>
+              <th>Categoría</th>
+              <th>Precio (ARS)</th>
+              <th>Ajuste de Stock Rápido</th>
+              <th>Estado</th>
+              <th>Visibilidad Web</th>
+            </tr>
+          </thead>
+          <tbody id="products-tbody">
+            <tr>
+              <td colspan="6" style="text-align: center; padding: 2.5rem; color: #777;">
+                Cargando inventario de productos desde D1...
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
-    <!-- Buscador -->
-    <div class="search-box">
-      <i data-lucide="search" class="search-icon" style="width:20px; height:20px;"></i>
-      <input type="text" id="search" class="search-input" placeholder="Buscar por Nombre, DNI, Email o Teléfono...">
-    </div>
+    <!-- TAB 2: CLIENTES -->
+    <div id="tab-clients" class="tab-content">
+      <div class="admin-header">
+        <div>
+          <h1>Base de Datos de Clientes</h1>
+          <p style="color: #666; font-size: 0.95rem;">Gestión e inspección de clientes registrados en Espacio Seed.</p>
+        </div>
 
-    <!-- Tabla de Clientes -->
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Cliente</th>
-            <th>Teléfono</th>
-            <th>DNI</th>
-            <th>Edad / Género</th>
-            <th>Nacimiento</th>
-            <th>Fecha Alta</th>
-          </tr>
-        </thead>
-        <tbody id="clients-tbody">
-          <tr>
-            <td colspan="6" style="text-align: center; padding: 2rem; color: #777;">
-              Cargando clientes de la base de datos...
-            </td>
-          </tr>
-        </tbody>
-      </table>
+        <div class="stats-card">
+          <div class="stats-icon">
+            <i data-lucide="users" style="width:20px; height:20px;"></i>
+          </div>
+          <div class="stats-info">
+            <div>Total Importados</div>
+            <span id="clients-total-count">0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Buscador Clientes -->
+      <div class="search-box" style="margin-bottom: 1.25rem;">
+        <i data-lucide="search" class="search-icon" style="width:18px; height:18px;"></i>
+        <input type="text" id="client-search" class="search-input" placeholder="Buscar por Nombre, DNI, Email o Teléfono...">
+      </div>
+
+      <!-- Tabla de Clientes -->
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Teléfono</th>
+              <th>DNI</th>
+              <th>Edad / Género</th>
+              <th>Nacimiento</th>
+              <th>Fecha Alta</th>
+            </tr>
+          </thead>
+          <tbody id="clients-tbody">
+            <tr>
+              <td colspan="6" style="text-align: center; padding: 2rem; color: #777;">
+                Cargando clientes de la base de datos...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </main>
+
+  <!-- Modal Nuevo Producto -->
+  <div class="modal-overlay" id="product-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Agregar Nuevo Producto</h3>
+        <button onclick="closeNewProductModal()" style="background:none; border:none; cursor:pointer; color:#888;">
+          <i data-lucide="x" style="width:24px; height:24px;"></i>
+        </button>
+      </div>
+      <form id="new-product-form" onsubmit="handleCreateProduct(event)">
+        <div class="form-group">
+          <label>Nombre del Producto *</label>
+          <input type="text" id="new-name" class="form-control" required placeholder="Ej: Aceite CBD Gold Line">
+        </div>
+        <div style="display: flex; gap: 1rem;">
+          <div class="form-group" style="flex:1;">
+            <label>Categoría Web *</label>
+            <select id="new-category" class="form-control" required>
+              <option value="suplementos">Suplementos & Nutrición</option>
+              <option value="dermocosmetica">Dermocosmética</option>
+              <option value="bienestar">CBD & Bienestar</option>
+            </select>
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label>Etiqueta / Marca *</label>
+            <input type="text" id="new-category-label" class="form-control" required placeholder="Ej: The Glow Factor">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Descripción Corta</label>
+          <input type="text" id="new-description" class="form-control" placeholder="Resumen del producto...">
+        </div>
+        <div style="display: flex; gap: 1rem;">
+          <div class="form-group" style="flex:1;">
+            <label>Precio ($ ARS) *</label>
+            <input type="number" id="new-price" class="form-control" required min="0" step="100" placeholder="35000">
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label>Stock Inicial *</label>
+            <input type="number" id="new-stock" class="form-control" required min="0" value="10">
+          </div>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+          <button type="button" class="btn-action" style="background:#ddd; color:#333;" onclick="closeNewProductModal()">Cancelar</button>
+          <button type="submit" class="btn-action">Guardar Producto</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <footer>
     Espacio Seed &copy; 2026 — Base de Datos Cloudflare D1
   </footer>
 
   <script>
-    let searchTimeout = null;
+    let searchClientsTimeout = null;
+    let searchProductsTimeout = null;
+    let productsList = [];
 
+    // Cambiar de pestaña
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+      if (tab === 'inventory') {
+        document.getElementById('tab-inventory-btn').classList.add('active');
+        document.getElementById('tab-inventory').classList.add('active');
+        fetchProducts();
+      } else {
+        document.getElementById('tab-clients-btn').classList.add('active');
+        document.getElementById('tab-clients').classList.add('active');
+        fetchClients();
+      }
+    }
+
+    // --- PRODUCTOS & INVENTARIO ---
+    async function fetchProducts(query = '') {
+      const tbody = document.getElementById('products-tbody');
+      try {
+        const res = await fetch(`/api/admin/products?q=${encodeURIComponent(query)}`);
+        const data = await res.json();
+        productsList = data.products || [];
+
+        // Actualizar Estadísticas
+        document.getElementById('prod-total-count').innerText = productsList.length;
+        document.getElementById('prod-available-count').innerText = productsList.filter(p => p.stock > 0 && p.isVisible).length;
+        document.getElementById('prod-outofstock-count').innerText = productsList.filter(p => p.stock <= 0).length;
+
+        if (productsList.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="6" style="text-align: center; padding: 2.5rem; color: #888;">
+                No se encontraron productos registrados.
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        tbody.innerHTML = productsList.map(p => {
+          const isOut = p.stock <= 0;
+          const statusBadge = !p.isVisible 
+            ? `<span class="badge-status badge-oculto">🙈 Oculto</span>`
+            : isOut 
+              ? `<span class="badge-status badge-sin-stock">🔴 Sin Stock</span>`
+              : `<span class="badge-status badge-disponible">🟢 Disponible</span>`;
+
+          return `
+            <tr id="prod-row-${p.id}">
+              <td>
+                <div class="product-name">${escapeHtml(p.name)}</div>
+                <div class="product-desc" title="${escapeHtml(p.description || '')}">${escapeHtml(p.description || '-')}</div>
+              </td>
+              <td><span class="tag-cat">${escapeHtml(p.categoryLabel || p.category)}</span></td>
+              <td>
+                <div style="display:flex; align-items:center; gap:0.25rem;">
+                  <span style="color:#777;">$</span>
+                  <input type="number" class="stock-input" style="width:85px; text-align:right;" value="${p.price}" 
+                         onchange="updateProductPrice('${p.id}', this.value)">
+                </div>
+              </td>
+              <td>
+                <div class="stock-controls">
+                  <button class="btn-stock btn-stock-minus" onclick="adjustStock('${p.id}', -1)" title="Restar 1">-1</button>
+                  <input type="number" class="stock-input" id="stock-val-${p.id}" value="${p.stock}" min="0"
+                         onchange="setDirectStock('${p.id}', this.value)">
+                  <button class="btn-stock btn-stock-plus" onclick="adjustStock('${p.id}', 1)" title="Sumar 1">+1</button>
+                  <button class="btn-stock btn-stock-plus" onclick="adjustStock('${p.id}', 5)" title="Sumar 5">+5</button>
+                </div>
+              </td>
+              <td>${statusBadge}</td>
+              <td>
+                <label class="switch">
+                  <input type="checkbox" ${p.isVisible ? 'checked' : ''} onchange="toggleVisibility('${p.id}', this.checked)">
+                  <span class="slider"></span>
+                </label>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+        lucide.createIcons();
+      } catch (err) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" style="text-align: center; padding: 2rem; color: #b91c1c;">
+              Error al cargar productos desde la API.
+            </td>
+          </tr>
+        `;
+      }
+    }
+
+    async function adjustStock(id, delta) {
+      try {
+        const res = await fetch(`/api/admin/products/${id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ stockDelta: delta })
+        });
+        if (res.ok) fetchProducts(document.getElementById('prod-search').value);
+      } catch (err) {
+        alert('Error al ajustar el stock');
+      }
+    }
+
+    async function setDirectStock(id, val) {
+      try {
+        const stock = Math.max(0, parseInt(val) || 0);
+        const res = await fetch(`/api/admin/products/${id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ stock })
+        });
+        if (res.ok) fetchProducts(document.getElementById('prod-search').value);
+      } catch (err) {
+        alert('Error al guardar stock');
+      }
+    }
+
+    async function updateProductPrice(id, val) {
+      try {
+        const price = Math.max(0, parseInt(val) || 0);
+        await fetch(`/api/admin/products/${id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ price })
+        });
+      } catch (err) {
+        alert('Error al actualizar precio');
+      }
+    }
+
+    async function toggleVisibility(id, isVisible) {
+      try {
+        const res = await fetch(`/api/admin/products/${id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ isVisible })
+        });
+        if (res.ok) fetchProducts(document.getElementById('prod-search').value);
+      } catch (err) {
+        alert('Error al cambiar visibilidad');
+      }
+    }
+
+    // Modal Crear Producto
+    function openNewProductModal() {
+      document.getElementById('product-modal').classList.add('open');
+    }
+
+    function closeNewProductModal() {
+      document.getElementById('product-modal').classList.remove('open');
+      document.getElementById('new-product-form').reset();
+    }
+
+    async function handleCreateProduct(e) {
+      e.preventDefault();
+      const payload = {
+        name: document.getElementById('new-name').value,
+        category: document.getElementById('new-category').value,
+        categoryLabel: document.getElementById('new-category-label').value,
+        description: document.getElementById('new-description').value,
+        price: Number(document.getElementById('new-price').value),
+        stock: Number(document.getElementById('new-stock').value),
+        isVisible: true
+      };
+
+      try {
+        const res = await fetch('/api/admin/products', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          closeNewProductModal();
+          fetchProducts();
+        } else {
+          alert('Error al crear el producto');
+        }
+      } catch (err) {
+        alert('Error de conexión');
+      }
+    }
+
+    // --- CLIENTES ---
     async function fetchClients(query = '') {
       const tbody = document.getElementById('clients-tbody');
-      const totalCount = document.getElementById('total-count');
+      const totalCount = document.getElementById('clients-total-count');
 
       try {
         const res = await fetch(`/api/clients?q=${encodeURIComponent(query)}`);
@@ -317,16 +915,16 @@
         tbody.innerHTML = data.clients.map(c => `
           <tr>
             <td>
-              <div class="client-name">${c.name || 'Sin Nombre'}</div>
-              <div class="client-email">${c.email || '-'}</div>
+              <div class="product-name">${escapeHtml(c.name || 'Sin Nombre')}</div>
+              <div style="color:#666; font-size:0.85rem;">${escapeHtml(c.email || '-')}</div>
             </td>
-            <td>${c.phone || '-'}</td>
-            <td>${c.dni || '-'}</td>
+            <td>${escapeHtml(c.phone || '-')}</td>
+            <td>${escapeHtml(c.dni || '-')}</td>
             <td>
               ${c.age ? `<b>${c.age} años</b>` : '-'}
-              ${c.gender ? `<div><span class="tag-gender">${c.gender}</span></div>` : ''}
+              ${c.gender ? `<div><span class="tag-cat">${escapeHtml(c.gender)}</span></div>` : ''}
             </td>
-            <td>${c.birthdate || '-'}</td>
+            <td>${escapeHtml(c.birthdate || '-')}</td>
             <td><small style="color:#777;">${c.createdAt || '-'}</small></td>
           </tr>
         `).join('');
@@ -343,14 +941,26 @@
       }
     }
 
-    document.getElementById('search').addEventListener('input', (e) => {
-      clearTimeout(searchTimeout);
-      searchTimeout = setTimeout(() => {
+    function escapeHtml(str) {
+      return String(str || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    document.getElementById('client-search').addEventListener('input', (e) => {
+      clearTimeout(searchClientsTimeout);
+      searchClientsTimeout = setTimeout(() => {
         fetchClients(e.target.value);
       }, 250);
     });
 
-    fetchClients();
+    document.getElementById('prod-search').addEventListener('input', (e) => {
+      clearTimeout(searchProductsTimeout);
+      searchProductsTimeout = setTimeout(() => {
+        fetchProducts(e.target.value);
+      }, 250);
+    });
+
+    // Iniciar con Inventario cargado
+    fetchProducts();
   </script>
 </body>
 </html>

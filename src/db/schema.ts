@@ -59,3 +59,20 @@ export const googleCalendarTokens = sqliteTable('google_calendar_tokens', {
   expiresAt: integer('expires_at').notNull(), // Timestamp ms
   updatedAt: text('updated_at').default(sql`(CURRENT_TIMESTAMP)`).notNull(),
 });
+
+// Productos & Inventario para Catálogo y Backoffice
+export const products = sqliteTable('products', {
+  id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+  slug: text('slug').notNull().unique(),
+  name: text('name').notNull(),
+  category: text('category').notNull(), // 'suplementos' | 'dermocosmetica' | 'bienestar'
+  categoryLabel: text('category_label').notNull(),
+  description: text('description'),
+  price: integer('price').notNull().default(0), // Monto en pesos ARS
+  stock: integer('stock').notNull().default(10), // Cantidad disponible
+  isVisible: integer('is_visible', { mode: 'boolean' }).notNull().default(true), // Visible en la web
+  imageUrl: text('image_url'),
+  link: text('link'),
+  createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+  updatedAt: text('updated_at').default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+});
