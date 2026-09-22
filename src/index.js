@@ -294,45 +294,56 @@ app.post('/api/webhooks/cal', async (c) => {
 // PRODUCTOS & INVENTARIO BACKOFFICE ENDPOINTS
 // ==========================================
 const INITIAL_PRODUCTS = [
-    { slug: 'p-gold-line', category: 'bienestar', categoryLabel: 'CBD & Bienestar', name: 'Aceite Golden Line (Ratio 1:1 Full Spectrum)', description: 'Aceite de CBD Full Spectrum Simple. Equilibrio y bienestar integral.', price: 35000, stock: 10, isVisible: true },
-    { slug: 'p-platinum-line', category: 'bienestar', categoryLabel: 'CBD & Bienestar', name: 'Aceite Platinum Line (Aislado 100% CBD)', description: 'Fórmula aislada de CBD puro de alta concentración.', price: 38000, stock: 10, isVisible: true },
-    { slug: 'p-pet-line', category: 'bienestar', categoryLabel: 'CBD & Mascotas', name: 'Aceite Pet Line (CBD para Mascotas)', description: 'Formulación especial de CBD para el bienestar y calma de mascotas.', price: 28000, stock: 10, isVisible: true },
+    { slug: 'p-gold-line', category: 'bienestar', categoryLabel: 'CBD & Bienestar', name: 'Aceite Golden Line (Ratio 1:1 Full Spectrum)', description: 'Aceite de CBD Full Spectrum Simple. Equilibrio y bienestar integral.', price: 35000, stock: 10, isVisible: true, imageUrl: 'https://simpleaceite.com/wp-content/uploads/2021/10/433f-1-scaled.jpg' },
+    { slug: 'p-platinum-line', category: 'bienestar', categoryLabel: 'CBD & Bienestar', name: 'Aceite Platinum Line (Aislado 100% CBD)', description: 'Fórmula aislada de CBD puro de alta concentración.', price: 38000, stock: 10, isVisible: true, imageUrl: 'https://simpleaceite.com/wp-content/uploads/2021/10/428f-1-scaled.jpg' },
+    { slug: 'p-pet-line', category: 'bienestar', categoryLabel: 'CBD & Mascotas', name: 'Aceite Pet Line (CBD para Mascotas)', description: 'Formulación especial de CBD para el bienestar y calma de mascotas.', price: 28000, stock: 10, isVisible: true, imageUrl: 'https://simpleaceite.com/wp-content/uploads/2023/08/Pet-Line.png' },
     { slug: 'p-best-coco', category: 'suplementos', categoryLabel: 'Nutrición Proteica', name: 'Barra Proteica B3ST! Coco (bnb brands)', description: 'Barra proteica nutricional 20g proteína sabor Coco.', price: 4500, stock: 10, isVisible: true, imageUrl: '/images/barra-bestcoco.png' },
     { slug: 'p-best-caramel', category: 'suplementos', categoryLabel: 'Nutrición Proteica', name: 'Barra Proteica B3ST! Salted Caramel (bnb brands)', description: 'Barra proteica nutricional 20g proteína sabor Salted Caramel.', price: 4500, stock: 10, isVisible: true, imageUrl: '/images/barra-bestcaramel.png' },
-    { slug: 'p-omega3-max', category: 'suplementos', categoryLabel: 'Suplementación', name: 'Pack x 2 Omega 3 Max (1000 EPA / 500 DHA)', description: 'Certificación IFOS. Alta pureza y concentración de ácidos grasos esenciales.', price: 42000, stock: 10, isVisible: true },
-    { slug: 'p-yerba-gran-comision', category: 'suplementos', categoryLabel: 'Bienestar', name: 'Yerba La Gran Comisión x 500gr', description: 'Yerba mate natural de calidad superior y estacionamiento natural.', price: 3800, stock: 10, isVisible: true },
-    { slug: 'p-rose-toner', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Rosé Toner', description: 'Tónico facial equilibrante e hidratante con extractos botánicos.', price: 22000, stock: 10, isVisible: true },
-    { slug: 'p-c-bright-oil', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'C Bright Oil', description: 'Aceite facial iluminador y antioxidante con Vitamina C.', price: 34000, stock: 10, isVisible: true },
-    { slug: 'p-c-peptidos', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'C Péptidos', description: 'Tratamiento regenerador con péptidos y complejo revitalizante.', price: 36000, stock: 10, isVisible: true },
-    { slug: 'p-radiant-eyes', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Radiant Eyes', description: 'Contorno de ojos iluminador para ojeras y signos de fatiga.', price: 29000, stock: 10, isVisible: true },
-    { slug: 'p-aqua-blu', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Aqua Blu', description: 'Concentrado hidratante intensivo con complejo de ácido hialurónico.', price: 31000, stock: 10, isVisible: true },
-    { slug: 'p-tremella-barriere', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Tremella Barrière', description: 'Fortalecedor de la barrera cutánea con extracto de hongo Tremella.', price: 38000, stock: 10, isVisible: true },
-    { slug: 'p-youthful-eyes', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Youthful Eyes', description: 'Sérum tensor para líneas de expresión y contorno de ojos.', price: 32000, stock: 10, isVisible: true },
-    { slug: 'p-c-ferulic-booster', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'C Ferulic Booster', description: 'Potente booster antioxidante con Vitamina C y Ácido Ferúlico.', price: 39000, stock: 10, isVisible: true },
-    { slug: 'p-youth-booster', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Youth Booster', description: 'Concentrado antiedad intensivo para firmeza y densidad.', price: 41000, stock: 10, isVisible: true },
-    { slug: 'p-huile-balayage', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Huile de Balayage', description: 'Aceite nutritivo y reparador para rostro y escote.', price: 33000, stock: 10, isVisible: true },
-    { slug: 'p-emeral-cbd', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Émeral C.B.D.', description: 'Elixir facial calmante enriquecido con CBD natural y fito-nutrientes.', price: 45000, stock: 10, isVisible: true },
-    { slug: 'p-sun-drops', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Sun Drops', description: 'Gotas protectoras solares faciales ligeras de amplio espectro.', price: 30000, stock: 10, isVisible: true },
-    { slug: 'p-lips-hydrater', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Lips Hydrater', description: 'Bálsamo ultra-nutritivo y reparador de labios.', price: 15000, stock: 10, isVisible: true },
-    { slug: 'p-exfoliate-renew', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Exfoliate and Renew', description: 'Tratamiento renovador celular y exfoliante suave.', price: 27000, stock: 10, isVisible: true },
-    { slug: 'p-mains-hydrate', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Mains Hydrate', description: 'Crema de manos de hidratación profunda e intensiva.', price: 16000, stock: 10, isVisible: true }
+    { slug: 'p-omega3-max', category: 'suplementos', categoryLabel: 'Suplementación', name: 'Pack x 2 Omega 3 Max (1000 EPA / 500 DHA)', description: 'Certificación IFOS. Alta pureza y concentración de ácidos grasos esenciales.', price: 42000, stock: 10, isVisible: true, imageUrl: 'https://innovanaturals.com.ar/wp-content/uploads/2023/11/IMG-20250213-WA0006.jpg' },
+    { slug: 'p-yerba-gran-comision', category: 'suplementos', categoryLabel: 'Bienestar', name: 'Yerba La Gran Comisión x 500gr', description: 'Yerba mate natural de calidad superior y estacionamiento natural.', price: 3800, stock: 10, isVisible: true, imageUrl: 'https://d22fxaf9t8d39k.cloudfront.net/306c97880d9ef599258831b77bd4af74509af89c72d2b1adfce8ee46c6566b5a32002.jpg' },
+    { slug: 'p-rose-toner', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Rosé Toner', description: 'Tónico facial equilibrante e hidratante con extractos botánicos.', price: 22000, stock: 10, isVisible: true, imageUrl: 'https://theglowfactor.com/cdn/shop/files/0037_5._Rose_CHECK_18b56828-dbcf-42cb-a419-7637a7286c57.jpg' },
+    { slug: 'p-c-bright-oil', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'C Bright Oil', description: 'Aceite facial iluminador y antioxidante con Vitamina C.', price: 34000, stock: 10, isVisible: true, imageUrl: 'https://theglowfactor.com/cdn/shop/files/0031_11._C_Bright_Oil_CHECK.jpg' },
+    { slug: 'p-c-peptidos', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'C Péptidos', description: 'Tratamiento regenerador con péptidos y complejo revitalizante.', price: 36000, stock: 10, isVisible: true, imageUrl: 'https://theglowfactor.com/cdn/shop/files/0032_10._C_Peptidos_CHECK.jpg' },
+    { slug: 'p-radiant-eyes', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Radiant Eyes', description: 'Contorno de ojos iluminador para ojeras y signos de fatiga.', price: 29000, stock: 10, isVisible: true, imageUrl: 'https://theglowfactor.com/cdn/shop/files/0000s_0018_24._Radiant_Eyes_CHECK.jpg' },
+    { slug: 'p-aqua-blu', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Aqua Blu', description: 'Concentrado hidratante intensivo con complejo de ácido hialurónico.', price: 31000, stock: 10, isVisible: true, imageUrl: 'https://theglowfactor.com/cdn/shop/files/0000s_0002_40._Aqua_CHECK.jpg' },
+    { slug: 'p-tremella-barriere', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Tremella Barrière', description: 'Fortalecedor de la barrera cutánea con extracto de hongo Tremella.', price: 38000, stock: 10, isVisible: true, imageUrl: 'https://theglowfactor.com/cdn/shop/files/0000s_0036_7._Tremella_CHECK.jpg' },
+    { slug: 'p-youthful-eyes', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Youthful Eyes', description: 'Sérum tensor para líneas de expresión y contorno de ojos.', price: 32000, stock: 10, isVisible: true, imageUrl: 'https://theglowfactor.com/cdn/shop/files/0000s_0021_22._Youthful_Eyes_CHECK.jpg' },
+    { slug: 'p-c-ferulic-booster', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'C Ferulic Booster', description: 'Potente booster antioxidante con Vitamina C y Ácido Ferúlico.', price: 39000, stock: 10, isVisible: true, imageUrl: 'https://theglowfactor.com/cdn/shop/files/0039_3._C_Ferulic_CHECK.jpg' },
+    { slug: 'p-youth-booster', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Youth Booster', description: 'Concentrado antiedad intensivo para firmeza y densidad.', price: 41000, stock: 10, isVisible: true, imageUrl: 'https://theglowfactor.com/cdn/shop/files/0000s_0039_4._Youth_Booster_CHECK.jpg' },
+    { slug: 'p-huile-balayage', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Huile de Balayage', description: 'Aceite nutritivo y reparador para rostro y escote.', price: 33000, stock: 10, isVisible: true, imageUrl: 'https://theglowfactor.com/cdn/shop/files/0000s_0026_17._Huile_CHECK.jpg' },
+    { slug: 'p-emeral-cbd', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Émeral C.B.D.', description: 'Elixir facial calmante enriquecido con CBD natural y fito-nutrientes.', price: 45000, stock: 10, isVisible: true, imageUrl: 'https://theglowfactor.com/cdn/shop/files/0000s_0034_9._Emeral_CBD_CHECK.jpg' },
+    { slug: 'p-sun-drops', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Sun Drops', description: 'Gotas protectoras solares faciales ligeras de amplio espectro.', price: 30000, stock: 10, isVisible: true, imageUrl: 'https://theglowfactor.com/cdn/shop/files/0000s_0017_26._Sun_Drops_CHECK.jpg' },
+    { slug: 'p-lips-hydrater', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Lips Hydrater', description: 'Bálsamo ultra-nutritivo y reparador de labios.', price: 15000, stock: 10, isVisible: true, imageUrl: 'https://theglowfactor.com/cdn/shop/files/0001_41._Lips_CHECK.jpg' },
+    { slug: 'p-exfoliate-renew', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Exfoliate and Renew', description: 'Tratamiento renovador celular y exfoliante suave.', price: 27000, stock: 10, isVisible: true, imageUrl: 'https://theglowfactor.com/cdn/shop/files/0000s_0035_8._Exfoliate_CHECK.jpg' },
+    { slug: 'p-mains-hydrate', category: 'dermocosmetica', categoryLabel: 'The Glow Factor', name: 'Mains Hydrate', description: 'Crema de manos de hidratación profunda e intensiva.', price: 16000, stock: 10, isVisible: true, imageUrl: 'https://theglowfactor.com/cdn/shop/files/0000s_0010_33._Mains_CHECK.jpg' }
 ];
-// POST /api/admin/seed-products - Sembrar catálogo inicial de productos
+// POST /api/admin/seed-products - Sembrar/Sincronizar imágenes de productos
 app.post('/api/admin/seed-products', async (c) => {
     try {
         const db = getDb(c.env.DB);
+        const force = c.req.query('force') === 'true';
         const existing = await db.select().from(schema.products);
-        if (existing.length > 0) {
-            return c.json({ message: 'La tabla de productos ya contiene datos', count: existing.length, products: existing });
+        if (existing.length === 0) {
+            for (const prod of INITIAL_PRODUCTS) {
+                await db.insert(schema.products).values(prod);
+            }
         }
-        for (const prod of INITIAL_PRODUCTS) {
-            await db.insert(schema.products).values(prod);
+        else {
+            // Actualizar URLs de imágenes en productos existentes
+            for (const prod of INITIAL_PRODUCTS) {
+                const itemInDb = existing.find(p => p.slug === prod.slug);
+                if (itemInDb && (force || !itemInDb.imageUrl)) {
+                    await db.update(schema.products)
+                        .set({ imageUrl: prod.imageUrl, updatedAt: new Date().toISOString() })
+                        .where(eq(schema.products.id, itemInDb.id));
+                }
+            }
         }
-        const inserted = await db.select().from(schema.products);
-        return c.json({ message: 'Productos iniciales sembrados con éxito en D1', count: inserted.length, products: inserted }, 201);
+        const updated = await db.select().from(schema.products);
+        return c.json({ message: 'Productos e imágenes sincronizados con éxito en D1', count: updated.length, products: updated }, 200);
     }
     catch (err) {
-        return c.json({ error: 'Error al sembrar productos', details: err?.message }, 500);
+        return c.json({ error: 'Error al sembrar o actualizar productos', details: err?.message }, 500);
     }
 });
 // GET /api/products - Catálogo público de productos visibles
