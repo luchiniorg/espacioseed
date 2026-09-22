@@ -746,10 +746,10 @@
         tbody.innerHTML = productsList.map(p => {
           const isOut = p.stock <= 0;
           const statusBadge = !p.isVisible 
-            ? `<span class="badge-status badge-oculto">🙈 Oculto</span>`
+            ? `<span class="badge-status badge-oculto">Oculto</span>`
             : isOut 
-              ? `<span class="badge-status badge-sin-stock">🔴 Sin Stock</span>`
-              : `<span class="badge-status badge-disponible">🟢 Disponible</span>`;
+              ? `<span class="badge-status badge-sin-stock">Sin Stock</span>`
+              : `<span class="badge-status badge-disponible">Disponible</span>`;
 
           return `
             <tr id="prod-row-${p.id}">
