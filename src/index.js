@@ -21,6 +21,12 @@ app.get('/admin', async (c) => {
     url.pathname = '/admin.html';
     return c.env.ASSETS.fetch(new Request(url));
 });
+// Catálogo Completo de Productos
+app.get('/productos', async (c) => {
+    const url = new URL(c.req.url);
+    url.pathname = '/productos.html';
+    return c.env.ASSETS.fetch(new Request(url));
+});
 // Enable CORS for frontend requests
 app.use('/api/*', cors());
 // GET /api/clients - Obtener y buscar lista de clientes

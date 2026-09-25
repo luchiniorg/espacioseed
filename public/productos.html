@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Catálogo de Productos & Suplementación | Espacio Seed</title>
+<meta name="description" content="Catálogo completo de suplementos integrativos, dermocosmética limpia y productos de bienestar de Espacio Seed Rosario.">
+<meta name="theme-color" content="#FAF6F1">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --verde:#2E3B33;
+  --verde-2:#3B4A41;
+  --arena:#C98A6B;
+  --terracota:#8C5A3C;
+  --salvia:#9AAE9F;
+  --lino:#FAF6F1;
+  --arena-clara:#EFE5DA;
+  --tinta:#232925;
+  --tinta-media:#4A5049;
+  --tinta-suave:#6B7169;
+  --wa:#25D366;
+  --disponible:#7FB069;
+
+  --serif:'Marcellus',Georgia,serif;
+  --sans:'Manrope',system-ui,-apple-system,sans-serif;
+
+  --r-card:20px;
+  --header-h:58px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);font-weight:300;font-size:16px;line-height:1.6;
+  background:var(--lino);color:var(--tinta);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  min-height:100vh;display:flex;flex-direction:column;
+}
+img{display:block;max-width:100%}
+a{color:var(--terracota);text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+h1,h2,h3,.serif{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;line-height:1.14}
+.kicker{font-weight:600;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--terracota);}
+
+.wrap{width:100%;max-width:640px;margin:0 auto;padding:0 20px}
+
+/* Header */
+.header{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  height:var(--header-h);display:flex;align-items:center;
+  background:rgba(250,246,241,.88);
+  -webkit-backdrop-filter:saturate(160%) blur(14px);
+  backdrop-filter:saturate(160%) blur(14px);
+  border-bottom:1px solid rgba(46,59,51,.09);
+}
+.header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.marca{display:flex;align-items:center;gap:9px;color:var(--tinta)}
+.wordmark{font-family:var(--serif);font-size:18px;line-height:1;letter-spacing:.02em;}
+.btn-volver{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:13px;font-weight:600;color:var(--terracota);
+  padding:6px 12px;border-radius:999px;background:var(--arena-clara);
+  transition:all .2s var(--ease);
+}
+.btn-volver:hover{background:var(--arena);color:#fff}
+
+/* Main */
+main{flex:1;margin-top:calc(var(--header-h) + 24px);padding-bottom:100px}
+.sec-head{margin-bottom:24px;text-align:left}
+.sec-head .kicker{display:block;margin-bottom:8px}
+.sec-head h1{font-size:clamp(26px,6vw,32px);margin-bottom:8px;color:var(--tinta)}
+.sec-head p{font-size:14.5px;color:var(--tinta-suave);line-height:1.5}
+
+/* Buscador & Filtros */
+.search-wrap{position:relative;margin-bottom:16px}
+.search-input{
+  width:100%;padding:12px 16px 12px 42px;
+  border-radius:999px;border:1px solid rgba(46,59,51,.15);
+  background:#FDFBF8;font-family:var(--sans);font-size:14px;
+  color:var(--tinta);outline:none;transition:border-color .2s;
+}
+.search-input:focus{border-color:var(--verde)}
+.search-ic{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--tinta-suave)}
+
+.prod-filtros{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:24px;scrollbar-width:none;-ms-overflow-style:none}
+.prod-filtros::-webkit-scrollbar{display:none}
+.prod-chip{flex:none;padding:8px 16px;border-radius:999px;background:var(--arena-clara);border:1px solid transparent;font-size:13px;font-weight:500;color:var(--tinta-media);cursor:pointer;transition:all .2s var(--ease)}
+.prod-chip.on,.prod-chip:hover{background:var(--verde);color:var(--lino)}
+
+/* Grid Productos */
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.prod-card{background:#FDFBF8;border:1px solid rgba(46,59,51,.1);border-radius:var(--r-card);padding:18px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+.prod-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(46,59,51,.08)}
+.prod-badge{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--terracota);margin-bottom:6px}
+.prod-tit{font-family:var(--serif);font-size:18px;color:var(--tinta);line-height:1.25;margin-bottom:6px}
+.prod-desc{font-size:13px;color:var(--tinta-suave);margin-bottom:16px;line-height:1.45}
+.prod-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:12px;border-top:1px solid rgba(46,59,51,.06)}
+.prod-precio{font-weight:700;font-size:17px;color:var(--verde)}
+.btn-add-cart{padding:8px 14px;border-radius:999px;background:var(--arena-clara);color:var(--terracota);font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:5px;transition:all .2s var(--ease)}
+.btn-add-cart:hover,.btn-add-cart:active{background:var(--arena);color:#fff}
+.badge-sin-stock{background:#fee2e2;color:#991b1b;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700;margin-left:6px;display:inline-block}
+.btn-add-cart.disabled,.btn-add-cart:disabled{background:#EFE5DA!important;color:#a3a3a3!important;cursor:not-allowed!important;opacity:0.7!important;border-color:transparent!important}
+
+/* Carrito Flotante */
+.cart-bar{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);z-index:85;width:calc(100% - 40px);max-width:480px;background:var(--verde);color:var(--lino);border-radius:999px;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 12px 35px rgba(46,59,51,.35);opacity:0;pointer-events:none;transition:transform .35s var(--spring),opacity .3s var(--ease)}
+.cart-bar.on{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:auto}
+.cart-bar-info{display:flex;align-items:center;gap:12px}
+.cart-count-badge{background:var(--arena);color:var(--verde);font-weight:700;font-size:13px;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.cart-bar-monto{font-weight:600;font-size:15px}
+.btn-ver-cart{background:var(--arena);color:var(--verde);font-weight:600;font-size:13.5px;padding:8px 16px;border-radius:999px;display:inline-flex;align-items:center;gap:6px;transition:transform .18s var(--ease)}
+
+/* Modal Carrito */
+.cart-modal-backdrop{position:fixed;inset:0;z-index:95;background:rgba(35,41,37,.6);opacity:0;pointer-events:none;transition:opacity .3s var(--ease);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.cart-modal-backdrop.on{opacity:1;pointer-events:auto}
+.cart-modal{position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);z-index:100;width:100%;max-width:540px;background:var(--lino);border-top-left-radius:28px;border-top-right-radius:28px;padding:24px 20px 32px;max-height:85vh;display:flex;flex-direction:column;transition:transform .38s var(--spring);box-shadow:0 -10px 40px rgba(0,0,0,.25)}
+.cart-modal.on{transform:translateX(-50%) translateY(0)}
+.cart-modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid rgba(46,59,51,.1)}
+.cart-modal-tit{font-family:var(--serif);font-size:22px}
+.cart-items-list{overflow-y:auto;max-height:40vh;display:flex;flex-direction:column;gap:12px;margin-bottom:18px}
+.cart-item{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#FDFBF8;border-radius:14px;border:1px solid rgba(46,59,51,.08)}
+.cart-item-nom{font-weight:600;font-size:14px;line-height:1.3}
+.cart-item-precio{font-size:12.5px;color:var(--tinta-suave);margin-top:2px}
+.cart-controls{display:flex;align-items:center;gap:8px}
+.btn-qty{width:26px;height:26px;border-radius:50%;background:var(--arena-clara);color:var(--verde);font-weight:700;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.btn-qty:hover{background:var(--arena);color:#fff}
+.cart-qty{font-weight:600;font-size:14px;min-width:18px;text-align:center}
+.cart-total-box{display:flex;align-items:center;justify-content:space-between;font-weight:700;font-size:17px;padding:14px 0;border-top:1px solid rgba(46,59,51,.1);margin-bottom:14px}
+.cart-input{width:100%;padding:12px 16px;border-radius:12px;border:1px solid rgba(46,59,51,.15);font-family:var(--sans);font-size:14px;margin-bottom:14px;outline:none}
+.btn-send-wa{width:100%;padding:16px;border-radius:999px;background:var(--wa);color:#fff;font-weight:700;font-size:15.5px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 6px 20px rgba(37,211,102,.25)}
+
+footer{text-align:center;padding:24px 20px;font-size:13px;color:var(--tinta-suave);border-top:1px solid rgba(46,59,51,.08)}
+</style>
+</head>
+<body>
+
+  <!-- Icons Sprite -->
+  <svg style="display:none;">
+    <symbol id="i-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-shopping-bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    <symbol id="i-whatsapp" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.124-.272-.198-.57-.347z"/></symbol>
+  </svg>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="wrap">
+      <a href="/" class="marca">
+        <span class="wordmark">Espacio Seed</span>
+      </a>
+      <a href="/" class="btn-volver">
+        <svg style="width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:2;" aria-hidden="true"><use href="#i-arrow-left"/></svg>
+        Volver a la Home
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">Catálogo Completo</span>
+        <h1>Productos & Suplementación</h1>
+        <p>Selección de suplementos integrativos, dermocosmética limpia y productos recomendados por la Dra. Eliana David.</p>
+      </div>
+
+      <!-- Buscador -->
+      <div class="search-wrap">
+        <svg class="search-ic" aria-hidden="true"><use href="#i-search"/></svg>
+        <input type="text" id="input-buscar-prod" class="search-input" placeholder="Buscar por nombre de producto o marca..." oninput="filtrarPorBusqueda(this.value)">
+      </div>
+
+      <!-- Filtros por categoría -->
+      <div class="prod-filtros">
+        <button class="prod-chip on" onclick="filtrarCat('todos', this)">Todos</button>
+        <button class="prod-chip" onclick="filtrarCat('suplementos', this)">Suplementación</button>
+        <button class="prod-chip" onclick="filtrarCat('dermocosmetica', this)">Dermocosmética</button>
+        <button class="prod-chip" onclick="filtrarCat('bienestar', this)">CBD & Bienestar</button>
+      </div>
+
+      <!-- Grid de Productos -->
+      <div class="prod-grid" id="grid-productos-full">
+        <p style="text-align:center; color:var(--tinta-suave); padding:2rem; grid-column: 1/-1;">Cargando catálogo de productos...</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Carrito Flotante -->
+  <div class="cart-bar" id="cart-bar">
+    <div class="cart-bar-info">
+      <div class="cart-count-badge" id="cart-count">0</div>
+      <div class="cart-bar-monto" id="cart-total-bar">$0</div>
+    </div>
+    <button class="btn-ver-cart" onclick="toggleCartModal(true)">
+      <span>Ver pedido</span>
+      <svg style="width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:2;" aria-hidden="true"><use href="#i-shopping-bag"/></svg>
+    </button>
+  </div>
+
+  <div class="cart-modal-backdrop" id="cart-backdrop" onclick="toggleCartModal(false)"></div>
+  <div class="cart-modal" id="cart-modal" aria-label="Tu pedido" role="dialog">
+    <div class="cart-modal-head">
+      <h3 class="cart-modal-tit">Tu Pedido</h3>
+      <button onclick="toggleCartModal(false)" style="color:var(--tinta-suave); padding:4px;" aria-label="Cerrar">
+        <svg style="width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:2;" aria-hidden="true"><use href="#i-x"/></svg>
+      </button>
+    </div>
+
+    <div class="cart-items-list" id="cart-items-list"></div>
+
+    <div class="cart-total-box">
+      <span>Total</span>
+      <span id="cart-modal-total">$0</span>
+    </div>
+
+    <input type="text" id="cart-client-name" class="cart-input" placeholder="Tu nombre y apellido (opcional)">
+
+    <a href="#" id="btn-send-wa-cart" class="btn-send-wa" target="_blank" rel="noopener">
+      <svg style="width:22px; height:22px; fill:currentColor;" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+      Enviar pedido por WhatsApp (Eli)
+    </a>
+  </div>
+
+  <footer>
+    Espacio Seed &copy; 2026 — Medicina Integrativa en Rosario
+  </footer>
+
+  <script>
+    var PRODUCTOS = [];
+    var carrito = {};
+    var catActual = 'todos';
+    var busquedaActual = '';
+    var PHONE_ELI = '5493434635359';
+
+    function $(s){ return document.querySelector(s); }
+    function $$(s){ return document.querySelectorAll(s); }
+
+    function fetchProductsFromAPI(){
+      fetch('/api/products')
+        .then(function(res){ return res.json(); })
+        .then(function(data){
+          if (data && data.products && data.products.length > 0) {
+            PRODUCTOS = data.products.map(function(p){
+              return {
+                id: p.id || p.slug,
+                slug: p.slug,
+                cat: p.category,
+                catLabel: p.categoryLabel,
+                n: p.name,
+                desc: p.description || '',
+                precio: p.price,
+                stock: p.stock,
+                outOfStock: p.outOfStock || p.stock <= 0,
+                img: p.imageUrl || null
+              };
+            });
+            renderProductos();
+          }
+        })
+        .catch(function(err){
+          console.warn('Error al cargar productos:', err);
+        });
+    }
+
+    function renderProductos(){
+      var grid = $('#grid-productos-full');
+      if (!grid) return;
+
+      var lista = PRODUCTOS.filter(function(p){
+        var coincideCat = (catActual === 'todos' || p.cat === catActual);
+        var coincideBusqueda = !busquedaActual || p.n.toLowerCase().includes(busquedaActual) || p.desc.toLowerCase().includes(busquedaActual) || p.catLabel.toLowerCase().includes(busquedaActual);
+        return coincideCat && coincideBusqueda;
+      });
+
+      if (lista.length === 0) {
+        grid.innerHTML = '<p style="text-align:center; color:var(--tinta-suave); padding:2rem; grid-column:1/-1;">No se encontraron productos que coincidan.</p>';
+        return;
+      }
+
+      grid.innerHTML = lista.map(function(p){
+        var isSinStock = p.outOfStock || (p.stock !== undefined && p.stock <= 0);
+        var imgHtml = p.img ? '<div style="height:140px; margin:-18px -18px 12px; overflow:hidden; border-top-left-radius:var(--r-card); border-top-right-radius:var(--r-card); background:#f4eee8; display:flex; align-items:center; justify-content:center;"><img src="' + p.img + '" alt="' + p.n + '" style="max-height:100%; object-fit:contain;"></div>' : '';
+        var stockBadgeHtml = isSinStock ? '<span class="badge-sin-stock">SIN STOCK</span>' : '';
+
+        var buttonHtml = isSinStock 
+          ? '<button class="btn-add-cart disabled" disabled style="background:#EFE5DA; color:#a3a3a3; cursor:not-allowed;">Sin Stock</button>'
+          : '<button class="btn-add-cart" onclick="agregarAlCarrito(\'' + p.id + '\')"><svg style="width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;" aria-hidden="true"><use href="#i-plus"/></svg> Agregar</button>';
+
+        return '<div class="prod-card" style="' + (isSinStock ? 'opacity:0.85;' : '') + '">' +
+          '<div>' +
+            imgHtml +
+            '<div><span class="prod-badge">' + p.catLabel + '</span>' + stockBadgeHtml + '</div>' +
+            '<h3 class="prod-tit">' + p.n + '</h3>' +
+            '<p class="prod-desc">' + p.desc + '</p>' +
+          '</div>' +
+          '<div class="prod-foot">' +
+            '<span class="prod-precio">$' + p.precio.toLocaleString('es-AR') + '</span>' +
+            buttonHtml +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    window.filtrarCat = function(cat, btnEl){
+      catActual = cat;
+      $$('.prod-chip').forEach(function(c){ c.classList.remove('on'); });
+      if (btnEl) btnEl.classList.add('on');
+      renderProductos();
+    };
+
+    window.filtrarPorBusqueda = function(val){
+      busquedaActual = val.trim().toLowerCase();
+      renderProductos();
+    };
+
+    window.agregarAlCarrito = function(id){
+      carrito[id] = (carrito[id] || 0) + 1;
+      actualizarCarritoUI();
+    };
+
+    window.modificarCantidad = function(id, delta){
+      if (!carrito[id]) return;
+      carrito[id] += delta;
+      if (carrito[id] <= 0) delete carrito[id];
+      actualizarCarritoUI();
+    };
+
+    function actualizarCarritoUI(){
+      var cantTotal = 0;
+      var montoTotal = 0;
+
+      Object.keys(carrito).forEach(function(id){
+        var cant = carrito[id];
+        var prod = PRODUCTOS.find(function(p){ return p.id === id; });
+        if (prod) {
+          cantTotal += cant;
+          montoTotal += prod.precio * cant;
+        }
+      });
+
+      var bar = $('#cart-bar');
+      var countBadge = $('#cart-count');
+      var totalBar = $('#cart-total-bar');
+
+      if (countBadge) countBadge.textContent = cantTotal;
+      if (totalBar) totalBar.textContent = '$' + montoTotal.toLocaleString('es-AR');
+
+      if (bar) {
+        if (cantTotal > 0) bar.classList.add('on');
+        else {
+          bar.classList.remove('on');
+          toggleCartModal(false);
+        }
+      }
+
+      var itemsList = $('#cart-items-list');
+      var modalTotal = $('#cart-modal-total');
+      if (modalTotal) modalTotal.textContent = '$' + montoTotal.toLocaleString('es-AR');
+
+      if (itemsList) {
+        if (cantTotal === 0) {
+          itemsList.innerHTML = '<p style="text-align:center; color:var(--tinta-suave); padding:1.5rem;">Tu carrito está vacío.</p>';
+        } else {
+          itemsList.innerHTML = Object.keys(carrito).map(function(id){
+            var cant = carrito[id];
+            var prod = PRODUCTOS.find(function(p){ return p.id === id; });
+            if (!prod) return '';
+            var sub = prod.precio * cant;
+            return '<div class="cart-item">' +
+              '<div>' +
+                '<div class="cart-item-nom">' + prod.n + '</div>' +
+                '<div class="cart-item-precio">$' + prod.precio.toLocaleString('es-AR') + ' x ' + cant + ' = $' + sub.toLocaleString('es-AR') + '</div>' +
+              '</div>' +
+              '<div class="cart-controls">' +
+                '<button class="btn-qty" onclick="modificarCantidad(\'' + id + '\', -1)">-</button>' +
+                '<span class="cart-qty">' + cant + '</span>' +
+                '<button class="btn-qty" onclick="modificarCantidad(\'' + id + '\', 1)">+</button>' +
+              '</div>' +
+            '</div>';
+          }).join('');
+        }
+      }
+
+      // Actualizar link de WhatsApp
+      var btnWa = $('#btn-send-wa-cart');
+      if (btnWa) {
+        var clienteNom = ($('#cart-client-name') ? $('#cart-client-name').value.trim() : '');
+        var txt = 'Hola Eli! Quisiera encargar los siguientes productos de Espacio Seed:\n\n';
+        Object.keys(carrito).forEach(function(id){
+          var prod = PRODUCTOS.find(function(p){ return p.id === id; });
+          if (prod) {
+            txt += '• ' + prod.n + ' (x' + carrito[id] + ') - $' + (prod.precio * carrito[id]).toLocaleString('es-AR') + '\n';
+          }
+        });
+        txt += '\n*Total:* $' + montoTotal.toLocaleString('es-AR');
+        if (clienteNom) txt += '\n*Nombre:* ' + clienteNom;
+
+        btnWa.href = 'https://wa.me/' + PHONE_ELI + '?text=' + encodeURIComponent(txt);
+      }
+    }
+
+    window.toggleCartModal = function(show){
+      var backdrop = $('#cart-backdrop');
+      var modal = $('#cart-modal');
+      if (show) {
+        if (backdrop) backdrop.classList.add('on');
+        if (modal) modal.classList.add('on');
+      } else {
+        if (backdrop) backdrop.classList.remove('on');
+        if (modal) modal.classList.remove('on');
+      }
+    };
+
+    $('#cart-client-name').addEventListener('input', actualizarCarritoUI);
+    fetchProductsFromAPI();
+  </script>
+</body>
+</html>

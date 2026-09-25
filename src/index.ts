@@ -36,6 +36,13 @@ app.get('/admin', async (c) => {
   return c.env.ASSETS.fetch(new Request(url));
 });
 
+// Catálogo Completo de Productos
+app.get('/productos', async (c) => {
+  const url = new URL(c.req.url);
+  url.pathname = '/productos.html';
+  return c.env.ASSETS.fetch(new Request(url));
+});
+
 // Enable CORS for frontend requests
 app.use('/api/*', cors());
 

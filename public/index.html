@@ -1183,27 +1183,6 @@ svg.ic{
   </div>
 </section>
 
-<!-- ========================= PRODUCTOS & CATÁLOGO ========================= -->
-<section class="sec-arena" id="productos">
-  <div class="wrap">
-    <div class="sec-head" data-reveal>
-      <span class="kicker">Productos & Suplementación</span>
-      <h2>Potenciá tu bienestar desde adentro y desde afuera.</h2>
-      <p>Selección de suplementos integrativos, dermocosmética limpia y herramientas de cuidado personal.</p>
-    </div>
-
-    <div class="prod-filtros" data-reveal>
-      <button class="prod-chip on" onclick="filtrarProd('todos', this)">Todos</button>
-      <button class="prod-chip" onclick="filtrarProd('suplementos', this)">Suplementación</button>
-      <button class="prod-chip" onclick="filtrarProd('dermocosmetica', this)">Dermocosmética</button>
-      <button class="prod-chip" onclick="filtrarProd('bienestar', this)">Bienestar</button>
-    </div>
-
-    <div class="prod-grid" id="grid-productos">
-      <!-- Cargado por JS -->
-    </div>
-  </div>
-</section>
 
 <!-- ========================= CARRITO DE COMPRAS ========================= -->
 <div class="cart-bar" id="cart-bar">
@@ -1303,6 +1282,28 @@ svg.ic{
           <span>Dra. Eliana David</span>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= PRODUCTOS DESTACADOS ========================= -->
+<section class="sec-arena" id="productos">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="kicker">Productos Destacados</span>
+      <h2>Potenciá tu bienestar desde adentro y desde afuera.</h2>
+      <p>Selección integrativa de suplementos, dermocosmética limpia y productos recomendados.</p>
+    </div>
+
+    <div class="prod-grid" id="grid-productos">
+      <!-- Cargado por JS (Límite 5 destacados) -->
+    </div>
+
+    <div class="prod-ver-mas-wrap" data-reveal style="text-align:center; margin-top:32px;">
+      <a href="/productos" class="btn btn-primario">
+        Ver catálogo completo (22 productos)
+        <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+      </a>
     </div>
   </div>
 </section>
@@ -1619,7 +1620,7 @@ svg.ic{
 <nav class="hoja" id="hoja" aria-label="Menú" aria-hidden="true">
   <div class="hoja-agarre"></div>
   <a href="#servicios"><svg class="ic" aria-hidden="true"><use href="#i-sparkles"/></svg>Servicios<svg class="ic flecha" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
-  <a href="#productos"><svg class="ic" aria-hidden="true"><use href="#i-shopping-bag"/></svg>Productos & Catálogo<svg class="ic flecha" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
+  <a href="/productos"><svg class="ic" aria-hidden="true"><use href="#i-shopping-bag"/></svg>Productos & Catálogo<svg class="ic flecha" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
   <a href="#equipo"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>Nuestro equipo<svg class="ic flecha" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
   <a href="/reservar"><svg class="ic" aria-hidden="true"><use href="#i-calendar-days"/></svg>Reservar turno<svg class="ic flecha" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
   <a href="#donde"><svg class="ic" aria-hidden="true"><use href="#i-map-pin"/></svg>Cómo llegar<svg class="ic flecha" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
@@ -2034,7 +2035,8 @@ svg.ic{
   function renderProductos(){
     var grid = $('#grid-productos');
     if (!grid) return;
-    var lista = catActual === 'todos' ? PRODUCTOS : PRODUCTOS.filter(function(p){ return p.cat === catActual; });
+    // En la home mostramos sólo 5 productos destacados
+    var lista = PRODUCTOS.slice(0, 5);
 
     grid.innerHTML = lista.map(function(p){
       var isSinStock = p.outOfStock || (p.stock !== undefined && p.stock <= 0);
