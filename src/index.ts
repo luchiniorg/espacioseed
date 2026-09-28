@@ -493,6 +493,7 @@ app.patch('/api/admin/products/:id', async (c) => {
     if (body.description !== undefined) updates.description = String(body.description);
     if (body.category !== undefined) updates.category = String(body.category);
     if (body.categoryLabel !== undefined) updates.categoryLabel = String(body.categoryLabel);
+    if (body.imageUrl !== undefined) updates.imageUrl = String(body.imageUrl || '');
 
     const [updated] = await db.update(schema.products)
       .set(updates)
