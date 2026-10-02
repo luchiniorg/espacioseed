@@ -689,6 +689,18 @@
             <input type="number" id="new-stock" class="form-control" required min="0" value="10">
           </div>
         </div>
+        <div class="form-group">
+          <label>Imagen del Producto</label>
+          <div style="margin-bottom:0.4rem;">
+            <input type="file" id="new-image-file" class="form-control" accept="image/*" onchange="handleImageFileUpload(event, 'new')">
+          </div>
+          <small style="color:#666; display:block; margin-bottom:0.4rem;">O ingresá una URL web externa:</small>
+          <input type="text" id="new-image-url" class="form-control" placeholder="https://...">
+          <div id="new-image-preview" style="margin-top:0.5rem; display:none; align-items:center; gap:0.5rem;">
+            <img id="new-preview-img" src="" style="max-height:60px; border-radius:8px; border:1px solid #ddd;">
+            <small style="color:#2e7d32; font-weight:600;">✓ Imagen lista para guardar</small>
+          </div>
+        </div>
         <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
           <button type="button" class="btn-action" style="background:#ddd; color:#333;" onclick="closeNewProductModal()">Cancelar</button>
           <button type="submit" class="btn-action">Guardar Producto</button>
@@ -741,8 +753,16 @@
           </div>
         </div>
         <div class="form-group">
-          <label>URL Imagen del Producto</label>
-          <input type="url" id="edit-image-url" class="form-control" placeholder="https://...">
+          <label>Imagen del Producto</label>
+          <div style="margin-bottom:0.4rem;">
+            <input type="file" id="edit-image-file" class="form-control" accept="image/*" onchange="handleImageFileUpload(event, 'edit')">
+          </div>
+          <small style="color:#666; display:block; margin-bottom:0.4rem;">O ingresá una URL web externa:</small>
+          <input type="text" id="edit-image-url" class="form-control" placeholder="https://...">
+          <div id="edit-image-preview" style="margin-top:0.5rem; display:none; align-items:center; gap:0.5rem;">
+            <img id="edit-preview-img" src="" style="max-height:60px; border-radius:8px; border:1px solid #ddd;">
+            <small style="color:#2e7d32; font-weight:600;">✓ Imagen cargada</small>
+          </div>
         </div>
         <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
           <button type="button" class="btn-action" style="background:#ddd; color:#333;" onclick="closeEditProductModal()">Cancelar</button>
@@ -913,6 +933,68 @@
       }
     }
 
+    // Manejo de carga y compresión de imagen local (Data URL WebP)
+    function handleImageFileUpload(e, prefix) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+          const maxDim = 800;
+
+          if (width > maxDim || height > maxDim) {
+            if (width > height) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            } else {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+
+          // Compresión a WebP
+          const dataUrl = canvas.toDataURL('image/webp', 0.85);
+
+          document.getElementById(`${prefix}-image-url`).value = dataUrl;
+          const previewContainer = document.getElementById(`${prefix}-image-preview`);
+          const previewImg = document.getElementById(`${prefix}-preview-img`);
+          if (previewContainer && previewImg) {
+            previewImg.src = dataUrl;
+            previewContainer.style.display = 'flex';
+          }
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    ['new', 'edit'].forEach(prefix => {
+      const urlInput = document.getElementById(`${prefix}-image-url`);
+      if (urlInput) {
+        urlInput.addEventListener('input', (e) => {
+          const val = e.target.value.trim();
+          const previewContainer = document.getElementById(`${prefix}-image-preview`);
+          const previewImg = document.getElementById(`${prefix}-preview-img`);
+          if (val && previewContainer && previewImg) {
+            previewImg.src = val;
+            previewContainer.style.display = 'flex';
+          } else if (previewContainer) {
+            previewContainer.style.display = 'none';
+          }
+        });
+      }
+    });
+
     // Modal Crear Producto
     function openNewProductModal() {
       document.getElementById('product-modal').classList.add('open');
@@ -921,6 +1003,8 @@
     function closeNewProductModal() {
       document.getElementById('product-modal').classList.remove('open');
       document.getElementById('new-product-form').reset();
+      const preview = document.getElementById('new-image-preview');
+      if (preview) preview.style.display = 'none';
     }
 
     async function handleCreateProduct(e) {
@@ -932,6 +1016,7 @@
         description: document.getElementById('new-description').value,
         price: Number(document.getElementById('new-price').value),
         stock: Number(document.getElementById('new-stock').value),
+        imageUrl: document.getElementById('new-image-url').value,
         isVisible: true
       };
 
@@ -967,12 +1052,23 @@
       document.getElementById('edit-stock').value = prod.stock ?? 0;
       document.getElementById('edit-image-url').value = prod.imageUrl || '';
 
+      const previewContainer = document.getElementById('edit-image-preview');
+      const previewImg = document.getElementById('edit-preview-img');
+      if (prod.imageUrl && previewContainer && previewImg) {
+        previewImg.src = prod.imageUrl;
+        previewContainer.style.display = 'flex';
+      } else if (previewContainer) {
+        previewContainer.style.display = 'none';
+      }
+
       document.getElementById('edit-product-modal').classList.add('open');
     }
 
     function closeEditProductModal() {
       document.getElementById('edit-product-modal').classList.remove('open');
       document.getElementById('edit-product-form').reset();
+      const preview = document.getElementById('edit-image-preview');
+      if (preview) preview.style.display = 'none';
     }
 
     async function handleUpdateProduct(e) {
